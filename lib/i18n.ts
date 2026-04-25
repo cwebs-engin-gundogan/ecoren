@@ -131,8 +131,15 @@ type Dictionary = {
     visionBody: string;
     visionTags: string[];
   };
+  newsSection: {
+    label: string;
+    titlePrefix: string;
+    titleHighlight: string;
+    cta: string;
+  };
   pages: {
     services: { label: string; titlePrefix: string; titleHighlight: string; desc: string };
+    news: { label: string; titlePrefix: string; titleHighlight: string; desc: string };
     contact: {
       label: string;
       titlePrefix: string;
@@ -151,6 +158,7 @@ type Dictionary = {
       contactInfo: { label: string; value: string }[];
     };
   };
+  news: { slug: string; title: string; date: string; excerpt: string }[];
   services: Record<ServiceId, ServiceCopy>;
 };
 
