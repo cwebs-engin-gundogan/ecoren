@@ -44,139 +44,135 @@ export default function WasteCodesClient() {
   };
 
   return (
-    <>
-      {/* ── Search / Filter band ── */}
-      <div className="bg-white border-b border-dark/10 py-6 sm:py-8">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-10 sm:py-16 lg:py-20">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8 lg:gap-10 items-start">
 
-          {/* Mode tabs + hazardous toggle */}
-          <div className="flex flex-wrap items-stretch max-w-3xl mx-auto mb-5 gap-y-2">
-            <button
-              onClick={() => switchMode('text')}
-              className={`flex-1 flex items-center justify-center gap-2 py-2.5 font-heading text-sm font-bold uppercase tracking-widest border-b-2 transition-colors
-                ${mode === 'text' ? 'border-primary text-primary' : 'border-dark/10 text-text-muted hover:text-text-main'}`}
-            >
-              <Search size={15} />
-              Metne Göre Ara
-            </button>
-            <button
-              onClick={() => switchMode('group')}
-              className={`flex-1 flex items-center justify-center gap-2 py-2.5 font-heading text-sm font-bold uppercase tracking-widest border-b-2 transition-colors
-                ${mode === 'group' ? 'border-primary text-primary' : 'border-dark/10 text-text-muted hover:text-text-main'}`}
-            >
-              <Filter size={15} />
-              Gruba Göre Filtrele
-            </button>
+          {/* Sidebar — tabs + search/filter + utils */}
+          <aside className="lg:sticky lg:top-24 space-y-4">
+
+            {/* Mode tabs */}
+            <div className="bg-white border border-dark/10 overflow-hidden">
+              <div className="flex border-b border-dark/10">
+                <button
+                  onClick={() => switchMode('text')}
+                  className={`flex-1 flex items-center justify-center gap-1.5 py-3 font-heading text-xs font-bold uppercase tracking-widest transition-colors
+                    ${mode === 'text' ? 'bg-primary text-dark' : 'text-text-muted hover:text-text-main hover:bg-dark/5'}`}
+                >
+                  <Search size={13} />
+                  Metne Göre Ara
+                </button>
+                <button
+                  onClick={() => switchMode('group')}
+                  className={`flex-1 flex items-center justify-center gap-1.5 py-3 font-heading text-xs font-bold uppercase tracking-widest border-l border-dark/10 transition-colors
+                    ${mode === 'group' ? 'bg-primary text-dark' : 'text-text-muted hover:text-text-main hover:bg-dark/5'}`}
+                >
+                  <Filter size={13} />
+                  Gruba Göre
+                </button>
+              </div>
+
+              {/* Text search */}
+              {mode === 'text' && (
+                <div className="p-4">
+                  <div className="relative">
+                    <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
+                    <input
+                      type="text"
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      placeholder="Kod veya açıklama…"
+                      autoFocus
+                      className="w-full border border-dark/15 bg-light pl-9 pr-8 py-2.5 font-body text-sm text-text-main placeholder-text-muted focus:outline-none focus:border-primary transition-colors"
+                    />
+                    {query && (
+                      <button
+                        onClick={() => setQuery('')}
+                        aria-label="Aramayı temizle"
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main"
+                      >
+                        <X size={14} />
+                      </button>
+                    )}
+                  </div>
+                  {query && (
+                    <p className="mt-2 font-body text-xs text-text-muted">
+                      <span className="font-semibold text-text-main">{totalItems}</span> sonuç ·{' '}
+                      <button onClick={() => setQuery('')} className="text-primary hover:underline">temizle</button>
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* Group filter */}
+              {mode === 'group' && (
+                <div className="p-4">
+                  <div className="grid grid-cols-4 gap-1.5 mb-2">
+                    <button
+                      onClick={() => setSelectedGroup(null)}
+                      className={`col-span-4 h-9 flex items-center justify-center font-heading text-xs font-bold uppercase tracking-wide border transition-colors
+                        ${!selectedGroup ? 'bg-primary text-dark border-primary' : 'bg-light text-text-main border-dark/10 hover:border-primary hover:text-primary'}`}
+                    >
+                      Tüm Gruplar
+                    </button>
+                    {hazardousWasteCodeGroups.map((g) => (
+                      <button
+                        key={g.group}
+                        onClick={() => setSelectedGroup(selectedGroup === g.group ? null : g.group)}
+                        title={g.title}
+                        className={`h-9 flex items-center justify-center font-heading text-sm font-bold border transition-colors
+                          ${selectedGroup === g.group ? 'bg-primary text-dark border-primary' : 'bg-light text-text-main border-dark/10 hover:border-primary hover:text-primary'}`}
+                      >
+                        {g.group}
+                      </button>
+                    ))}
+                  </div>
+                  {selectedGroup && (
+                    <p className="mt-1 font-body text-xs text-text-muted">
+                      <span className="font-semibold text-text-main">{totalItems}</span> kod ·{' '}
+                      <button onClick={() => setSelectedGroup(null)} className="text-primary hover:underline">tümünü göster</button>
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Hazardous toggle */}
             <button
               onClick={() => setHazardousOnly(!hazardousOnly)}
-              className={`flex items-center gap-2 px-4 py-2.5 font-heading text-sm font-bold border-b-2 transition-colors whitespace-nowrap
-                ${hazardousOnly ? 'border-primary text-primary' : 'border-dark/10 text-text-muted hover:text-text-main'}`}
+              className={`w-full flex items-center justify-between border px-4 py-3 font-heading text-sm font-semibold transition-colors
+                ${hazardousOnly ? 'bg-primary/10 border-primary text-primary' : 'bg-white border-dark/10 text-text-muted hover:border-primary hover:text-primary'}`}
             >
-              <span className={`w-4 h-4 border-2 flex items-center justify-center shrink-0 transition-colors ${hazardousOnly ? 'border-primary bg-primary' : 'border-current'}`}>
+              <span>Sadece Tehlikeli (*)</span>
+              <span className={`w-4 h-4 border-2 flex items-center justify-center shrink-0 transition-colors ${hazardousOnly ? 'border-primary bg-primary' : 'border-dark/20'}`}>
                 {hazardousOnly && <X size={9} className="text-dark" />}
               </span>
-              Sadece Tehlikeli (*)
             </button>
-          </div>
 
-          {/* Text search */}
-          {mode === 'text' && (
-            <div className="max-w-3xl mx-auto">
-              <div className="relative">
-                <Search size={20} className="absolute left-5 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
-                <input
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Kod veya açıklama ile ara… örn: 01 03, yağ, solvent"
-                  autoFocus
-                  className="w-full border-2 border-dark/15 bg-light pl-14 pr-12 py-4 font-body text-base text-text-main placeholder-text-muted focus:outline-none focus:border-primary transition-colors"
-                />
-                {query && (
-                  <button
-                    onClick={() => setQuery('')}
-                    aria-label="Aramayı temizle"
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center text-text-muted hover:text-text-main transition-colors"
-                  >
-                    <X size={16} />
-                  </button>
-                )}
-              </div>
-              {query && (
-                <p className="mt-3 font-body text-sm text-text-muted text-center">
-                  <span className="font-semibold text-text-main">{totalItems}</span> sonuç ·{' '}
-                  <button onClick={() => setQuery('')} className="text-primary hover:underline">temizle</button>
-                </p>
-              )}
-            </div>
-          )}
-
-          {/* Group filter */}
-          {mode === 'group' && (
-            <div className="max-w-3xl mx-auto">
-              <div className="grid grid-cols-5 sm:grid-cols-10 gap-1.5">
+            {/* Result count + clear */}
+            <div className="bg-dark/5 border border-dark/10 px-5 py-4 flex items-center justify-between">
+              <span className="font-body text-sm text-text-muted">
+                <span className="font-heading font-bold text-text-main">{totalItems}</span> sonuç
+              </span>
+              {hasActiveFilter && (
                 <button
-                  onClick={() => setSelectedGroup(null)}
-                  className={`col-span-5 sm:col-span-10 h-10 flex items-center justify-center font-heading text-xs font-bold uppercase tracking-wide border transition-colors
-                    ${!selectedGroup ? 'bg-primary text-dark border-primary' : 'bg-light text-text-main border-dark/10 hover:border-primary hover:text-primary'}`}
+                  onClick={clearAll}
+                  className="flex items-center gap-1.5 font-heading text-xs font-semibold uppercase tracking-wide text-primary hover:underline"
                 >
-                  Tüm Gruplar
+                  <X size={12} /> Temizle
                 </button>
-                {hazardousWasteCodeGroups.map((g) => (
-                  <button
-                    key={g.group}
-                    onClick={() => setSelectedGroup(selectedGroup === g.group ? null : g.group)}
-                    title={g.title}
-                    className={`h-10 flex items-center justify-center font-heading text-sm font-bold border transition-colors
-                      ${selectedGroup === g.group ? 'bg-primary text-dark border-primary' : 'bg-light text-text-main border-dark/10 hover:border-primary hover:text-primary'}`}
-                  >
-                    {g.group}
-                  </button>
-                ))}
-              </div>
-              {selectedGroup && (
-                <p className="mt-3 font-body text-sm text-text-muted text-center">
-                  <span className="font-semibold text-text-main">{totalItems}</span> kod ·{' '}
-                  <button onClick={() => setSelectedGroup(null)} className="text-primary hover:underline">tümünü göster</button>
-                </p>
               )}
             </div>
-          )}
 
-        </div>
-      </div>
-
-      {/* ── Content ── */}
-      <section className="py-10 sm:py-16 lg:py-20">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-8 lg:gap-10 items-start">
-
-            {/* Sidebar */}
-            <aside className="lg:sticky lg:top-24 space-y-4">
-              {/* Result count + clear */}
-              <div className="bg-dark/5 border border-dark/10 px-5 py-4 flex items-center justify-between">
-                <span className="font-body text-sm text-text-muted">
-                  <span className="font-heading font-bold text-text-main">{totalItems}</span> sonuç
-                </span>
-                {hasActiveFilter && (
-                  <button
-                    onClick={clearAll}
-                    className="flex items-center gap-1.5 font-heading text-xs font-semibold uppercase tracking-wide text-primary hover:underline"
-                  >
-                    <X size={12} /> Temizle
-                  </button>
-                )}
-              </div>
-
-              {/* CTA */}
-              <Link
-                href="/bize-ulasin"
-                className="flex items-center justify-between bg-dark px-5 py-4 font-heading text-sm font-bold uppercase tracking-widest text-white hover:text-primary transition-colors"
-              >
-                Danışmanlık Al
-                <ArrowUpRight size={18} />
-              </Link>
-            </aside>
+            {/* CTA */}
+            <Link
+              href="/bize-ulasin"
+              className="flex items-center justify-between bg-dark px-5 py-4 font-heading text-sm font-bold uppercase tracking-widest text-white hover:text-primary transition-colors"
+            >
+              Danışmanlık Al
+              <ArrowUpRight size={18} />
+            </Link>
+          </aside>
 
             {/* Results */}
             <div>
@@ -247,7 +243,6 @@ export default function WasteCodesClient() {
           </div>
         </div>
       </section>
-    </>
   );
 }
 
