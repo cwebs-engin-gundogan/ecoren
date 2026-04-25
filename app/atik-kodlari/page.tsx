@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { AlertTriangle, ArrowUpRight, ClipboardList, Layers3, Search } from 'lucide-react';
-import { hazardousWasteCodeGroups, totalHazardousWasteCodes } from '@/data/waste-codes';
+import { ArrowUpRight, Search } from 'lucide-react';
+import { hazardousWasteCodeGroups } from '@/data/waste-codes';
 
 export const metadata: Metadata = {
   title: 'Atık Kodları | ECOREN',
@@ -28,23 +28,7 @@ export default function WasteCodesPage() {
             </p>
           </div>
 
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-4xl">
-            <div className="border border-white/10 bg-white/5 p-5">
-              <Layers3 className="text-primary mb-4" size={22} />
-              <p className="font-heading text-3xl font-black text-white">{hazardousWasteCodeGroups.length}</p>
-              <p className="font-body text-sm text-white/55">Atık kodu grubu</p>
-            </div>
-            <div className="border border-white/10 bg-white/5 p-5">
-              <ClipboardList className="text-primary mb-4" size={22} />
-              <p className="font-heading text-3xl font-black text-white">{totalHazardousWasteCodes}+</p>
-              <p className="font-body text-sm text-white/55">Kod ve açıklama</p>
-            </div>
-            <div className="border border-white/10 bg-white/5 p-5">
-              <AlertTriangle className="text-primary mb-4" size={22} />
-              <p className="font-heading text-3xl font-black text-white">*</p>
-              <p className="font-body text-sm text-white/55">Tehlikeli atık işareti</p>
-            </div>
-          </div>
+
         </div>
       </section>
 
