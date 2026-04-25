@@ -36,28 +36,41 @@ export default function WasteCodesClient() {
   };
 
   return (
-    <section className="py-10 sm:py-16 lg:py-20">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Search bar */}
-        <div className="relative mb-8 max-w-2xl">
-          <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
-          <input
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Kod veya açıklama ara… (örn: 01 03, yağ, solvent)"
-            className="w-full border border-dark/15 bg-white pl-11 pr-10 py-3.5 font-body text-sm text-text-main placeholder-text-muted focus:outline-none focus:border-primary transition-colors"
-          />
+    <>
+      {/* ── Search band ── */}
+      <div className="bg-white border-b border-dark/10 py-6 sm:py-8">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative max-w-3xl mx-auto">
+            <Search size={20} className="absolute left-5 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Kod veya açıklama ile ara… örn: 01 03, yağ, solvent"
+              className="w-full border-2 border-dark/15 bg-light pl-14 pr-12 py-4 font-body text-base text-text-main placeholder-text-muted focus:outline-none focus:border-primary transition-colors rounded-none"
+            />
+            {query && (
+              <button
+                onClick={() => setQuery('')}
+                aria-label="Aramayı temizle"
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center text-text-muted hover:text-text-main transition-colors"
+              >
+                <X size={16} />
+              </button>
+            )}
+          </div>
           {query && (
-            <button
-              onClick={() => setQuery('')}
-              aria-label="Aramayı temizle"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main transition-colors"
-            >
-              <X size={16} />
-            </button>
+            <p className="text-center mt-3 font-body text-sm text-text-muted">
+              <span className="font-semibold text-text-main">{totalItems}</span> sonuç bulundu
+              {' · '}
+              <button onClick={() => setQuery('')} className="text-primary hover:underline">temizle</button>
+            </p>
           )}
         </div>
+      </div>
+
+      <section className="py-10 sm:py-16 lg:py-20">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8 lg:gap-10 items-start">
           {/* Sidebar filters */}
@@ -199,6 +212,7 @@ export default function WasteCodesClient() {
         </div>
       </div>
     </section>
+    </>
   );
 }
 
