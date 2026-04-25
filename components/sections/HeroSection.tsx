@@ -1,71 +1,65 @@
 'use client';
 
+/* eslint-disable @next/next/no-img-element */
+
 import Button from '@/components/ui/Button';
 import { useLanguage } from '@/components/providers/LanguageProvider';
+
+const heroImage =
+  'https://lh3.googleusercontent.com/aida-public/AB6AXuBlIV6z3h_UGK6EJgF6nPy38OfuBSB2NoNhVIRc-jV0ZwTZdmKMi3isToggnopsuyO-_vGi22JNIHcTDRDTfEmiiF5CENnCas3EgmXkW16TPBPoIO3Tm_3N0gRNzLsfe49TXi_CII_tR3OOSskA7f47opLI7frcTikABxJqo7B_oWATQKQ0BdOJg6ZkArBv-hrmqx8QwiWEfATXhIfu73TxJYErk5ibbHARJlWBtlgNw0h1Wto5hRHV4MZF4aYbKIUzBZkzHfGbMJY';
 
 export default function HeroSection() {
   const { dict } = useLanguage();
 
   return (
-    <section className="relative flex min-h-[calc(100svh-4rem)] items-start overflow-hidden pt-24 pb-16 sm:pt-28 lg:min-h-screen lg:items-center lg:py-32">
+    <section className="relative flex min-h-[720px] items-center justify-center overflow-hidden pt-24 pb-20 text-center lg:min-h-screen">
       {/* Background */}
       <div className="absolute inset-0 bg-dark">
-        <div className="absolute inset-0 bg-gradient-to-br from-dark via-dark/95 to-darker" />
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'linear-gradient(#B4DD6C 1px, transparent 1px), linear-gradient(90deg, #B4DD6C 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+        <img
+          src={heroImage}
+          alt="Modern industrial recycling facility with blue sorting machines"
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(16,23,20,0.82)_0%,rgba(16,23,20,0.45)_48%,rgba(16,23,20,0.86)_100%)]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-16">
-          {/* Left side */}
-          <div className="lg:w-3/5">
-            <div>
-              <span className="font-body text-xs uppercase tracking-widest text-primary mb-4 block">{dict.hero.eyebrow}</span>
-            </div>
-
-            <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase text-white leading-none mb-6">
-              {dict.hero.line1}<br />
-              <span className="text-primary">{dict.hero.highlight}</span> {dict.hero.line2}<br />
-              {dict.hero.line3}
-            </h1>
-
-            <p className="font-body text-sm sm:text-base text-white/70 leading-relaxed max-w-xl mb-8 lg:mb-10">
-              {dict.hero.body}
-            </p>
-
-            <div className="flex flex-wrap gap-4">
-              <Button href="/hizmetlerimiz" variant="primary" size="lg">
-                {dict.hero.services}
-              </Button>
-              <Button href="/bize-ulasin" variant="outline" size="lg" className="text-white border-white hover:bg-white/10">
-                {dict.hero.contact}
-              </Button>
-            </div>
+      <div className="relative z-10 mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-6 flex items-center justify-center gap-3">
+            <span className="h-px w-12 bg-primary" />
+            <span className="font-body text-xs uppercase tracking-widest text-primary">Geleceği Dönüştürüyoruz</span>
+            <span className="h-px w-12 bg-primary" />
           </div>
 
-          {/* Right side — decorative stats card */}
-          <div className="lg:w-2/5 w-full">
-            <div className="border border-primary/30 bg-white/5 backdrop-blur-sm p-5 sm:p-8">
-              <div className="grid grid-cols-2 gap-3 sm:gap-6">
-                {dict.hero.stats.map((s) => (
-                  <div key={s.label} className="text-center py-4 px-2 border border-white/10">
-                    <div className="font-heading text-2xl sm:text-3xl font-bold text-primary mb-1">{s.value}</div>
-                    <div className="font-body text-xs text-white/50 uppercase tracking-wide">{s.label}</div>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-6 pt-6 border-t border-white/10">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                  <span className="font-body text-xs text-white/60">{dict.hero.serviceArea}</span>
-                </div>
-              </div>
-            </div>
+          <h1 className="mx-auto mb-8 max-w-5xl font-heading text-4xl font-bold uppercase leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            {dict.hero.line1} {dict.hero.highlight} {dict.hero.line2} Entegre {dict.hero.line3}
+          </h1>
+
+          <p className="mx-auto mb-10 max-w-2xl font-body text-sm leading-relaxed text-white/75 sm:text-lg">
+            Endüstriyel atıkları yenilikçi mühendislik çözümleriyle değer zincirine geri kazandırıyoruz. Döngüsel ekonomi modelimizle Türkiye&apos;nin sanayi gücüne sürdürülebilirlik katıyoruz.
+          </p>
+
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <Button href="/hizmetlerimiz" variant="primary" size="lg" className="uppercase">
+              Çözümlerimizi Keşfedin
+            </Button>
+            <Button href="/bize-ulasin" variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-dark uppercase">
+              {dict.hero.contact}
+            </Button>
           </div>
+        </div>
+
+        <div className="mx-auto mt-12 hidden max-w-4xl grid-cols-4 gap-3 lg:grid">
+          {dict.hero.stats.map((s) => (
+            <div key={s.label} className="border border-white/10 bg-dark/50 px-5 py-4 backdrop-blur-sm">
+              <div className="mb-1 font-heading text-3xl font-bold text-primary">{s.value}</div>
+              <div className="font-body text-[11px] uppercase tracking-wide text-white/50">{s.label}</div>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Bottom gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-light to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark/80 to-transparent" />
     </section>
   );
 }

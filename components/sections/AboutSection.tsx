@@ -1,80 +1,59 @@
 'use client';
 
-import { motion } from 'framer-motion';
+/* eslint-disable @next/next/no-img-element */
+
 import SectionLabel from '@/components/ui/SectionLabel';
 import Button from '@/components/ui/Button';
-import { CheckCircle } from 'lucide-react';
+import { FlaskConical, ShieldCheck } from 'lucide-react';
 import { useLanguage } from '@/components/providers/LanguageProvider';
+
+const aboutImage =
+  'https://lh3.googleusercontent.com/aida-public/AB6AXuBeXFl8DGAiVF4OKpXfJdT4XIwHs1P1i3Nxtk_5A3R5VVWH4mLTPsirIqS2ikjIUBHdBzKj3H5BEugbzZoL0X2Lo-0cFYFPxjnFdmtGDEr-rhzXkSYqIqY5gqL93u2-e-_YvMO9LnerALtd-txfk2p9Vcl20IkhDUsQ_KtbHPp-CbQBJv1vzdLpwhEvh_N50lUU9mOEos2i84AARM0I67kzUcLoBUNsb6mh-JTQIF2nRtRj_XH_eiw3Rf0oM2xNfCn8Ct2yWRGa2rY';
 
 export default function AboutSection() {
   const { dict } = useLanguage();
 
   return (
-    <section className="py-24 bg-light">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center gap-16">
-          {/* Left text */}
-          <motion.div
-            className="lg:w-1/2"
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <SectionLabel className="mb-3 block">{dict.about.label}</SectionLabel>
-            <h2 className="font-heading text-4xl font-semibold text-text-main mb-6 leading-tight">
-              {dict.about.titlePrefix}<br />
-              <span className="text-primary">{dict.about.titleHighlight}</span> {dict.about.titleSuffix}
-            </h2>
-            <p className="font-body text-base text-text-main/70 leading-relaxed mb-6">
-              {dict.about.body1}
-            </p>
-            <p className="font-body text-base text-text-main/70 leading-relaxed mb-8">
-              {dict.about.body2}
-            </p>
-            <ul className="flex flex-col gap-3 mb-8">
-              {dict.about.points.map((p) => (
-                <li key={p} className="flex items-center gap-3">
-                  <CheckCircle size={18} className="text-primary shrink-0" />
-                  <span className="font-body text-sm text-text-main/80">{p}</span>
-                </li>
-              ))}
-            </ul>
-            <Button href="/kurumsal/hakkimizda" variant="primary">
-              {dict.about.cta}
-            </Button>
-          </motion.div>
+    <section className="bg-light py-20 lg:py-28">
+      <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-14 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+          <div className="relative">
+            <div className="absolute -left-8 -top-8 -z-10 h-56 w-56 bg-primary/10" />
+            <img src={aboutImage} alt="Recycled industrial pellets" className="h-[420px] w-full object-cover shadow-2xl sm:h-[520px]" />
+            <div className="absolute bottom-8 right-0 max-w-xs bg-dark p-6 text-white sm:-right-8">
+              <h3 className="mb-2 font-heading text-2xl font-semibold text-primary">10 Yıllık Uzmanlık</h3>
+              <p className="font-body text-sm leading-relaxed text-white/60">Atık yönetiminde mühendislik odaklı yaklaşımlarla sektörün öncüsü.</p>
+            </div>
+          </div>
 
-          {/* Right graphic */}
-          <motion.div
-            className="lg:w-1/2 w-full"
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <div className="relative">
-              <div className="w-full aspect-square max-w-lg mx-auto bg-dark flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'linear-gradient(#B4DD6C 1px, transparent 1px), linear-gradient(90deg, #B4DD6C 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-                <div className="relative z-10 text-center p-8">
-                  <div className="font-heading text-8xl font-bold text-primary/20 leading-none mb-4">10+</div>
-                  <div className="font-heading text-xl font-semibold text-white mb-2">{dict.about.cardTitle}</div>
-                  <div className="font-body text-sm text-white/50">{dict.about.cardSubtitle}</div>
-                  <div className="mt-8 grid grid-cols-2 gap-4">
-                    {dict.about.cardStats.map((s) => (
-                      <div key={s.l} className="border border-white/10 p-3">
-                        <div className="font-heading text-2xl font-bold text-primary">{s.v}</div>
-                        <div className="font-body text-xs text-white/50">{s.l}</div>
-                      </div>
-                    ))}
-                  </div>
+          <div className="w-full">
+            <SectionLabel className="mb-4 block">. Kurumsal</SectionLabel>
+            <h2 className="mb-8 max-w-xl font-heading text-3xl font-semibold uppercase leading-tight text-text-main sm:text-4xl">
+              Mühendislik Gücüyle Atığı Değere Dönüştürüyoruz
+            </h2>
+            <p className="mb-6 font-body text-base leading-relaxed text-text-muted">
+              ECOREN, endüstriyel tesislerin atık yönetim süreçlerini optimize etmek, çevresel etkileri minimize etmek ve yasal uyumluluğu en üst düzeyde sağlamak amacıyla kurulmuş bir mühendislik ve danışmanlık firmasıdır.
+            </p>
+            <p className="mb-10 font-body text-base leading-relaxed text-text-muted">
+              &quot;Sıfır Atık&quot; vizyonumuzla, tehlikeli ve tehlikesiz atıkların geri kazanımı konusunda uzman ekibimizle entegre çözümler sunuyoruz.
+            </p>
+            <div className="mb-10 grid gap-6 sm:grid-cols-2">
+              <div className="flex items-start gap-4">
+                <ShieldCheck size={28} className="mt-1 shrink-0 text-primary-deep" />
+                <div>
+                  <h3 className="font-heading text-lg font-bold text-text-main">Tam Uyumluluk</h3>
+                  <p className="font-body text-sm text-text-muted">Çevre mevzuatına %100 uyumlu raporlama.</p>
                 </div>
               </div>
-              {/* Accent border */}
-              <div className="absolute -bottom-4 -right-4 w-3/4 h-3/4 border-2 border-primary/30 -z-10" />
+              <div className="flex items-start gap-4">
+                <FlaskConical size={28} className="mt-1 shrink-0 text-primary-deep" />
+                <div>
+                  <h3 className="font-heading text-lg font-bold text-text-main">Ar-Ge Odaklı</h3>
+                  <p className="font-body text-sm text-text-muted">Geri kazanımda yenilikçi teknikler.</p>
+                </div>
+              </div>
             </div>
-          </motion.div>
-        </div>
+            <Button href="/kurumsal/hakkimizda" variant="primary">{dict.about.cta}</Button>
+          </div>
       </div>
     </section>
   );

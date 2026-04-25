@@ -33,33 +33,33 @@ export default function Navbar() {
   }, []);
 
   const navLinkClass = (href: string) =>
-    `font-heading font-semibold text-sm uppercase tracking-wide transition-colors duration-200 hover:text-primary ${pathname === href ? 'text-primary' : 'text-white'}`;
+    `font-heading font-bold text-xs uppercase tracking-widest transition-colors duration-200 hover:text-primary ${pathname === href ? 'text-primary border-b-2 border-primary pb-1' : 'text-white/80'}`;
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-dark/95 shadow-lg border-b border-white/10 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <nav className={`fixed top-0 w-full z-50 bg-dark/90 shadow-xl shadow-black/20 border-b border-white/10 backdrop-blur-md ${mobileOpen ? 'h-screen overflow-y-auto' : ''}`}>
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-14">
           {/* Logo */}
-          <Link href="/" className="font-heading font-bold text-2xl text-primary tracking-widest">
+          <Link href="/" className="font-heading font-black text-lg text-white tracking-tight">
             ECOREN
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-7">
             <Link href="/" className={navLinkClass('/')}>{dict.nav.home}</Link>
 
             {/* Kurumsal Dropdown */}
             <div ref={kurumsalRef} className="relative">
               <button
                 onClick={() => setKurumsalOpen(!kurumsalOpen)}
-                className="flex items-center gap-1 font-heading font-semibold text-sm uppercase tracking-wide text-white hover:text-primary transition-colors duration-200"
+                className="flex items-center gap-1 font-heading font-bold text-xs uppercase tracking-widest text-white/80 hover:text-primary transition-colors duration-200"
               >
                 {dict.nav.corporate} <ChevronDown size={14} className={`transition-transform ${kurumsalOpen ? 'rotate-180' : ''}`} />
               </button>
               {kurumsalOpen && (
-                <div className="absolute top-full left-0 mt-2 w-48 bg-dark border border-white/10 shadow-xl rounded-sm py-2">
+                <div className="absolute top-full left-0 mt-3 w-52 bg-dark/95 border border-white/10 shadow-xl py-2 backdrop-blur-md">
                   {kurumsalLinks.map((l) => (
-                    <Link key={l.href} href={l.href} className="block px-4 py-2 text-sm text-white hover:text-primary hover:bg-white/5 font-body transition-colors">
+                    <Link key={l.href} href={l.href} className="block px-4 py-2 text-xs uppercase tracking-wide text-white/75 hover:text-primary hover:bg-white/5 font-body transition-colors">
                       {l.label}
                     </Link>
                   ))}
@@ -71,15 +71,15 @@ export default function Navbar() {
             <div ref={hizmetlerRef} className="relative">
               <button
                 onClick={() => setHizmetlerOpen(!hizmetlerOpen)}
-                className="flex items-center gap-1 font-heading font-semibold text-sm uppercase tracking-wide text-white hover:text-primary transition-colors duration-200"
+                className="flex items-center gap-1 font-heading font-bold text-xs uppercase tracking-widest text-white/80 hover:text-primary transition-colors duration-200"
               >
                 {dict.nav.services} <ChevronDown size={14} className={`transition-transform ${hizmetlerOpen ? 'rotate-180' : ''}`} />
               </button>
               {hizmetlerOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[600px] bg-dark border border-white/10 shadow-xl rounded-sm py-4 px-4">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[600px] bg-dark/95 border border-white/10 shadow-xl py-4 px-4 backdrop-blur-md">
                   <div className="grid grid-cols-2 gap-1">
                     {services.map((s) => (
-                      <Link key={s.id} href={s.href} className="block px-3 py-2 text-xs text-white/80 hover:text-primary hover:bg-white/5 font-body rounded transition-colors truncate">
+                      <Link key={s.id} href={s.href} className="block px-3 py-2 text-xs text-white/75 hover:text-primary hover:bg-white/5 font-body transition-colors truncate">
                         {s.title}
                       </Link>
                     ))}
@@ -94,8 +94,8 @@ export default function Navbar() {
             </div>
 
             <Link href="/lisanslarimiz" className={navLinkClass('/lisanslarimiz')}>{dict.nav.licenses}</Link>
-            <Link href="/bizden-haberler" className={navLinkClass('/bizden-haberler')}>{dict.nav.news}</Link>
-            <div className="flex items-center gap-1 border border-white/20 px-2 py-1">
+            <Link href="/atik-kodlari" className={navLinkClass('/atik-kodlari')}>{dict.nav.wasteCodes}</Link>
+            <div className="flex items-center gap-1 border border-white/15 px-2 py-1">
               <Languages size={14} className="text-primary" />
               {locales.map((item) => (
                 <button
@@ -109,7 +109,7 @@ export default function Navbar() {
                 </button>
               ))}
             </div>
-            <Link href="/bize-ulasin" className="font-heading font-semibold text-sm uppercase tracking-wide bg-primary text-dark px-4 py-2 hover:bg-primary/90 transition-colors">
+            <Link href="/bize-ulasin" className="font-heading font-bold text-xs uppercase tracking-widest bg-primary text-dark px-5 py-2 hover:brightness-110 transition-colors">
               {dict.nav.contact}
             </Link>
           </div>
@@ -126,7 +126,8 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Panel */}
-      <div className={`lg:hidden fixed inset-0 top-16 bg-dark z-40 transition-transform duration-300 overflow-y-auto ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      {mobileOpen && (
+      <div className="lg:hidden bg-dark shadow-2xl">
         <div className="px-6 py-6 flex flex-col gap-2">
           <div className="flex items-center gap-2 border-b border-white/10 pb-4 mb-2">
             <Languages size={16} className="text-primary" />
@@ -178,10 +179,11 @@ export default function Navbar() {
           </div>
 
           <Link href="/lisanslarimiz" onClick={() => setMobileOpen(false)} className="font-heading font-semibold text-lg text-white py-3 border-b border-white/10">{dict.nav.licenses}</Link>
-          <Link href="/bizden-haberler" onClick={() => setMobileOpen(false)} className="font-heading font-semibold text-lg text-white py-3 border-b border-white/10">{dict.nav.news}</Link>
+          <Link href="/atik-kodlari" onClick={() => setMobileOpen(false)} className="font-heading font-semibold text-lg text-white py-3 border-b border-white/10">{dict.nav.wasteCodes}</Link>
           <Link href="/bize-ulasin" onClick={() => setMobileOpen(false)} className="mt-4 bg-primary text-dark text-center font-heading font-semibold py-3 px-6 uppercase tracking-wide">{dict.nav.contact}</Link>
         </div>
       </div>
+      )}
     </nav>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+/* eslint-disable @next/next/no-img-element */
+
 import Link from 'next/link';
 import { ArrowRight, Recycle, Leaf, Truck, FlaskConical } from 'lucide-react';
 import SectionLabel from '@/components/ui/SectionLabel';
@@ -9,58 +10,54 @@ import { useLanguage } from '@/components/providers/LanguageProvider';
 import { getLocalizedFeaturedServices } from '@/lib/i18n';
 
 const icons = [Recycle, Leaf, FlaskConical, Truck];
+const serviceImages = [
+  'https://lh3.googleusercontent.com/aida-public/AB6AXuCZu3bKKVzuCllmGgnoL_Tz0wSiexyQ4jpyghITgHdGskTvHO_aXiO3W-CjicRRnKpRjPeWrv9u9FGJ1CeS7nLSY4iIw9EGTPY2qgPZ-pKv7LILZBks550DJagydxowS-oiMEaHLWf-Zm3OsfpwsqF_bq-QjzRkbRyJDcplLyO1doafib0XAM_2wgErBtjl4lhaQoWlHArVlmYraDS9bo9KnTr8El7vLzrgFaFdyi_gdFWS5qQx7gVJIu8H1dETsOL3BhuPCIaYDP8',
+  'https://lh3.googleusercontent.com/aida-public/AB6AXuDYlokDDvy0hpDAKsU_C6Y3-U-7pdxQTsdqzLRnU3zl9_wHl9b38qYRTdnuJnSyuwP7f3rPtoxs3VR4cTEZWCa_epdlinP_7nRVfBFUDH0BYP5RZCsIqo-bIgf2snRDtYeQ2Kua1-me79Ku9LStDrzy4CDEQRUSzUSK9JSSatIBGLxJjXdH24ipLWh9_8TzouwtQMVD0oOKFGM4MuaYa5PK5o39tyDYWS9SWbxqoffKb2HPTSchs4lQcn3boTVxs7Z6RVuC7X-3IGk',
+  'https://lh3.googleusercontent.com/aida-public/AB6AXuBGpQY0A3bNxUBlS44kdfONdjbZLjjo5daC2H40rRcwGhMdBabTPKCCVZLnAMuZBP-VD9nu1SaPy76C4ZTliJo6hHjXmqoL58kkPmhF5Il0gQqIXXCia8226ssNnPoo5CZkDZEH_stbU-QLZXRLXVi-_JYPPvTnTr5Nask2l8NNc00D8tOGN73ZmAFwNHAdNl-rpOTlaQSLIXuNuWqzrbj6WMNJqMXCVQD5h-I-iwZoRHPMoEWbMKS_a4nuBl0JJZ-uDiDbKspTwwU',
+  'https://lh3.googleusercontent.com/aida-public/AB6AXuCOI8BWdbZUkgOl3CWd7VbqHzaAA7foU3ZFa1AY49csKH6F8SqwieuMraGyswTfd_OaDr8X2HejaWJcPXIXgbhKk0iKUqiZ7CA9GK_0SN8yYHWgTqyhHvBP1W1-l2Bh16l2xGPjOdoWYLmEVhoBl1ni_hKUbr7Nrmja5lsSjT1edJXkwZWBW1OobKWTqy_Wv8BQX_Uzyl4w2b5Yg7oTqJAFqFVJRnoA5g-tEO6dt_DqOJs_zmnIfTijNh5_16fgBJ91GydGervk2Oo',
+];
 
 export default function ServicesSection() {
   const { locale, dict } = useLanguage();
   const featuredServices = getLocalizedFeaturedServices(locale);
 
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="bg-surface-container py-20 lg:py-28">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <SectionLabel className="mb-3 block">{dict.servicesSection.label}</SectionLabel>
-          <h2 className="font-heading text-4xl font-semibold text-text-main">
-            {dict.servicesSection.titlePrefix} <span className="text-primary">{dict.servicesSection.titleHighlight}</span> {dict.servicesSection.titleSuffix}
+          <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-text-main uppercase">
+            Uzman Atık Yönetimi Çözümleri
           </h2>
+          <div className="mx-auto mt-6 h-1 w-24 bg-primary-deep" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 mb-12">
           {featuredServices.map((service, i) => {
             const Icon = icons[i % icons.length];
             return (
-              <motion.div
-                key={service.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.6 }}
-              >
-                <Link href={service.href} className="group block bg-light border border-gray-100 p-8 hover:border-primary/50 hover:shadow-lg transition-all duration-300">
-                  <div className="flex items-start gap-5">
-                    <div className="w-12 h-12 bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-                      <Icon size={22} className="text-primary" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-heading text-xl font-semibold text-text-main mb-2 group-hover:text-primary transition-colors leading-tight">
-                        {service.title}
-                      </h3>
-                      <p className="font-body text-sm text-text-main/60 leading-relaxed mb-4">
-                        {service.shortDesc}
-                      </p>
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {service.tags.map((tag) => (
-                          <span key={tag} className="font-body text-xs bg-primary/10 text-primary px-2 py-1 rounded-sm">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                      <span className="flex items-center gap-1 text-primary font-heading font-semibold text-sm group-hover:gap-3 transition-all">
-                        {dict.common.details} <ArrowRight size={14} />
-                      </span>
+              <div key={service.id}>
+                <Link href={service.href} className="group block overflow-hidden bg-white shadow-sm transition-all duration-500 hover:bg-dark hover:shadow-2xl">
+                  <div className="relative h-44 overflow-hidden">
+                    <img src={serviceImages[i]} alt={service.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                    <div className="absolute inset-0 bg-primary/20 transition-colors group-hover:bg-transparent" />
+                    <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center bg-white/90">
+                      <Icon size={20} className="text-primary-deep" />
                     </div>
                   </div>
+                  <div className="p-6">
+                    <h3 className="font-heading text-xl font-semibold text-text-main mb-3 leading-tight transition-colors group-hover:text-white">
+                      {service.title}
+                    </h3>
+                    <p className="font-body text-sm text-text-muted leading-relaxed mb-6 transition-colors group-hover:text-white/55">
+                      {service.shortDesc}
+                    </p>
+                    <span className="flex items-center gap-2 text-primary-deep font-heading font-bold text-sm uppercase transition-colors group-hover:text-primary">
+                      {dict.common.details} <ArrowRight size={14} />
+                    </span>
+                  </div>
                 </Link>
-              </motion.div>
+              </div>
             );
           })}
         </div>

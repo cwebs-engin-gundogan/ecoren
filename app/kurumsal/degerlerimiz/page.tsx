@@ -1,5 +1,5 @@
 import SectionLabel from '@/components/ui/SectionLabel';
-import { Leaf, RefreshCw, Shield, Award, Users, CheckCircle } from 'lucide-react';
+import { Award, CheckCircle, HeartHandshake, Shield, Sparkles, Users } from 'lucide-react';
 
 export const metadata = {
   title: 'Değerlerimiz – ECOREN',
@@ -8,34 +8,34 @@ export const metadata = {
 
 const values = [
   {
-    icon: Leaf,
-    title: 'Sürdürülebilirlik',
-    desc: 'Tüm operasyonlarımızda çevresel sürdürülebilirliği ön planda tutarak gelecek nesillere yaşanabilir bir dünya bırakmayı hedefliyoruz. Her kararımızda uzun vadeli çevresel etkileri gözetiyoruz.',
-    points: ['Karbon ayak izi azaltma', 'Yenilenebilir kaynak kullanımı', 'Çevre dostu operasyonlar'],
+    icon: Users,
+    title: 'İnsana Saygılı',
+    desc: 'İnsana saygılı, çalışanlarının gelişimini destekleyen ve takım çalışmasına önem veren bir şirket olarak hareket ederiz.',
+    points: ['Çalışan gelişimi', 'Takım çalışması', 'İnsan odaklı yaklaşım'],
   },
   {
-    icon: RefreshCw,
-    title: 'Döngüsel Ekonomi',
-    desc: 'Atıkları hammadde kaynağına dönüştürerek döngüsel ekonomi prensiplerine uygun, sıfır atık hedefli iş modelleri geliştiriyoruz. Kaynakların verimli kullanımı önceliğimizdir.',
-    points: ['Sıfır atık politikası', 'Geri kazanım önceliği', 'Kaynak verimliliği'],
+    icon: HeartHandshake,
+    title: 'Çevreye Duyarlı',
+    desc: 'Çevreye duyarlı, kalite ve iş güvenliği noktasında sorumluluklarının bilincinde olan bir anlayışla çalışırız.',
+    points: ['Çevre bilinci', 'Kalite odağı', 'İş güvenliği'],
   },
   {
     icon: Shield,
-    title: 'Çevre Sorumluluğu',
-    desc: 'Çevre mevzuatına tam uyum ve proaktif çevre yönetimi anlayışıyla sektörde örnek bir çevre sorumluluğu standardı oluşturuyoruz. Yasal yükümlülüklerin ötesinde sorumluluk alıyoruz.',
-    points: ['Mevzuat uyumu', 'Proaktif çevre yönetimi', 'Şeffaf raporlama'],
+    title: 'Dürüst ve Şeffaf',
+    desc: 'Dürüst, şeffaf ve etik çalışma ilkelerini tüm süreçlerimizin merkezinde tutarız.',
+    points: ['Dürüstlük', 'Şeffaflık', 'Etik duruş'],
+  },
+  {
+    icon: Sparkles,
+    title: 'Yaratıcı ve Yenilikçi',
+    desc: 'Yaratıcı ve yenilikçi çözümler geliştirerek geri dönüşüm ve çevre yönetimi alanında değer üretiriz.',
+    points: ['Yenilikçilik', 'Çözüm üretimi', 'Sürekli gelişim'],
   },
   {
     icon: Award,
-    title: 'Güvenilirlik',
-    desc: 'Lisanslı tesisler, sertifikalı ekip ve şeffaf süreç yönetimiyle müşterilerimize her adımda güvenilir hizmet sunuyoruz. Sözümüzün arkasında duruyoruz.',
-    points: ['Lisanslı ve sertifikalı', 'Şeffaf süreç yönetimi', 'Zamanında teslimat'],
-  },
-  {
-    icon: Users,
-    title: 'İş Birliği',
-    desc: 'Müşterilerimiz, tedarikçilerimiz ve paydaşlarımızla güçlü ve uzun vadeli ilişkiler kurarak ortak bir sürdürülebilir gelecek inşa ediyoruz.',
-    points: ['Uzun vadeli ortaklıklar', 'Müşteri odaklılık', 'Ekip çalışması'],
+    title: 'Müşteri Odaklı',
+    desc: 'Müşteri odaklı yaklaşımımızla çevreye duyarlı çözümler sunarak müşterilerimize değer katarız.',
+    points: ['Değer katma', 'Güvenilir hizmet', 'Uzun vadeli ilişki'],
   },
   {
     icon: CheckCircle,

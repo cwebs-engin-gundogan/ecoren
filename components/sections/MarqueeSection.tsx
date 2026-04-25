@@ -1,22 +1,32 @@
 'use client';
 
 import { useLanguage } from '@/components/providers/LanguageProvider';
-import { getLocalizedServices } from '@/lib/i18n';
+import { Factory, Leaf, Recycle, Settings, Sparkles } from 'lucide-react';
+
+const items = [
+  { label: 'Zero Waste', icon: Recycle },
+  { label: 'Sustainability', icon: Leaf },
+  { label: 'Engineering Excellence', icon: Settings },
+  { label: 'Industrial Innovation', icon: Factory },
+  { label: 'Circular Economy', icon: Sparkles },
+];
 
 export default function MarqueeSection() {
-  const { locale } = useLanguage();
-  const services = getLocalizedServices(locale);
-  const items = [...services, ...services];
+  useLanguage();
+  const loopItems = [...items, ...items, ...items];
 
   return (
-    <section className="bg-dark py-4 overflow-hidden border-y border-primary/20">
+    <section className="bg-dark py-6 overflow-hidden border-y border-white/5">
       <div className="flex animate-marquee whitespace-nowrap">
-        {items.map((s, i) => (
-          <span key={`${s.id}-${i}`} className="inline-flex items-center gap-4 px-8 font-heading font-semibold text-sm uppercase tracking-widest text-primary">
-            {s.title}
-            <span className="text-white/20">◆</span>
+        {loopItems.map((item, i) => {
+          const Icon = item.icon;
+          return (
+          <span key={`${item.label}-${i}`} className="inline-flex items-center gap-3 px-8 font-heading text-lg font-semibold uppercase tracking-tight text-white/25">
+            <Icon size={18} className="text-primary" />
+            {item.label}
           </span>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

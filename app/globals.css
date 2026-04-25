@@ -2,10 +2,14 @@
 
 @theme {
   --color-primary: #B4DD6C;
+  --color-primary-deep: #486800;
   --color-dark: #101714;
   --color-darker: #1C2320;
-  --color-light: #FAFAFA;
-  --color-text-main: #121212;
+  --color-light: #f9faed;
+  --color-surface-container: #eeefe2;
+  --color-surface-muted: #e8e9dc;
+  --color-text-main: #1a1c15;
+  --color-text-muted: #444939;
 
   --font-heading: var(--font-rajdhani), 'Rajdhani', sans-serif;
   --font-body: var(--font-dm-sans), 'DM Sans', sans-serif;
@@ -21,5 +25,10 @@
 body {
   font-family: var(--font-body);
   background-color: var(--color-light);
+  color: var(--color-text-main);
+}
+
+::selection {
+  background: var(--color-primary);
   color: var(--color-text-main);
 }

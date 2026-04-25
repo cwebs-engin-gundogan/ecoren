@@ -5,7 +5,6 @@ import ServicesSection from '@/components/sections/ServicesSection';
 import ValuesSection from '@/components/sections/ValuesSection';
 import StatsSection from '@/components/sections/StatsSection';
 import VisionSection from '@/components/sections/VisionSection';
-import NewsSection from '@/components/sections/NewsSection';
 
 export default function Home() {
   return (
@@ -17,7 +16,6 @@ export default function Home() {
       <ValuesSection />
       <StatsSection />
       <VisionSection />
-      <NewsSection />
     </>
   );
 }

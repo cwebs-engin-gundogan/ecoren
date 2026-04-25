@@ -25,10 +25,10 @@ export const services: Service[] = [
   { id: 'kimyasal-atik-bertaraf', title: 'Kimyasal Atık Bertaraf Hizmeti', shortDesc: 'Endüstriyel kimyasal atıkların güvenli ve lisanslı bertarafı.', tags: ['kimyasal', 'bertaraf', 'endüstriyel'], href: '/hizmetlerimiz/kimyasal-atik-bertaraf' },
   { id: 'camur-bertaraf-geri-kazanim', title: 'Çamur Bertaraf ve Geri Kazanım Hizmeti', shortDesc: 'Arıtma tesisi ve endüstriyel çamurların bertaraf ve geri kazanım süreçleri.', tags: ['çamur', 'arıtma', 'bertaraf'], href: '/hizmetlerimiz/camur-bertaraf-geri-kazanim' },
   { id: 'omrunu-tamamlamis-lastik', title: 'Ömrünü Tamamlamış Lastik (ÖTL) Bertaraf Hizmeti', shortDesc: 'ÖTL yönetmeliği kapsamında kullanılmış lastiklerin çevreci bertarafı.', tags: ['lastik', 'ÖTL', 'bertaraf'], href: '/hizmetlerimiz/omrunu-tamamlamis-lastik' },
-  { id: 'hurda-elmas-karbur-geri-kazanimi', title: 'Hurda Elmas Uç ve Hurda Karbür Geri Kazanımı', shortDesc: 'Takım tezgahlarından çıkan elmas uç ve karbür atıkların değerlendirilmesi.', tags: ['elmas uç', 'karbür', 'hurda'], href: '/hizmetlerimiz/hurda-elmas-karbur-geri-kazanimi' },
+  { id: 'hurda-elmas-karbur-geri-kazanimi', title: 'Hurda Elmas uç ve Hurda Karbür Geri Kazanım Hizmeti', shortDesc: 'Hurda elmas uç ve hurda karbür atıkların geri kazanımı.', tags: ['elmas uç', 'karbür', 'hurda'], href: '/hizmetlerimiz/hurda-elmas-karbur-geri-kazanimi' },
   { id: 'hurda-kablo-geri-kazanimi', title: 'Hurda Kablo Geri Kazanımı', shortDesc: 'Bakır ve alüminyum içerikli hurda kablo geri kazanım ve değerlendirmesi.', tags: ['hurda kablo', 'bakır', 'alüminyum'], href: '/hizmetlerimiz/hurda-kablo-geri-kazanimi' },
-  { id: 'moyden-belgesi', title: 'Motor Yağı Değişim Noktası (MOYDEN) Belgesi Hizmeti', shortDesc: 'MOYDEN belgesi başvuru, takip ve danışmanlık hizmetleri.', tags: ['MOYDEN', 'belge', 'motor yağı'], href: '/hizmetlerimiz/moyden-belgesi' },
-  { id: 'atik-sahasi-kurulum', title: 'Tehlikeli ve Tehlikesiz Atık Sahası Kurulum Hizmeti', shortDesc: 'Mevzuata uygun geçici atık depolama sahalarının tasarım ve kurulumu.', tags: ['atık sahası', 'kurulum', 'geçici depolama'], href: '/hizmetlerimiz/atik-sahasi-kurulum' },
+  { id: 'moyden-belgesi', title: 'Motor Yağı Değişim Noktası(MOYDEN) Belgesi Hizmeti', shortDesc: 'Motor yağı değişim noktası belgesi için başvuru, takip ve danışmanlık hizmetleri.', tags: ['MOYDEN', 'belge', 'motor yağı'], href: '/hizmetlerimiz/moyden-belgesi' },
+  { id: 'atik-sahasi-kurulum', title: 'Tehlikeli ve Tehlikesiz Atık Sahası Kurulum Hizmeti', shortDesc: 'Tehlikeli ve tehlikesiz atık sahalarının mevzuata uygun kurulumu.', tags: ['atık sahası', 'kurulum', 'geçici depolama'], href: '/hizmetlerimiz/atik-sahasi-kurulum' },
 ];
 
 export const featuredServices = services.filter((s) => s.featured);

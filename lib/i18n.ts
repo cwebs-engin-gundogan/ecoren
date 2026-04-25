@@ -56,6 +56,7 @@ type Dictionary = {
     services: string;
     allServices: string;
     licenses: string;
+    wasteCodes: string;
     news: string;
     contact: string;
     menuLabel: string;
@@ -130,15 +131,8 @@ type Dictionary = {
     visionBody: string;
     visionTags: string[];
   };
-  newsSection: {
-    label: string;
-    titlePrefix: string;
-    titleHighlight: string;
-    cta: string;
-  };
   pages: {
     services: { label: string; titlePrefix: string; titleHighlight: string; desc: string };
-    news: { label: string; titlePrefix: string; titleHighlight: string; desc: string };
     contact: {
       label: string;
       titlePrefix: string;
@@ -158,7 +152,6 @@ type Dictionary = {
     };
   };
   services: Record<ServiceId, ServiceCopy>;
-  news: { slug: string; title: string; date: string; excerpt: string }[];
 };
 
 export const dictionaries: Record<Locale, Dictionary> = {
@@ -172,12 +165,13 @@ export const dictionaries: Record<Locale, Dictionary> = {
       services: 'Hizmetlerimiz',
       allServices: 'Tüm Hizmetleri Gör',
       licenses: 'Lisanslarımız',
+      wasteCodes: 'Atık Kodları',
       news: 'Bizden Haberler',
       contact: 'Bize Ulaşın',
       menuLabel: 'Menüyü Aç',
     },
     footer: {
-      description: 'Atık Yönetimi Danışmanlık ve Mühendislik Hizmetleri San. ve Tic. Ltd. Şti. - Sürdürülebilir bir gelecek için çevre odaklı çözümler.',
+      description: 'ECOREN Atık Yönetimi Danışmanlık ve Mühendislik Hizmetleri San. ve Tic. Ltd. Şti. - Geri dönüşüm ve çevre yönetimi alanında sürdürülebilir çözümler.',
       quickLinks: 'Hızlı Bağlantılar',
       services: 'Hizmetlerimiz',
       contact: 'İletişim',
@@ -192,7 +186,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       highlight: 'GELECEK',
       line2: 'İÇİN',
       line3: 'ATIK YÖNETİMİ',
-      body: 'ECOREN olarak; tehlikeli ve tehlikesiz atıkların geri kazanımı, bertarafı ve taşınmasından danışmanlık hizmetlerine kadar 21 farklı kategoride profesyonel çözümler sunuyoruz.',
+      body: 'Geri dönüşüm ve çevre yönetimi alanında Türkiye’nin öncü firmalarından ECOREN, atık yönetimi ve geri dönüşüm hizmetlerinde çevreye duyarlı çözümler sunar.',
       services: 'Hizmetlerimiz',
       contact: 'Bize Ulaşın',
       stats: [
@@ -205,12 +199,12 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     about: {
       label: 'Hakkımızda',
-      titlePrefix: "Türkiye'nin Güvenilir",
-      titleHighlight: 'Atık Yönetimi',
-      titleSuffix: 'Ortağı',
-      body1: "ECOREN; 10 yılı aşkın deneyimiyle Türkiye'nin önde gelen atık yönetimi danışmanlık ve mühendislik firmalarından biridir. Tehlikeli ve tehlikesiz atıkların geri kazanımı, bertarafı, taşınması ve depolanması başta olmak üzere, çevre mevzuatına tam uyum sağlayan entegre çözümler sunmaktayız.",
-      body2: 'Sıfır Atık felsefesi ve Döngüsel Ekonomi ilkeleri doğrultusunda hareket eden firmamız; sanayi kuruluşları, belediyeler ve kamu kurumlarına yönelik kapsamlı hizmet portföyüyle sürdürülebilir bir gelecek inşa etmeye devam etmektedir.',
-      points: ['Lisanslı ve sertifikalı atık yönetim hizmetleri', 'Türkiye genelinde geniş operasyonel ağ', 'Deneyimli çevre mühendisleri kadrosu', 'Sıfır atık politikasına tam uyum desteği'],
+      titlePrefix: 'Geri Dönüşüm ve',
+      titleHighlight: 'Çevre Yönetimi',
+      titleSuffix: 'Alanında Öncü',
+      body1: 'Geri dönüşüm ve çevre yönetimi alanında Türkiye’nin öncü firmalarından biridir. Sürdürülebilirlik, Döngüsel Ekonomi ve Yenilenebilir Enerjiye olan bağlılığı ile ECOREN, atık yönetimi ve geri dönüşüm hizmetlerinde sektörde lider konumdadır.',
+      body2: 'Şirketimiz, çevreye duyarlı çözümler sunarak müşterilerine değer katarken, aynı zamanda Türkiye’nin Karbon Ayak İzini azaltmayı ve Yeşil Dönüşüme katkıda bulunmayı hedeflemektedir.',
+      points: ['Sürdürülebilirlik ve döngüsel ekonomi odağı', 'Yenilenebilir enerji ve yeşil dönüşüm bağlılığı', 'Çevreye duyarlı çözümler', 'Karbon ayak izini azaltma hedefi'],
       cta: 'Daha Fazla Bilgi',
       cardTitle: 'Yıllık Deneyim',
       cardSubtitle: 'Atık Yönetimi & Çevre Mühendisliği',
@@ -252,15 +246,15 @@ export const dictionaries: Record<Locale, Dictionary> = {
       label: 'Kurumsal Kimlik',
       title: 'Misyon & Vizyon',
       missionTitle: 'Misyonumuz',
-      missionBody: 'Endüstriyel atıkların çevreye zarar vermeden geri kazanılması ve bertarafı konusunda en yüksek standartlarda hizmet sunmak; müşterilerimizin çevre mevzuatına uyumunu sağlamak ve sürdürülebilirlik hedeflerine ulaşmalarına destek olmak.',
-      missionTags: ['Mevzuat Uyumu', 'Lisanslı Hizmet', 'Güvenilir Çözüm'],
+      missionBody: 'ECOREN, gereksiz kaynak kullanımının önüne geçmek amacıyla Sıfır Atık Felsefesini benimsemiş ve Döngüsel Kaynak Yönetimi ile Sürdürülebilirliği odağına alarak kurumsal müşterilerine Atık Yönetimi hizmeti veren bir firmadır.',
+      missionTags: ['Sıfır Atık', 'Döngüsel Kaynak Yönetimi', 'Sürdürülebilirlik'],
       visionTitle: 'Vizyonumuz',
-      visionBody: "Döngüsel ekonomi ve sıfır atık ilkelerini benimseyen Türkiye'nin en yenilikçi ve güvenilir entegre atık yönetimi firması olmak; uluslararası standartlarda hizmet sunarak çevre dostu endüstriyel dönüşüme öncülük etmek.",
-      visionTags: ['Sıfır Atık', 'Döngüsel Ekonomi', 'Yeşil Dönüşüm'],
+      visionBody: 'Geri dönüşüm sektöründe performansına özenilen, çevre ve yaşam değerlerine saygılı öncü bir şirket olarak faaliyetlerimiz ile ülkemiz başta olmak üzere Avrupa ülkelerinde de tercih edilebilir ve güvenilebilir bir yapıyı kazanmaktır.',
+      visionTags: ['Öncü Şirket', 'Çevre ve Yaşam Değerleri', 'Güvenilir Yapı'],
     },
     newsSection: { label: 'Haberler', titlePrefix: 'Bizden', titleHighlight: 'Haberler', cta: 'Tüm Haberler' },
     pages: {
-      services: { label: 'Hizmetlerimiz', titlePrefix: 'Tüm', titleHighlight: 'Hizmetlerimiz', desc: 'Tehlikeli ve tehlikesiz atıkların yönetiminden danışmanlık hizmetlerine kadar 21 kategoride profesyonel çözümler.' },
+      services: { label: 'Hizmetlerimiz', titlePrefix: 'Tüm', titleHighlight: 'Hizmetlerimiz', desc: 'ECOREN atık yönetimi, geri kazanım, danışmanlık, taşıma, bertaraf ve saha kurulum alanlarında kapsamlı hizmetler sunar.' },
       news: { label: 'Blog & Haberler', titlePrefix: 'Bizden', titleHighlight: 'Haberler', desc: 'Atık yönetimi, çevre mevzuatı ve sürdürülebilirlik alanındaki güncel gelişmeleri takip edin.' },
       contact: {
         label: 'İletişim',
@@ -309,6 +303,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       services: 'Services',
       allServices: 'View All Services',
       licenses: 'Licenses',
+      wasteCodes: 'Waste Codes',
       news: 'News',
       contact: 'Contact Us',
       menuLabel: 'Open menu',
@@ -446,6 +441,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       services: 'Leistungen',
       allServices: 'Alle Leistungen',
       licenses: 'Lizenzen',
+      wasteCodes: 'Abfallcodes',
       news: 'Neuigkeiten',
       contact: 'Kontakt',
       menuLabel: 'Menü öffnen',
@@ -590,14 +586,14 @@ const serviceCopy: Record<Locale, Record<ServiceId, ServiceCopy>> = {
     'atik-aku-geri-kazanimi': { title: 'Atık Akü Geri Kazanımı', shortDesc: 'Kurşun-asit ve lityum bazlı atık akülerin lisanslı geri kazanımı.', tags: ['atık akü', 'kurşun', 'lityum'] },
     'tehlikeli-atik-tasima': { title: 'Tehlikeli Atık Taşıma Lisanslı Araç Hizmeti', shortDesc: 'ADR lisanslı araçlarla tehlikeli atıkların güvenli taşınması.', tags: ['taşıma', 'ADR', 'tehlikeli atık'] },
     'tehlikesiz-atik-tasima': { title: 'Tehlikesiz Atık Taşıma Araç Hizmeti', shortDesc: 'Tehlikesiz sınıf atıkların mevzuata uygun taşıma hizmetleri.', tags: ['taşıma', 'lojistik', 'tehlikesiz'] },
-    'sifir-ibc-tank-temini': { title: 'Sıfır ve 2. El Yıkanmış IBC Tank Temini', shortDesc: 'Kimyasal depolama için sıfır ve yenilenmiş IBC tank tedariki.', tags: ['IBC tank', 'depolama', 'tedarik'] },
+    'sifir-ibc-tank-temini': { title: 'Sıfır (Re-Bottle) ve 2.El Yıkanmış IBC Tank Temini', shortDesc: 'Kimyasal depolama için sıfır ve yıkanmış ikinci el IBC tank temini.', tags: ['IBC tank', 'depolama', 'tedarik'] },
     'kimyasal-atik-bertaraf': { title: 'Kimyasal Atık Bertaraf Hizmeti', shortDesc: 'Endüstriyel kimyasal atıkların güvenli ve lisanslı bertarafı.', tags: ['kimyasal', 'bertaraf', 'endüstriyel'] },
     'camur-bertaraf-geri-kazanim': { title: 'Çamur Bertaraf ve Geri Kazanım Hizmeti', shortDesc: 'Arıtma tesisi ve endüstriyel çamurların bertaraf ve geri kazanım süreçleri.', tags: ['çamur', 'arıtma', 'bertaraf'] },
     'omrunu-tamamlamis-lastik': { title: 'Ömrünü Tamamlamış Lastik Bertaraf Hizmeti', shortDesc: 'Kullanılmış lastiklerin çevreci bertarafı.', tags: ['lastik', 'ÖTL', 'bertaraf'] },
-    'hurda-elmas-karbur-geri-kazanimi': { title: 'Hurda Elmas Uç ve Karbür Geri Kazanımı', shortDesc: 'Elmas uç ve karbür atıkların değerlendirilmesi.', tags: ['elmas uç', 'karbür', 'hurda'] },
+    'hurda-elmas-karbur-geri-kazanimi': { title: 'Hurda Elmas uç ve Hurda Karbür Geri Kazanım Hizmeti', shortDesc: 'Hurda elmas uç ve hurda karbür atıkların geri kazanımı.', tags: ['elmas uç', 'karbür', 'hurda'] },
     'hurda-kablo-geri-kazanimi': { title: 'Hurda Kablo Geri Kazanımı', shortDesc: 'Bakır ve alüminyum içerikli hurda kablo geri kazanımı.', tags: ['hurda kablo', 'bakır', 'alüminyum'] },
-    'moyden-belgesi': { title: 'MOYDEN Belgesi Hizmeti', shortDesc: 'MOYDEN belgesi başvuru, takip ve danışmanlık hizmetleri.', tags: ['MOYDEN', 'belge', 'motor yağı'] },
-    'atik-sahasi-kurulum': { title: 'Atık Sahası Kurulum Hizmeti', shortDesc: 'Mevzuata uygun geçici atık depolama sahalarının tasarım ve kurulumu.', tags: ['atık sahası', 'kurulum', 'geçici depolama'] },
+    'moyden-belgesi': { title: 'Motor Yağı Değişim Noktası(MOYDEN) Belgesi Hizmeti', shortDesc: 'Motor yağı değişim noktası belgesi için başvuru, takip ve danışmanlık hizmetleri.', tags: ['MOYDEN', 'belge', 'motor yağı'] },
+    'atik-sahasi-kurulum': { title: 'Tehlikeli ve Tehlikesiz Atık Sahası Kurulum Hizmeti', shortDesc: 'Tehlikeli ve tehlikesiz atık sahalarının mevzuata uygun kurulumu.', tags: ['atık sahası', 'kurulum', 'geçici depolama'] },
   },
   en: {} as Record<ServiceId, ServiceCopy>,
   de: {} as Record<ServiceId, ServiceCopy>,
