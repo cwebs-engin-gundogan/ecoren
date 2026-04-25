@@ -1,4 +1,4 @@
-export const locales = ['tr', 'en', 'de'] as const;
+﻿export const locales = ['tr', 'en', 'de'] as const;
 
 export type Locale = (typeof locales)[number];
 
@@ -158,6 +158,70 @@ type Dictionary = {
       submit: string;
       contactInfo: { label: string; value: string }[];
     };
+    about: {
+      sectionLabel: string;
+      title: string;
+      subtitle: string;
+      cta: string;
+      stats: { v: string; l: string }[];
+    };
+    missionVision: {
+      sectionLabel: string;
+      subtitle: string;
+    };
+    values: {
+      sectionLabel: string;
+      title: string;
+      subtitle: string;
+      items: { title: string; desc: string; points: string[] }[];
+    };
+    licenses: {
+      sectionLabel: string;
+      title: string;
+      subtitle: string;
+      active: string;
+      stats: { v: string; l: string }[];
+      items: { title: string; authority: string; desc: string }[];
+      ctaTitle: string;
+      ctaDesc: string;
+      ctaLabel: string;
+    };
+    serviceDetail: {
+      allServices: string;
+      sectionLabel: string;
+      detailsTitle: string;
+      benefitsTitle: string;
+      ctaTitle: string;
+      ctaDesc: string;
+      ctaLabel: string;
+      contactTitle: string;
+      contactForm: string;
+      relatedTitle: string;
+      allServicesLink: string;
+      serviceDetails: Record<string, { body: string[]; benefits: string[] }>;
+      defaultBody: string[];
+      defaultBenefits: string[];
+    };
+    wasteCodes: {
+      heroLabel: string;
+      heroTitle: string;
+      heroDesc: string;
+      searchByText: string;
+      searchByGroup: string;
+      placeholder: string;
+      clearAriaLabel: string;
+      results: string;
+      clear: string;
+      allGroups: string;
+      codes: string;
+      showAll: string;
+      noResults: string;
+      noResultsDesc: string;
+      clearFilters: string;
+      wasteCode: string;
+      code: string;
+      description: string;
+    };
   };
   news: { slug: string; title: string; date: string; excerpt: string }[];
   services: Record<ServiceId, ServiceCopy>;
@@ -294,11 +358,123 @@ export const dictionaries: Record<Locale, Dictionary> = {
           { label: 'Çalışma Saatleri', value: 'Pzt-Cum: 08:00-18:00' },
         ],
       },
+      about: {
+        sectionLabel: 'Kurumsal',
+        title: 'Hakkımızda',
+        subtitle: 'ECOREN Atık Yönetimi Danışmanlık ve Mühendislik Hizmetleri San. ve Tic. Ltd. Şti.',
+        cta: 'Bize Ulaşın',
+        stats: [
+          { v: '21+', l: 'Hizmet Alanı' },
+          { v: '0', l: 'Sıfır Atık Felsefesi' },
+          { v: 'CO₂', l: 'Karbon Ayak İzi Odağı' },
+          { v: 'TR', l: 'Yeşil Dönüşüm' },
+        ],
+      },
+      missionVision: {
+        sectionLabel: 'Kurumsal',
+        subtitle: 'Sıfır Atık Felsefesi, Döngüsel Kaynak Yönetimi ve sürdürülebilirlik odağıyla ilerliyoruz.',
+      },
+      values: {
+        sectionLabel: 'Kurumsal',
+        title: 'Değerlerimiz',
+        subtitle: 'Bizi biz yapan temel değerler ve iş yapış anlayışımız.',
+        items: [
+          { title: 'İnsana Saygılı', desc: 'İnsana saygılı, çalışanlarının gelişimini destekleyen ve takım çalışmasına önem veren bir şirket olarak hareket ederiz.', points: ['Çalışan gelişimi', 'Takım çalışması', 'İnsan odaklı yaklaşım'] },
+          { title: 'Çevreye Duyarlı', desc: 'Çevreye duyarlı, kalite ve iş güvenliği noktasında sorumluluklarının bilincinde olan bir anlayışla çalışırız.', points: ['Çevre bilinci', 'Kalite odağı', 'İş güvenliği'] },
+          { title: 'Dürüst ve Şeffaf', desc: 'Dürüst, şeffaf ve etik çalışma ilkelerini tüm süreçlerimizin merkezinde tutarız.', points: ['Dürüstlük', 'Şeffaflık', 'Etik duruş'] },
+          { title: 'Yaratıcı ve Yenilikçi', desc: 'Yaratıcı ve yenilikçi çözümler geliştirerek geri dönüşüm ve çevre yönetimi alanında değer üretiriz.', points: ['Yenilikçilik', 'Çözüm üretimi', 'Sürekli gelişim'] },
+          { title: 'Müşteri Odaklı', desc: 'Müşteri odaklı yaklaşımımızla çevreye duyarlı çözümler sunarak müşterilerimize değer katarız.', points: ['Değer katma', 'Güvenilir hizmet', 'Uzun vadeli ilişki'] },
+          { title: 'Kalite & İnovasyon', desc: 'Hizmet kalitemizi sürekli geliştiriyor, sektördeki yenilikleri takip ederek en güncel çözümleri müşterilerimize sunuyoruz.', points: ['Sürekli iyileştirme', 'Teknoloji adaptasyonu', 'Sektör liderliği'] },
+        ],
+      },
+      licenses: {
+        sectionLabel: 'Yasal Uyum',
+        title: 'Lisanslarımız',
+        subtitle: 'Tüm hizmetlerimiz Çevre ve Şehircilik Bakanlığı ile ilgili kurumlarca verilen lisans ve sertifikalar kapsamında yürütülmektedir.',
+        active: 'Aktif',
+        stats: [
+          { v: '9+', l: 'Lisans & Sertifika' },
+          { v: '10+', l: 'Yıllık Uyum' },
+          { v: '100%', l: 'Mevzuat Uyumu' },
+          { v: '2', l: 'ISO Sertifikası' },
+        ],
+        items: [
+          { title: 'Tehlikeli Atık Taşıma Lisansı', authority: 'Çevre ve Şehircilik Bakanlığı', desc: 'Tehlikeli atıkların ADR düzenlemelerine uygun şekilde taşınması için alınan resmi lisans.' },
+          { title: 'Tehlikeli Atık Geri Kazanım Lisansı', authority: 'Çevre ve Şehircilik Bakanlığı', desc: 'Tehlikeli sınıf atıkların geri kazanım ve bertaraf işlemleri için gerekli bakanlık lisansı.' },
+          { title: 'Tehlikesiz Atık Geri Kazanım Lisansı', authority: 'Çevre ve Şehircilik Bakanlığı', desc: 'Tehlikesiz sınıf endüstriyel atıkların geri kazanım işlemleri lisansı.' },
+          { title: 'ÖTA (Ömrünü Tamamlamış Araç) Lisansı', authority: 'Çevre ve Şehircilik Bakanlığı', desc: 'Ömrünü tamamlamış araçların çevreci söküm ve bertaraf işlemleri için özel lisans.' },
+          { title: 'Elektronik Atık (AEEE) Lisansı', authority: 'Çevre ve Şehircilik Bakanlığı', desc: 'AEEE Yönetmeliği kapsamında elektrikli ve elektronik atıkların geri kazanım lisansı.' },
+          { title: 'Atık Yağ Geri Kazanım Lisansı', authority: 'Çevre ve Şehircilik Bakanlığı', desc: 'Motor ve endüstriyel atık yağların lisanslı tesislerde geri kazanımı için alınan belge.' },
+          { title: 'ADR Güvenlik Danışmanlığı Sertifikası', authority: 'Ulaştırma Bakanlığı', desc: 'Tehlikeli madde taşımacılığı alanında ADR kapsamında güvenlik danışmanlığı sertifikası.' },
+          { title: 'ISO 14001 Çevre Yönetim Sistemi', authority: 'Akredite Belgelendirme Kuruluşu', desc: 'Uluslararası Çevre Yönetim Sistemi standardı kapsamında akredite sertifika.' },
+          { title: 'ISO 9001 Kalite Yönetim Sistemi', authority: 'Akredite Belgelendirme Kuruluşu', desc: 'Uluslararası Kalite Yönetim Sistemi standardı kapsamında akredite sertifika.' },
+        ],
+        ctaTitle: 'Lisans ve Sertifikalarımız Hakkında Detaylı Bilgi',
+        ctaDesc: 'Tüm lisans ve sertifikalarımıza ilişkin resmi belgeler için bizimle iletişime geçebilirsiniz.',
+        ctaLabel: 'Bize Ulaşın',
+      },
+      serviceDetail: {
+        allServices: 'Tüm Hizmetler',
+        sectionLabel: 'Hizmetlerimiz',
+        detailsTitle: 'Hizmet Detayları',
+        benefitsTitle: 'Temel Faydalar',
+        ctaTitle: 'Bu hizmet hakkında daha fazla bilgi almak ister misiniz?',
+        ctaDesc: 'Uzman ekibimiz size özel çözümler sunmak için hazır. Hemen iletişime geçin.',
+        ctaLabel: 'Bize Ulaşın',
+        contactTitle: 'Hızlı İletişim',
+        contactForm: 'Form ile Ulaşın',
+        relatedTitle: 'İlgili Hizmetler',
+        allServicesLink: 'Tüm Hizmetler →',
+        serviceDetails: {
+          'entegre-atik-yonetimi': {
+            body: [
+              'Entegre Atık Yönetimi Hizmeti, işletmenizden kaynaklanan tüm atık türlerini tek bir çatı altında yöneterek Sıfır Atık hedeflerine ulaşmanızı sağlar. Atık üretiminden nihai bertarafa kadar olan tüm süreç, uzman ekibimiz tarafından yönetilmektedir.',
+              'Hizmetimiz kapsamında atık envanteri çıkarılması, atık yönetim planı hazırlanması, lisanslı taşıma ve bertaraf süreçlerinin koordinasyonu ile Çevre Bakanlığına yapılacak yasal bildirimler eksiksiz gerçekleştirilmektedir.',
+              'Sıfır Atık Yönetmeliği kapsamında zorunlu hale gelen uygulamalar başta olmak üzere, döngüsel ekonomi prensipleriyle uyumlu, entegre bir atık yönetim sistemi kuruyoruz.',
+            ],
+            benefits: ['Uçtan uca atık yönetimi sorumluluğu', 'Yasal uyum güvencesi', 'Maliyet optimizasyonu', 'Sıfır atık belgesi desteği', 'Düzenli raporlama ve takip'],
+          },
+          'danismanlik-hizmetleri': {
+            body: [
+              'Çevre mevzuatının karmaşık ve sürekli değişen yapısı, işletmelerin uzman danışmanlık hizmetine olan ihtiyacını artırmaktadır. ECOREN Danışmanlık Hizmetleri, şirketinizin tüm çevresel yükümlülüklerini eksiksiz yerine getirmesini sağlar.',
+              'Atık yönetimi lisansları, çevresel etki değerlendirmesi (ÇED), sıfır atık belgesi başvuruları, atık yönetim planı hazırlama ve çevre denetim süreçleri hizmet kapsamımızdadır.',
+              'Deneyimli çevre mühendisleri ve hukuk uzmanlarından oluşan ekibimiz, mevzuat değişikliklerini yakından takip ederek müşterilerimizi proaktif biçimde bilgilendirir.',
+            ],
+            benefits: ['Mevzuat uyum danışmanlığı', 'Lisans süreç yönetimi', 'Atık yönetim planı hazırlama', 'ÇED danışmanlığı', 'Düzenleyici kurum ilişkileri'],
+          },
+        },
+        defaultBody: [
+          'ECOREN, bu hizmet alanında sektörün en deneyimli ve lisanslı firmalarından biri olarak profesyonel çözümler sunmaktadır. Uzman kadromuz ve geniş tesis ağımızla Türkiye genelinde kesintisiz hizmet vermekteyiz.',
+          'Hizmetimiz; mevzuata tam uyum, güvenli operasyon ve çevresel sorumluluk ilkeleri çerçevesinde yürütülmektedir. Müşterilerimize özel çözümler geliştirerek süreçlerin en verimli şekilde yönetilmesini sağlıyoruz.',
+          'Tüm operasyonlarımız Çevre ve Şehircilik Bakanlığı onaylı lisanslar kapsamında, sertifikalı personel tarafından gerçekleştirilmektedir. Şeffaf raporlama ve düzenli bilgilendirme ile müşterilerimize tam destek sunuyoruz.',
+        ],
+        defaultBenefits: ['Lisanslı ve sertifikalı hizmet', 'Mevzuata tam uyum', 'Uzman ekip desteği', 'Türkiye geneli operasyon', 'Şeffaf raporlama ve bilgilendirme'],
+      },
+      wasteCodes: {
+        heroLabel: 'Tehlikeli Atık Kodları',
+        heroTitle: 'Atık Kodları Listesi',
+        heroDesc: 'Tehlikeli atıkların sınıflandırılması için kullanılan atık kodlarını grup başlıkları, kod numaraları ve açıklamalarıyla birlikte inceleyebilirsiniz.',
+        searchByText: 'Metne Göre Ara',
+        searchByGroup: 'Gruba Göre',
+        placeholder: 'Kod veya açıklama…',
+        clearAriaLabel: 'Aramayı temizle',
+        results: 'sonuç',
+        clear: 'temizle',
+        allGroups: 'Tüm Gruplar',
+        codes: 'kod',
+        showAll: 'tümünü göster',
+        noResults: 'Sonuç bulunamadı',
+        noResultsDesc: 'Farklı bir arama terimi veya filtre kombinasyonu deneyin.',
+        clearFilters: 'Filtreleri temizle',
+        wasteCode: 'Atık Kodu',
+        code: 'Kod',
+        description: 'Açıklama',
+      },
     },
     services: {} as Record<ServiceId, ServiceCopy>,
     news: [
       { slug: 'sifir-atik-yonetmeligi-2024', title: 'Sıfır Atık Yönetmeliğinde 2024 Değişiklikleri', date: '15 Nisan 2025', excerpt: 'Çevre ve Şehircilik Bakanlığı tarafından güncellenen Sıfır Atık Yönetmeliği kapsamında firmaların uyum süreçleri.' },
-      { slug: 'dongusel-ekonomi-turkiye', title: "Döngüsel Ekonomi ve Türkiye'nin Yeşil Dönüşümü", date: '2 Mart 2025', excerpt: "Döngüsel ekonomi ilkelerinin Türk sanayi sektörüne entegrasyonu ve ECOREN'in bu süreçteki rolü." },
+      { slug: 'dongusel-ekonomi-turkiye', title: "Döngüsel Ekonomi ve Türkiye’nin Yeşil Dönüşümü", date: '2 Mart 2025', excerpt: "Döngüsel ekonomi ilkelerinin Türk sanayi sektörüne entegrasyonu ve ECOREN’in bu süreçteki rolü." },
       { slug: 'karbon-ayak-izi-azaltma', title: 'Kurumsal Karbon Ayak İzini Azaltmanın 5 Yolu', date: '10 Şubat 2025', excerpt: 'Şirketlerin atık yönetimi ve enerji verimliliği adımlarıyla karbon nötr hedeflerine ulaşması.' },
       { slug: 'elektronik-atik-yonetimi', title: 'Elektronik Atık Yönetiminde Yeni Dönem', date: '5 Ocak 2025', excerpt: 'AEEE yönetmeliği kapsamında elektronik atık toplama ve geri kazanım süreçlerindeki son gelişmeler.' },
     ],
@@ -347,7 +523,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     about: {
       label: 'About Us',
-      titlePrefix: "Turkey's Trusted",
+      titlePrefix: "Turkey’s Trusted",
       titleHighlight: 'Waste Management',
       titleSuffix: 'Partner',
       body1: 'With more than 10 years of experience, ECOREN is one of Turkey’s leading waste management consultancy and engineering companies. We provide integrated solutions that fully comply with environmental legislation, including recovery, disposal, transport and storage of hazardous and non-hazardous waste.',
@@ -433,11 +609,123 @@ export const dictionaries: Record<Locale, Dictionary> = {
           { label: 'Working Hours', value: 'Mon-Fri: 08:00-18:00' },
         ],
       },
+      about: {
+        sectionLabel: 'Corporate',
+        title: 'About Us',
+        subtitle: 'ECOREN Waste Management Consultancy and Engineering Services Ltd.',
+        cta: 'Contact Us',
+        stats: [
+          { v: '21+', l: 'Service Areas' },
+          { v: '0', l: 'Zero Waste Philosophy' },
+          { v: 'CO₂', l: 'Carbon Footprint Focus' },
+          { v: 'TR', l: 'Green Transformation' },
+        ],
+      },
+      missionVision: {
+        sectionLabel: 'Corporate',
+        subtitle: 'We advance with Zero Waste philosophy, circular resource management and a focus on sustainability.',
+      },
+      values: {
+        sectionLabel: 'Corporate',
+        title: 'Our Values',
+        subtitle: 'The core values and working principles that define us.',
+        items: [
+          { title: 'Respect for People', desc: 'We act as a company that respects people, supports employee development, and values teamwork.', points: ['Employee development', 'Teamwork', 'People-first approach'] },
+          { title: 'Environmental Awareness', desc: 'We operate with a sense of responsibility for the environment, quality, and workplace safety.', points: ['Environmental awareness', 'Quality focus', 'Workplace safety'] },
+          { title: 'Honest & Transparent', desc: 'We keep honesty, transparency, and ethical working principles at the center of all our processes.', points: ['Honesty', 'Transparency', 'Ethical stance'] },
+          { title: 'Creative & Innovative', desc: 'We create value in recycling and environmental management by developing creative and innovative solutions.', points: ['Innovation', 'Solution creation', 'Continuous improvement'] },
+          { title: 'Customer Focused', desc: 'With our customer-centric approach, we add value to our customers by offering environmentally sensitive solutions.', points: ['Value creation', 'Reliable service', 'Long-term relationship'] },
+          { title: 'Quality & Innovation', desc: 'We continuously improve our service quality and track industry innovations to provide the most up-to-date solutions.', points: ['Continuous improvement', 'Technology adoption', 'Industry leadership'] },
+        ],
+      },
+      licenses: {
+        sectionLabel: 'Legal Compliance',
+        title: 'Our Licenses',
+        subtitle: 'All our services are conducted under licenses and certificates issued by the Ministry of Environment and Urbanization and relevant authorities.',
+        active: 'Active',
+        stats: [
+          { v: '9+', l: 'Licenses & Certificates' },
+          { v: '10+', l: 'Years of Compliance' },
+          { v: '100%', l: 'Regulatory Compliance' },
+          { v: '2', l: 'ISO Certificates' },
+        ],
+        items: [
+          { title: 'Hazardous Waste Transport License', authority: 'Ministry of Environment and Urbanization', desc: 'Official license for transporting hazardous waste in accordance with ADR regulations.' },
+          { title: 'Hazardous Waste Recovery License', authority: 'Ministry of Environment and Urbanization', desc: 'Ministry license required for recovery and disposal of hazardous waste.' },
+          { title: 'Non-Hazardous Waste Recovery License', authority: 'Ministry of Environment and Urbanization', desc: 'License for recovery of non-hazardous industrial waste.' },
+          { title: 'End-of-Life Vehicle (ELV) License', authority: 'Ministry of Environment and Urbanization', desc: 'Special license for eco-friendly dismantling and disposal of end-of-life vehicles.' },
+          { title: 'Electronic Waste (WEEE) License', authority: 'Ministry of Environment and Urbanization', desc: 'Recovery license for electrical and electronic waste under WEEE regulations.' },
+          { title: 'Waste Oil Recovery License', authority: 'Ministry of Environment and Urbanization', desc: 'License for recovery of motor and industrial waste oils at licensed facilities.' },
+          { title: 'ADR Safety Advisor Certificate', authority: 'Ministry of Transport', desc: 'Safety advisory certificate covering dangerous goods transport under ADR.' },
+          { title: 'ISO 14001 Environmental Management System', authority: 'Accredited Certification Body', desc: 'Accredited certificate under the International Environmental Management System standard.' },
+          { title: 'ISO 9001 Quality Management System', authority: 'Accredited Certification Body', desc: 'Accredited certificate under the International Quality Management System standard.' },
+        ],
+        ctaTitle: 'Detailed Information About Our Licenses and Certificates',
+        ctaDesc: 'Contact us for official documents related to all our licenses and certificates.',
+        ctaLabel: 'Contact Us',
+      },
+      serviceDetail: {
+        allServices: 'All Services',
+        sectionLabel: 'Services',
+        detailsTitle: 'Service Details',
+        benefitsTitle: 'Key Benefits',
+        ctaTitle: 'Would you like more information about this service?',
+        ctaDesc: 'Our expert team is ready to offer tailored solutions. Get in touch now.',
+        ctaLabel: 'Contact Us',
+        contactTitle: 'Quick Contact',
+        contactForm: 'Contact via Form',
+        relatedTitle: 'Related Services',
+        allServicesLink: 'All Services →',
+        serviceDetails: {
+          'entegre-atik-yonetimi': {
+            body: [
+              'Our Integrated Waste Management Service manages all waste types generated by your facility under one roof, helping you achieve Zero Waste targets. The entire process, from waste generation to final disposal, is handled by our expert team.',
+              'Our service covers waste inventory, waste management plan preparation, coordination of licensed transport and disposal processes, and all statutory notifications to the Ministry of Environment.',
+              'We establish an integrated waste management system aligned with circular economy principles, covering all mandatory practices under the Zero Waste Regulation.',
+            ],
+            benefits: ['End-to-end waste management responsibility', 'Legal compliance guarantee', 'Cost optimization', 'Zero waste certificate support', 'Regular reporting and monitoring'],
+          },
+          'danismanlik-hizmetleri': {
+            body: [
+              'The complex and ever-changing nature of environmental legislation increases the need for expert consultancy. ECOREN Consultancy Services ensures your company fully meets all environmental obligations.',
+              'Our scope includes waste management licenses, environmental impact assessment (EIA), zero waste certificate applications, waste management plan preparation, and environmental audit processes.',
+              'Our team of experienced environmental engineers and legal experts closely follows regulatory changes and proactively informs our clients.',
+            ],
+            benefits: ['Regulatory compliance consultancy', 'License process management', 'Waste management plan preparation', 'EIA consultancy', 'Regulatory authority relations'],
+          },
+        },
+        defaultBody: [
+          'ECOREN provides professional solutions as one of the most experienced and licensed firms in this service area. With our expert staff and extensive facility network, we deliver uninterrupted service throughout Turkey.',
+          'Our service is conducted in accordance with full regulatory compliance, safe operations, and environmental responsibility principles. We develop tailored solutions for our clients to ensure the most efficient process management.',
+          'All our operations are carried out by certified personnel under licenses approved by the Ministry of Environment and Urbanization. We provide full support through transparent reporting and regular updates.',
+        ],
+        defaultBenefits: ['Licensed and certified service', 'Full regulatory compliance', 'Expert team support', 'Nationwide operations', 'Transparent reporting and communication'],
+      },
+      wasteCodes: {
+        heroLabel: 'Hazardous Waste Codes',
+        heroTitle: 'Waste Code List',
+        heroDesc: 'Browse waste codes used for classifying hazardous waste, along with group headings, code numbers and descriptions.',
+        searchByText: 'Search by Text',
+        searchByGroup: 'Search by Group',
+        placeholder: 'Code or description…',
+        clearAriaLabel: 'Clear search',
+        results: 'results',
+        clear: 'clear',
+        allGroups: 'All Groups',
+        codes: 'codes',
+        showAll: 'show all',
+        noResults: 'No results found',
+        noResultsDesc: 'Try a different search term or filter combination.',
+        clearFilters: 'Clear filters',
+        wasteCode: 'Waste Code',
+        code: 'Code',
+        description: 'Description',
+      },
     },
     services: {} as Record<ServiceId, ServiceCopy>,
     news: [
       { slug: 'sifir-atik-yonetmeligi-2024', title: '2024 Updates to the Zero Waste Regulation', date: '15 April 2025', excerpt: 'Compliance processes for companies under the updated Zero Waste Regulation issued by the Ministry of Environment and Urbanization.' },
-      { slug: 'dongusel-ekonomi-turkiye', title: "Circular Economy and Turkey's Green Transformation", date: '2 March 2025', excerpt: 'The integration of circular economy principles into Turkish industry and ECOREN’s role in this transition.' },
+      { slug: 'dongusel-ekonomi-turkiye', title: "Circular Economy and Turkey’s Green Transformation", date: '2 March 2025', excerpt: 'The integration of circular economy principles into Turkish industry and ECOREN’s role in this transition.' },
       { slug: 'karbon-ayak-izi-azaltma', title: '5 Ways to Reduce Corporate Carbon Footprint', date: '10 February 2025', excerpt: 'How companies can reach carbon-neutral targets through waste management and energy efficiency steps.' },
       { slug: 'elektronik-atik-yonetimi', title: 'A New Era in Electronic Waste Management', date: '5 January 2025', excerpt: 'Recent developments in electronic waste collection and recovery processes under WEEE regulations.' },
     ],
@@ -572,12 +860,124 @@ export const dictionaries: Record<Locale, Dictionary> = {
           { label: 'Arbeitszeiten', value: 'Mo-Fr: 08:00-18:00' },
         ],
       },
+      about: {
+        sectionLabel: 'Unternehmen',
+        title: 'Über Uns',
+        subtitle: 'ECOREN Abfallmanagement Beratungs- und Ingenieurgesellschaft',
+        cta: 'Kontaktieren Sie Uns',
+        stats: [
+          { v: '21+', l: 'Servicebereiche' },
+          { v: '0', l: 'Zero-Waste-Philosophie' },
+          { v: 'CO₂', l: 'CO₂-Fußabdruck-Fokus' },
+          { v: 'TR', l: 'Grüne Transformation' },
+        ],
+      },
+      missionVision: {
+        sectionLabel: 'Unternehmen',
+        subtitle: 'Wir entwickeln uns mit der Zero-Waste-Philosophie, zirkulärem Ressourcenmanagement und Nachhaltigkeitsfokus.',
+      },
+      values: {
+        sectionLabel: 'Unternehmen',
+        title: 'Unsere Werte',
+        subtitle: 'Die Grundwerte und Arbeitsweise, die uns ausmachen.',
+        items: [
+          { title: 'Respekt vor Menschen', desc: 'Wir handeln als Unternehmen, das Menschen respektiert, die Entwicklung der Mitarbeiter unterstützt und Teamarbeit wertschätzt.', points: ['Mitarbeiterentwicklung', 'Teamarbeit', 'Menschenzentrierter Ansatz'] },
+          { title: 'Umweltbewusstsein', desc: 'Wir arbeiten mit einem Bewusstsein für Umwelt, Qualität und Arbeitssicherheit.', points: ['Umweltbewusstsein', 'Qualitätsfokus', 'Arbeitssicherheit'] },
+          { title: 'Ehrlich & Transparent', desc: 'Wir stellen Ehrlichkeit, Transparenz und ethische Grundsätze in den Mittelpunkt aller unserer Prozesse.', points: ['Ehrlichkeit', 'Transparenz', 'Ethische Haltung'] },
+          { title: 'Kreativ & Innovativ', desc: 'Wir schaffen Mehrwert durch kreative und innovative Lösungen im Recycling und Umweltmanagement.', points: ['Innovation', 'Lösungsentwicklung', 'Kontinuierliche Verbesserung'] },
+          { title: 'Kundenorientiert', desc: 'Mit unserem kundenorientierten Ansatz fügen wir unseren Kunden durch umweltsensible Lösungen Mehrwert hinzu.', points: ['Mehrwertschaffung', 'Zuverlässiger Service', 'Langfristige Beziehung'] },
+          { title: 'Qualität & Innovation', desc: 'Wir verbessern kontinuierlich unsere Servicequalität und verfolgen Brancheninnovationen.', points: ['Kontinuierliche Verbesserung', 'Technologieadoption', 'Branchenführerschaft'] },
+        ],
+      },
+      licenses: {
+        sectionLabel: 'Rechtliche Konformität',
+        title: 'Unsere Lizenzen',
+        subtitle: 'Alle unsere Leistungen werden im Rahmen von Lizenzen und Zertifikaten des Umweltministeriums und relevanter Behörden durchgeführt.',
+        active: 'Aktiv',
+        stats: [
+          { v: '9+', l: 'Lizenzen & Zertifikate' },
+          { v: '10+', l: 'Jahre Konformität' },
+          { v: '100%', l: 'Rechtskonformität' },
+          { v: '2', l: 'ISO-Zertifikate' },
+        ],
+        items: [
+          { title: 'Transportlizenz für gefährliche Abfälle', authority: 'Umwelt- und Stadtplanungsministerium', desc: 'Offizielle Lizenz für den Transport gefährlicher Abfälle gemäß ADR-Vorschriften.' },
+          { title: 'Rückgewinnungslizenz für gefährliche Abfälle', authority: 'Umwelt- und Stadtplanungsministerium', desc: 'Ministeriumslizenz für Rückgewinnung und Entsorgung gefährlicher Abfälle.' },
+          { title: 'Rückgewinnungslizenz für ungefährliche Abfälle', authority: 'Umwelt- und Stadtplanungsministerium', desc: 'Lizenz für die Rückgewinnung von ungefährlichen Industrieabfällen.' },
+          { title: 'Altfahrzeuglizenz (ELV)', authority: 'Umwelt- und Stadtplanungsministerium', desc: 'Sonderlizenz für umweltfreundliche Demontage und Entsorgung von Altfahrzeugen.' },
+          { title: 'Elektronikabfall-Lizenz (WEEE)', authority: 'Umwelt- und Stadtplanungsministerium', desc: 'Rückgewinnungslizenz für Elektro- und Elektronikabfälle gemäß WEEE-Richtlinie.' },
+          { title: 'Altöl-Rückgewinnungslizenz', authority: 'Umwelt- und Stadtplanungsministerium', desc: 'Lizenz für die Rückgewinnung von Motor- und Industriealtölen in lizenzierten Anlagen.' },
+          { title: 'ADR-Sicherheitsberaterzertifikat', authority: 'Verkehrsministerium', desc: 'Sicherheitsberaterzertifikat für den Gefahrguttransport gemäß ADR.' },
+          { title: 'ISO 14001 Umweltmanagementsystem', authority: 'Akkreditierte Zertifizierungsstelle', desc: 'Akkreditiertes Zertifikat nach dem internationalen Umweltmanagementsystem-Standard.' },
+          { title: 'ISO 9001 Qualitätsmanagementsystem', authority: 'Akkreditierte Zertifizierungsstelle', desc: 'Akkreditiertes Zertifikat nach dem internationalen Qualitätsmanagementsystem-Standard.' },
+        ],
+        ctaTitle: 'Detaillierte Informationen zu unseren Lizenzen und Zertifikaten',
+        ctaDesc: 'Kontaktieren Sie uns für offizielle Dokumente zu allen unseren Lizenzen und Zertifikaten.',
+        ctaLabel: 'Kontaktieren Sie Uns',
+      },
+      serviceDetail: {
+        allServices: 'Alle Leistungen',
+        sectionLabel: 'Leistungen',
+        detailsTitle: 'Leistungsdetails',
+        benefitsTitle: 'Hauptvorteile',
+        ctaTitle: 'Möchten Sie mehr über diese Leistung erfahren?',
+        ctaDesc: 'Unser Expertenteam ist bereit, maßgeschneiderte Lösungen anzubieten. Nehmen Sie jetzt Kontakt auf.',
+        ctaLabel: 'Kontaktieren Sie Uns',
+        contactTitle: 'Schnellkontakt',
+        contactForm: 'Über Formular kontaktieren',
+        relatedTitle: 'Verwandte Leistungen',
+        allServicesLink: 'Alle Leistungen →',
+        serviceDetails: {
+          'entegre-atik-yonetimi': {
+            body: [
+              'Unser Integrierter Abfallmanagement-Service verwaltet alle Abfallarten Ihres Unternehmens unter einem Dach und hilft Ihnen, Zero-Waste-Ziele zu erreichen. Der gesamte Prozess von der Abfallentstehung bis zur Endentsorgung wird von unserem Expertenteam verwaltet.',
+              'Unser Service umfasst Abfallinventar, Abfallmanagementplan, Koordination lizenzierter Transport- und Entsorgungsprozesse sowie alle gesetzlichen Meldungen an das Umweltministerium.',
+              'Wir etablieren ein integriertes Abfallmanagementsystem nach Kreislaufwirtschaftsprinzipien und allen verpflichtenden Maßnahmen der Zero-Waste-Verordnung.',
+            ],
+            benefits: ['Ganzheitliche Abfallmanagementverantwortung', 'Rechtskonformitätsgarantie', 'Kostenoptimierung', 'Zero-Waste-Zertifikatsunterstützung', 'Regelmäßige Berichterstattung und Überwachung'],
+          },
+          'danismanlik-hizmetleri': {
+            body: [
+              'Die komplexe und sich ständig ändernde Umweltgesetzgebung erhöht den Bedarf an Fachberatung. ECOREN-Beratungsleistungen stellen sicher, dass Ihr Unternehmen alle Umweltverpflichtungen vollständig erfüllt.',
+              'Unser Leistungsumfang umfasst Abfallmanagementlizenzen, Umweltverträglichkeitsprüfungen (UVP), Zero-Waste-Zertifikatsanträge, Abfallmanagementpläne und Umweltauditprozesse.',
+              'Unser Team aus erfahrenen Umweltingenieuren und Rechtsexperten verfolgt Gesetzesänderungen genau und informiert unsere Kunden proaktiv.',
+            ],
+            benefits: ['Rechtskonformitätsberatung', 'Lizenzprozessmanagement', 'Abfallmanagementplanerstellung', 'UVP-Beratung', 'Behördenbeziehungen'],
+          },
+        },
+        defaultBody: [
+          'ECOREN bietet professionelle Lösungen als eines der erfahrensten und lizenziertesten Unternehmen in diesem Leistungsbereich. Mit unserem Expertenteam und umfangreichen Anlagennetzwerk liefern wir ununterbrochene Leistungen in der gesamten Türkei.',
+          'Unsere Leistung wird nach den Grundsätzen vollständiger Rechtskonformität, sicherer Operationen und Umweltverantwortung erbracht. Wir entwickeln maßgeschneiderte Lösungen für unsere Kunden.',
+          'Alle Operationen werden von zertifiziertem Personal im Rahmen vom Umweltministerium genehmigter Lizenzen durchgeführt. Wir bieten vollständige Unterstützung durch transparente Berichterstattung und regelmäßige Updates.',
+        ],
+        defaultBenefits: ['Lizenzierter und zertifizierter Service', 'Vollständige Rechtskonformität', 'Expertensupport', 'Bundesweite Operationen', 'Transparente Berichterstattung'],
+      },
+      wasteCodes: {
+        heroLabel: 'Gefährliche Abfallcodes',
+        heroTitle: 'Abfallcode-Liste',
+        heroDesc: 'Durchsuchen Sie die zur Klassifizierung gefährlicher Abfälle verwendeten Abfallcodes mit Gruppenüberschriften, Codenummern und Beschreibungen.',
+        searchByText: 'Nach Text suchen',
+        searchByGroup: 'Nach Gruppe suchen',
+        placeholder: 'Code oder Beschreibung…',
+        clearAriaLabel: 'Suche löschen',
+        results: 'Ergebnisse',
+        clear: 'löschen',
+        allGroups: 'Alle Gruppen',
+        codes: 'Codes',
+        showAll: 'alle anzeigen',
+        noResults: 'Keine Ergebnisse gefunden',
+        noResultsDesc: 'Versuchen Sie einen anderen Suchbegriff oder eine andere Filterkombination.',
+        clearFilters: 'Filter löschen',
+        wasteCode: 'Abfallcode',
+        code: 'Code',
+        description: 'Beschreibung',
+      },
     },
     services: {} as Record<ServiceId, ServiceCopy>,
     news: [
       { slug: 'sifir-atik-yonetmeligi-2024', title: 'Änderungen der Zero-Waste-Verordnung 2024', date: '15. April 2025', excerpt: 'Compliance-Prozesse für Unternehmen im Rahmen der aktualisierten Zero-Waste-Verordnung.' },
       { slug: 'dongusel-ekonomi-turkiye', title: 'Kreislaufwirtschaft und die grüne Transformation der Türkei', date: '2. März 2025', excerpt: 'Die Integration von Kreislaufwirtschaftsprinzipien in die türkische Industrie und ECORENs Rolle dabei.' },
-      { slug: 'karbon-ayak-izi-azaltma', title: '5 Wege zur Reduzierung des CO2-Fußabdrucks', date: '10. Februar 2025', excerpt: 'Wie Unternehmen durch Abfallmanagement und Energieeffizienz CO2-neutrale Ziele erreichen können.' },
+      { slug: 'karbon-ayak-izi-azaltma', title: '5 Wege zur Reduzierung des CO₂-Fußabdrucks', date: '10. Februar 2025', excerpt: 'Wie Unternehmen durch Abfallmanagement und Energieeffizienz CO₂-neutrale Ziele erreichen können.' },
       { slug: 'elektronik-atik-yonetimi', title: 'Eine neue Ära im Elektronikabfallmanagement', date: '5. Januar 2025', excerpt: 'Aktuelle Entwicklungen bei Sammlung und Rückgewinnung von Elektronikabfällen.' },
     ],
   },
