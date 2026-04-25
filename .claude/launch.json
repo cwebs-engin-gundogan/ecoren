@@ -1,0 +1,34 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ecoren (mark3-1) — Next.js 16",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000,
+      "autoPort": true,
+      "cwd": "C:/Users/cagla/OneDrive/Desktop/projeler/teslim işler/ECOREN/ecoren.com.tr_mark3-1"
+    },
+    {
+      "name": "ecoren.com.tr — Vite + React 19",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 5173,
+      "cwd": "C:/Users/cagla/OneDrive/Desktop/projeler/teslim işler/ECOREN/ecoren.com.tr"
+    },
+    {
+      "name": "ecoren-site — Next.js 14",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000,
+      "cwd": "C:/Users/cagla/OneDrive/Desktop/projeler/teslim işler/ECOREN/ecoren-site"
+    },
+    {
+      "name": "ecoren (mark3) — Next.js 16",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000,
+      "cwd": "C:/Users/cagla/OneDrive/Desktop/projeler/teslim işler/ECOREN/ecoren.com.tr_mark3/ecoren"
+    }
+  ]
+}

@@ -11,7 +11,7 @@ export default function ValuesSection() {
   const { dict } = useLanguage();
 
   return (
-    <section className="py-24 bg-dark">
+    <section className="py-16 sm:py-24 bg-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <SectionLabel className="mb-3 block">{dict.valuesSection.label}</SectionLabel>
@@ -30,7 +30,7 @@ export default function ValuesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.6 }}
-                className="border border-white/10 p-8 hover:border-primary/50 transition-all duration-300 group"
+                className="border border-white/10 p-5 sm:p-8 hover:border-primary/50 transition-all duration-300 group"
               >
                 <div className="w-12 h-12 bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
                   <Icon size={22} className="text-primary" />

@@ -16,7 +16,7 @@ export default function StatsSection() {
               key={stat.label}
               className="flex flex-col items-center justify-center py-5 px-4 border-white/10 text-center lg:border-r last:border-r-0"
             >
-              <div className="font-heading text-4xl sm:text-5xl font-semibold text-primary mb-2">
+              <div className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-primary mb-2">
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </div>
               <div className="font-body text-xs text-white/50 uppercase tracking-wide leading-relaxed whitespace-pre-line">

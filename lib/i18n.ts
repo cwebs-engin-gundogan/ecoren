@@ -14,7 +14,7 @@ export function isLocale(value: string | undefined | null): value is Locale {
   return !!value && locales.includes(value as Locale);
 }
 
-const serviceIds = [
+export const serviceIds = [
   'entegre-atik-yonetimi',
   'danismanlik-hizmetleri',
   'tehlikeli-atik-geri-kazanimi',

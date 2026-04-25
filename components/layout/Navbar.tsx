@@ -52,6 +52,8 @@ export default function Navbar() {
             <div ref={kurumsalRef} className="relative">
               <button
                 onClick={() => setKurumsalOpen(!kurumsalOpen)}
+                aria-label={dict.nav.corporate}
+                aria-expanded={kurumsalOpen}
                 className="flex items-center gap-1 font-heading font-bold text-xs uppercase tracking-widest text-white/80 hover:text-primary transition-colors duration-200"
               >
                 {dict.nav.corporate} <ChevronDown size={14} className={`transition-transform ${kurumsalOpen ? 'rotate-180' : ''}`} />
@@ -71,12 +73,14 @@ export default function Navbar() {
             <div ref={hizmetlerRef} className="relative">
               <button
                 onClick={() => setHizmetlerOpen(!hizmetlerOpen)}
+                aria-label={dict.nav.services}
+                aria-expanded={hizmetlerOpen}
                 className="flex items-center gap-1 font-heading font-bold text-xs uppercase tracking-widest text-white/80 hover:text-primary transition-colors duration-200"
               >
                 {dict.nav.services} <ChevronDown size={14} className={`transition-transform ${hizmetlerOpen ? 'rotate-180' : ''}`} />
               </button>
               {hizmetlerOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[600px] bg-dark/95 border border-white/10 shadow-xl py-4 px-4 backdrop-blur-md">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[min(600px,90vw)] bg-dark/95 border border-white/10 shadow-xl py-4 px-4 backdrop-blur-md">
                   <div className="grid grid-cols-2 gap-1">
                     {services.map((s) => (
                       <Link key={s.id} href={s.href} className="block px-3 py-2 text-xs text-white/75 hover:text-primary hover:bg-white/5 font-body transition-colors truncate">

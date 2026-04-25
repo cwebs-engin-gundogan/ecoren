@@ -16,7 +16,7 @@ export default function MarqueeSection() {
         {loopItems.map((item, i) => {
           const Icon = item.icon;
           return (
-          <span key={`${item.label}-${i}`} className="inline-flex items-center gap-3 px-8 font-heading text-lg font-semibold uppercase tracking-tight text-white/25">
+          <span key={`${item.label}-${i}`} className="inline-flex items-center gap-2 px-4 font-heading text-sm font-semibold uppercase tracking-tight text-white/25 sm:gap-3 sm:px-6 sm:text-base lg:px-8 lg:text-lg">
             <Icon size={18} className="text-primary" />
             {item.label}
           </span>

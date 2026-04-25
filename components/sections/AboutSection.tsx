@@ -18,8 +18,8 @@ export default function AboutSection() {
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-14 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div className="relative">
             <div className="absolute -left-8 -top-8 -z-10 h-56 w-56 bg-primary/10" />
-            <img src={aboutImage} alt="Recycled industrial pellets" className="h-[420px] w-full object-cover shadow-2xl sm:h-[520px]" />
-            <div className="absolute bottom-8 right-0 max-w-xs bg-dark p-6 text-white sm:-right-8">
+            <img src={aboutImage} alt="Recycled industrial pellets" className="h-56 w-full object-cover shadow-2xl sm:h-[420px] lg:h-[520px]" />
+            <div className="absolute bottom-4 left-4 right-4 bg-dark p-4 text-white sm:bottom-8 sm:left-auto sm:right-0 sm:max-w-xs sm:p-6 lg:-right-8">
               <h3 className="mb-2 font-heading text-2xl font-semibold text-primary">10 Yıllık Uzmanlık</h3>
               <p className="font-body text-sm leading-relaxed text-white/60">Atık yönetiminde mühendislik odaklı yaklaşımlarla sektörün öncüsü.</p>
             </div>

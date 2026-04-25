@@ -12,7 +12,7 @@ export default function HeroSection() {
   const { dict } = useLanguage();
 
   return (
-    <section className="relative flex min-h-[720px] items-center justify-center overflow-hidden pt-24 pb-20 text-center lg:min-h-screen">
+    <section className="relative flex min-h-[560px] items-center justify-center overflow-hidden pt-20 pb-16 text-center sm:min-h-[680px] sm:pt-24 sm:pb-20 lg:min-h-screen">
       {/* Background */}
       <div className="absolute inset-0 bg-dark">
         <img
@@ -49,7 +49,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="mx-auto mt-12 hidden max-w-4xl grid-cols-4 gap-3 lg:grid">
+        <div className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-3 sm:mt-12 lg:grid-cols-4">
           {dict.hero.stats.map((s) => (
             <div key={s.label} className="border border-white/10 bg-dark/50 px-5 py-4 backdrop-blur-sm">
               <div className="mb-1 font-heading text-3xl font-bold text-primary">{s.value}</div>
