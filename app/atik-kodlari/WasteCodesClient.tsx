@@ -1,8 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import Link from 'next/link';
-import { ArrowUpRight, Filter, Search, X } from 'lucide-react';
+import { Filter, Search, X } from 'lucide-react';
 import { hazardousWasteCodeGroups } from '@/data/waste-codes';
 
 type SearchMode = 'text' | 'group';
@@ -11,7 +10,6 @@ export default function WasteCodesClient() {
   const [mode, setMode] = useState<SearchMode>('text');
   const [query, setQuery] = useState('');
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
-  const [hazardousOnly, setHazardousOnly] = useState(false);
 
   const switchMode = (next: SearchMode) => {
     setMode(next);
@@ -26,21 +24,19 @@ export default function WasteCodesClient() {
       .map((g) => ({
         ...g,
         items: g.items.filter((item) => {
-          if (hazardousOnly && !item.code.includes('*')) return false;
           if (!q) return true;
           return item.code.toLowerCase().includes(q) || item.description.toLowerCase().includes(q);
         }),
       }))
       .filter((g) => g.items.length > 0);
-  }, [query, selectedGroup, hazardousOnly]);
+  }, [query, selectedGroup]);
 
   const totalItems = filtered.reduce((s, g) => s + g.items.length, 0);
-  const hasActiveFilter = query || selectedGroup || hazardousOnly;
+  const hasActiveFilter = query || selectedGroup;
 
   const clearAll = () => {
     setQuery('');
     setSelectedGroup(null);
-    setHazardousOnly(false);
   };
 
   return (
@@ -137,18 +133,6 @@ export default function WasteCodesClient() {
               )}
             </div>
 
-            {/* Hazardous toggle */}
-            <button
-              onClick={() => setHazardousOnly(!hazardousOnly)}
-              className={`w-full flex items-center justify-between border px-4 py-3 font-heading text-sm font-semibold transition-colors
-                ${hazardousOnly ? 'bg-primary/10 border-primary text-primary' : 'bg-white border-dark/10 text-text-muted hover:border-primary hover:text-primary'}`}
-            >
-              <span>Sadece Tehlikeli (*)</span>
-              <span className={`w-4 h-4 border-2 flex items-center justify-center shrink-0 transition-colors ${hazardousOnly ? 'border-primary bg-primary' : 'border-dark/20'}`}>
-                {hazardousOnly && <X size={9} className="text-dark" />}
-              </span>
-            </button>
-
             {/* Result count + clear */}
             <div className="bg-dark/5 border border-dark/10 px-5 py-4 flex items-center justify-between">
               <span className="font-body text-sm text-text-muted">
@@ -164,14 +148,6 @@ export default function WasteCodesClient() {
               )}
             </div>
 
-            {/* CTA */}
-            <Link
-              href="/bize-ulasin"
-              className="flex items-center justify-between bg-dark px-5 py-4 font-heading text-sm font-bold uppercase tracking-widest text-white hover:text-primary transition-colors"
-            >
-              Danışmanlık Al
-              <ArrowUpRight size={18} />
-            </Link>
           </aside>
 
             {/* Results */}
