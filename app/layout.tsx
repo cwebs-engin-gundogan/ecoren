@@ -4,6 +4,7 @@ import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import LanguageProvider from '@/components/providers/LanguageProvider';
+import FloatingButtons from '@/components/ui/FloatingButtons';
 
 const rajdhani = Rajdhani({
   subsets: ['latin'],
@@ -85,6 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar />
           <main>{children}</main>
           <Footer />
+          <FloatingButtons />
         </LanguageProvider>
       </body>
     </html>
