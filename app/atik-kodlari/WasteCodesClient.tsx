@@ -56,18 +56,18 @@ export default function WasteCodesClient() {
               <div className="flex border-b border-dark/10">
                 <button
                   onClick={() => switchMode('text')}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-3 font-heading text-xs font-bold uppercase tracking-widest transition-colors
+                  className={`flex-1 flex items-center justify-center gap-1.5 py-3 font-heading text-xs font-bold uppercase tracking-wide whitespace-nowrap transition-colors
                     ${mode === 'text' ? 'bg-primary text-dark' : 'text-text-muted hover:text-text-main hover:bg-dark/5'}`}
                 >
-                  <Search size={13} />
+                  <Search size={13} className="shrink-0" />
                   Metne Göre Ara
                 </button>
                 <button
                   onClick={() => switchMode('group')}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-3 font-heading text-xs font-bold uppercase tracking-widest border-l border-dark/10 transition-colors
+                  className={`flex-1 flex items-center justify-center gap-1.5 py-3 font-heading text-xs font-bold uppercase tracking-wide whitespace-nowrap border-l border-dark/10 transition-colors
                     ${mode === 'group' ? 'bg-primary text-dark' : 'text-text-muted hover:text-text-main hover:bg-dark/5'}`}
                 >
-                  <Filter size={13} />
+                  <Filter size={13} className="shrink-0" />
                   Gruba Göre
                 </button>
               </div>
