@@ -49,8 +49,8 @@ export default function WasteCodesClient() {
       <div className="bg-white border-b border-dark/10 py-6 sm:py-8">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
 
-          {/* Mode tabs */}
-          <div className="flex max-w-3xl mx-auto mb-5">
+          {/* Mode tabs + hazardous toggle */}
+          <div className="flex flex-wrap items-stretch max-w-3xl mx-auto mb-5 gap-y-2">
             <button
               onClick={() => switchMode('text')}
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 font-heading text-sm font-bold uppercase tracking-widest border-b-2 transition-colors
@@ -66,6 +66,16 @@ export default function WasteCodesClient() {
             >
               <Filter size={15} />
               Gruba Göre Filtrele
+            </button>
+            <button
+              onClick={() => setHazardousOnly(!hazardousOnly)}
+              className={`flex items-center gap-2 px-4 py-2.5 font-heading text-sm font-bold border-b-2 transition-colors whitespace-nowrap
+                ${hazardousOnly ? 'border-primary text-primary' : 'border-dark/10 text-text-muted hover:text-text-main'}`}
+            >
+              <span className={`w-4 h-4 border-2 flex items-center justify-center shrink-0 transition-colors ${hazardousOnly ? 'border-primary bg-primary' : 'border-current'}`}>
+                {hazardousOnly && <X size={9} className="text-dark" />}
+              </span>
+              Sadece Tehlikeli (*)
             </button>
           </div>
 
@@ -143,21 +153,6 @@ export default function WasteCodesClient() {
 
             {/* Sidebar */}
             <aside className="lg:sticky lg:top-24 space-y-4">
-              {/* Hazardous toggle */}
-              <div className="bg-white border border-dark/10 p-5">
-                <h2 className="font-heading text-xs font-bold text-text-main uppercase tracking-widest mb-4">Tip Filtresi</h2>
-                <button
-                  onClick={() => setHazardousOnly(!hazardousOnly)}
-                  className={`w-full flex items-center justify-between border px-4 py-3 font-heading text-sm font-semibold transition-colors
-                    ${hazardousOnly ? 'bg-primary/10 border-primary text-primary' : 'bg-light border-dark/10 text-text-muted hover:border-primary hover:text-primary'}`}
-                >
-                  <span>Sadece tehlikeli (*)</span>
-                  <span className={`w-4 h-4 border-2 flex items-center justify-center shrink-0 transition-colors ${hazardousOnly ? 'border-primary bg-primary' : 'border-dark/20'}`}>
-                    {hazardousOnly && <X size={10} className="text-dark" />}
-                  </span>
-                </button>
-              </div>
-
               {/* Result count + clear */}
               <div className="bg-dark/5 border border-dark/10 px-5 py-4 flex items-center justify-between">
                 <span className="font-body text-sm text-text-muted">
