@@ -3,16 +3,11 @@
 import { useLanguage } from '@/components/providers/LanguageProvider';
 import { Factory, Leaf, Recycle, Settings, Sparkles } from 'lucide-react';
 
-const items = [
-  { label: 'Zero Waste', icon: Recycle },
-  { label: 'Sustainability', icon: Leaf },
-  { label: 'Engineering Excellence', icon: Settings },
-  { label: 'Industrial Innovation', icon: Factory },
-  { label: 'Circular Economy', icon: Sparkles },
-];
+const icons = [Recycle, Leaf, Settings, Factory, Sparkles];
 
 export default function MarqueeSection() {
-  useLanguage();
+  const { dict } = useLanguage();
+  const items = dict.marquee.map((label, i) => ({ label, icon: icons[i % icons.length] }));
   const loopItems = [...items, ...items, ...items];
 
   return (

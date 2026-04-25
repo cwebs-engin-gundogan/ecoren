@@ -131,6 +131,7 @@ type Dictionary = {
     visionBody: string;
     visionTags: string[];
   };
+  marquee: string[];
   newsSection: {
     label: string;
     titlePrefix: string;
@@ -260,6 +261,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       visionBody: 'Geri dönüşüm sektöründe performansına özenilen, çevre ve yaşam değerlerine saygılı öncü bir şirket olarak faaliyetlerimiz ile ülkemiz başta olmak üzere Avrupa ülkelerinde de tercih edilebilir ve güvenilebilir bir yapıyı kazanmaktır.',
       visionTags: ['Öncü Şirket', 'Çevre ve Yaşam Değerleri', 'Güvenilir Yapı'],
     },
+    marquee: ['Sıfır Atık', 'Sürdürülebilirlik', 'Mühendislik Mükemmeliyeti', 'Endüstriyel İnovasyon', 'Döngüsel Ekonomi'],
     newsSection: { label: 'Haberler', titlePrefix: 'Bizden', titleHighlight: 'Haberler', cta: 'Tüm Haberler' },
     pages: {
       services: { label: 'Hizmetlerimiz', titlePrefix: 'Tüm', titleHighlight: 'Hizmetlerimiz', desc: 'ECOREN atık yönetimi, geri kazanım, danışmanlık, taşıma, bertaraf ve saha kurulum alanlarında kapsamlı hizmetler sunar.' },
@@ -398,6 +400,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       visionBody: 'To be Turkey’s most innovative and reliable integrated waste management company built on circular economy and zero waste principles, leading eco-friendly industrial transformation at international standards.',
       visionTags: ['Zero Waste', 'Circular Economy', 'Green Transformation'],
     },
+    marquee: ['Zero Waste', 'Sustainability', 'Engineering Excellence', 'Industrial Innovation', 'Circular Economy'],
     newsSection: { label: 'News', titlePrefix: 'Latest', titleHighlight: 'News', cta: 'All News' },
     pages: {
       services: { label: 'Services', titlePrefix: 'All', titleHighlight: 'Services', desc: 'Professional solutions in 21 categories, from hazardous and non-hazardous waste management to environmental consultancy.' },
@@ -536,6 +539,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       visionBody: 'Das innovativste und zuverlässigste integrierte Abfallmanagementunternehmen der Türkei zu sein und den umweltfreundlichen industriellen Wandel nach internationalen Standards anzuführen.',
       visionTags: ['Zero Waste', 'Kreislaufwirtschaft', 'Grüne Transformation'],
     },
+    marquee: ['Zero Waste', 'Nachhaltigkeit', 'Ingenieursexzellenz', 'Industrielle Innovation', 'Kreislaufwirtschaft'],
     newsSection: { label: 'Neuigkeiten', titlePrefix: 'Aktuelle', titleHighlight: 'Neuigkeiten', cta: 'Alle Neuigkeiten' },
     pages: {
       services: { label: 'Leistungen', titlePrefix: 'Alle', titleHighlight: 'Leistungen', desc: 'Professionelle Lösungen in 21 Kategorien, vom Management gefährlicher und ungefährlicher Abfälle bis zur Umweltberatung.' },
