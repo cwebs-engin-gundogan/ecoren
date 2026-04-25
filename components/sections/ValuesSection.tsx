@@ -3,44 +3,26 @@
 import { motion } from 'framer-motion';
 import { Leaf, RefreshCw, Shield, Award } from 'lucide-react';
 import SectionLabel from '@/components/ui/SectionLabel';
+import { useLanguage } from '@/components/providers/LanguageProvider';
 
-const values = [
-  {
-    icon: Leaf,
-    title: 'Sürdürülebilirlik',
-    desc: 'Tüm operasyonlarımızda çevresel sürdürülebilirliği ön planda tutarak gelecek nesillere yaşanabilir bir dünya bırakmayı hedefliyoruz.',
-  },
-  {
-    icon: RefreshCw,
-    title: 'Döngüsel Ekonomi',
-    desc: "Atıkları hammadde kaynağına dönüştürerek döngüsel ekonomi prensiplerine uygun, sıfır atık hedefli iş modelleri geliştiriyoruz.",
-  },
-  {
-    icon: Shield,
-    title: 'Çevre Sorumluluğu',
-    desc: 'Çevre mevzuatına tam uyum ve proaktif çevre yönetimi anlayışıyla sektörde örnek bir çevre sorumluluğu standardı oluşturuyoruz.',
-  },
-  {
-    icon: Award,
-    title: 'Güvenilirlik',
-    desc: 'Lisanslı tesisler, sertifikalı ekip ve şeffaf süreç yönetimiyle müşterilerimize her adımda güvenilir hizmet sunuyoruz.',
-  },
-];
+const icons = [Leaf, RefreshCw, Shield, Award];
 
 export default function ValuesSection() {
+  const { dict } = useLanguage();
+
   return (
     <section className="py-24 bg-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <SectionLabel className="mb-3 block">Değerlerimiz</SectionLabel>
+          <SectionLabel className="mb-3 block">{dict.valuesSection.label}</SectionLabel>
           <h2 className="font-heading text-4xl font-semibold text-white">
-            Bizi <span className="text-primary">Farklı Kılan</span> Değerler
+            {dict.valuesSection.titlePrefix} <span className="text-primary">{dict.valuesSection.titleHighlight}</span> {dict.valuesSection.titleSuffix}
           </h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {values.map((v, i) => {
-            const Icon = v.icon;
+          {dict.valuesSection.items.map((v, i) => {
+            const Icon = icons[i % icons.length];
             return (
               <motion.div
                 key={v.title}

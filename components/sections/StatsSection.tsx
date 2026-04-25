@@ -3,16 +3,19 @@
 import { motion } from 'framer-motion';
 import SectionLabel from '@/components/ui/SectionLabel';
 import AnimatedCounter from '@/components/ui/AnimatedCounter';
-import { stats } from '@/data/stats';
+import { useLanguage } from '@/components/providers/LanguageProvider';
 
 export default function StatsSection() {
+  const { dict } = useLanguage();
+  const stats = dict.statsSection.items;
+
   return (
     <section className="py-24 bg-dark border-y border-primary/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <SectionLabel className="mb-3 block">Rakamlarla ECOREN</SectionLabel>
+          <SectionLabel className="mb-3 block">{dict.statsSection.label}</SectionLabel>
           <h2 className="font-heading text-4xl font-semibold text-white">
-            <span className="text-primary">10 Yılın</span> Özeti
+            {dict.statsSection.titlePrefix} <span className="text-primary">{dict.statsSection.titleHighlight}</span> {dict.statsSection.titleSuffix}
           </h2>
         </div>
 

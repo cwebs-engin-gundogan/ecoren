@@ -1,19 +1,24 @@
+'use client';
+
 import Link from 'next/link';
 import { MapPin, Phone, Mail } from 'lucide-react';
-import { featuredServices } from '@/data/services';
-
-const quickLinks = [
-  { label: 'Ana Sayfa', href: '/' },
-  { label: 'Hakkımızda', href: '/kurumsal/hakkimizda' },
-  { label: 'Misyon & Vizyon', href: '/kurumsal/misyon-vizyon' },
-  { label: 'Değerlerimiz', href: '/kurumsal/degerlerimiz' },
-  { label: 'Tüm Hizmetler', href: '/hizmetlerimiz' },
-  { label: 'Lisanslarımız', href: '/lisanslarimiz' },
-  { label: 'Bizden Haberler', href: '/bizden-haberler' },
-  { label: 'Bize Ulaşın', href: '/bize-ulasin' },
-];
+import { useLanguage } from '@/components/providers/LanguageProvider';
+import { getLocalizedFeaturedServices } from '@/lib/i18n';
 
 export default function Footer() {
+  const { locale, dict } = useLanguage();
+  const featuredServices = getLocalizedFeaturedServices(locale);
+  const quickLinks = [
+    { label: dict.nav.home, href: '/' },
+    { label: dict.nav.about, href: '/kurumsal/hakkimizda' },
+    { label: dict.nav.missionVision, href: '/kurumsal/misyon-vizyon' },
+    { label: dict.nav.values, href: '/kurumsal/degerlerimiz' },
+    { label: dict.nav.allServices, href: '/hizmetlerimiz' },
+    { label: dict.nav.licenses, href: '/lisanslarimiz' },
+    { label: dict.nav.news, href: '/bizden-haberler' },
+    { label: dict.nav.contact, href: '/bize-ulasin' },
+  ];
+
   return (
     <footer className="bg-darker text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -24,7 +29,7 @@ export default function Footer() {
               ECOREN
             </Link>
             <p className="font-body text-sm text-white/60 leading-relaxed mb-6">
-              Atık Yönetimi Danışmanlık ve Mühendislik Hizmetleri San. ve Tic. Ltd. Şti. — Sürdürülebilir bir gelecek için çevre odaklı çözümler.
+              {dict.footer.description}
             </p>
             <div className="flex gap-3">
               {['LinkedIn', 'Twitter', 'Instagram'].map((s) => (
@@ -37,7 +42,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-heading font-semibold text-lg uppercase tracking-wide mb-6 text-white">Hızlı Bağlantılar</h3>
+            <h3 className="font-heading font-semibold text-lg uppercase tracking-wide mb-6 text-white">{dict.footer.quickLinks}</h3>
             <ul className="flex flex-col gap-2">
               {quickLinks.map((l) => (
                 <li key={l.href}>
@@ -51,7 +56,7 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="font-heading font-semibold text-lg uppercase tracking-wide mb-6 text-white">Hizmetlerimiz</h3>
+            <h3 className="font-heading font-semibold text-lg uppercase tracking-wide mb-6 text-white">{dict.footer.services}</h3>
             <ul className="flex flex-col gap-2">
               {featuredServices.map((s) => (
                 <li key={s.id}>
@@ -62,7 +67,7 @@ export default function Footer() {
               ))}
               <li>
                 <Link href="/hizmetlerimiz" className="font-body text-sm text-primary hover:underline">
-                  Tüm Hizmetleri Gör →
+                  {dict.footer.allServices} →
                 </Link>
               </li>
             </ul>
@@ -70,11 +75,11 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="font-heading font-semibold text-lg uppercase tracking-wide mb-6 text-white">İletişim</h3>
+            <h3 className="font-heading font-semibold text-lg uppercase tracking-wide mb-6 text-white">{dict.footer.contact}</h3>
             <ul className="flex flex-col gap-4">
               <li className="flex items-start gap-3">
                 <MapPin size={16} className="text-primary mt-0.5 shrink-0" />
-                <span className="font-body text-sm text-white/60">Türkiye</span>
+                <span className="font-body text-sm text-white/60">{dict.pages.contact.contactInfo[0].value}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={16} className="text-primary shrink-0" />
@@ -93,10 +98,10 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="font-body text-xs text-white/40">
-            © {new Date().getFullYear()} ECOREN Atık Yönetimi Danışmanlık ve Mühendislik Hizmetleri San. ve Tic. Ltd. Şti. Tüm hakları saklıdır.
+            © {new Date().getFullYear()} ECOREN. {dict.footer.rights}
           </p>
           <p className="font-body text-xs text-white/40">
-            Sürdürülebilir Gelecek İçin
+            {dict.footer.tagline}
           </p>
         </div>
       </div>

@@ -3,6 +3,7 @@ import { Rajdhani, DM_Sans } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import LanguageProvider from '@/components/providers/LanguageProvider';
 
 const rajdhani = Rajdhani({
   subsets: ['latin'],
@@ -27,9 +28,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="tr">
       <body className={`${rajdhani.variable} ${dmSans.variable} font-body bg-light text-text-main`}>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <LanguageProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

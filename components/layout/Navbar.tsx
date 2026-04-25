@@ -3,17 +3,18 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown } from 'lucide-react';
-import { services } from '@/data/services';
-
-const kurumsalLinks = [
-  { label: 'Hakkımızda', href: '/kurumsal/hakkimizda' },
-  { label: 'Misyon & Vizyon', href: '/kurumsal/misyon-vizyon' },
-  { label: 'Değerlerimiz', href: '/kurumsal/degerlerimiz' },
-];
+import { Menu, X, ChevronDown, Languages } from 'lucide-react';
+import { useLanguage } from '@/components/providers/LanguageProvider';
+import { getLocalizedServices, localeLabels, locales, type Locale } from '@/lib/i18n';
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+  const { locale, setLocale, dict } = useLanguage();
+  const services = getLocalizedServices(locale);
+  const kurumsalLinks = [
+    { label: dict.nav.about, href: '/kurumsal/hakkimizda' },
+    { label: dict.nav.missionVision, href: '/kurumsal/misyon-vizyon' },
+    { label: dict.nav.values, href: '/kurumsal/degerlerimiz' },
+  ];
   const [mobileOpen, setMobileOpen] = useState(false);
   const [kurumsalOpen, setKurumsalOpen] = useState(false);
   const [hizmetlerOpen, setHizmetlerOpen] = useState(false);
@@ -21,12 +22,6 @@ export default function Navbar() {
   const pathname = usePathname();
   const kurumsalRef = useRef<HTMLDivElement>(null);
   const hizmetlerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -37,13 +32,11 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  useEffect(() => { setMobileOpen(false); }, [pathname]);
-
   const navLinkClass = (href: string) =>
     `font-heading font-semibold text-sm uppercase tracking-wide transition-colors duration-200 hover:text-primary ${pathname === href ? 'text-primary' : 'text-white'}`;
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-dark shadow-lg' : 'bg-transparent'}`}>
+    <nav className="fixed top-0 w-full z-50 bg-dark/95 shadow-lg border-b border-white/10 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -53,7 +46,7 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-8">
-            <Link href="/" className={navLinkClass('/')}>Ana Sayfa</Link>
+            <Link href="/" className={navLinkClass('/')}>{dict.nav.home}</Link>
 
             {/* Kurumsal Dropdown */}
             <div ref={kurumsalRef} className="relative">
@@ -61,7 +54,7 @@ export default function Navbar() {
                 onClick={() => setKurumsalOpen(!kurumsalOpen)}
                 className="flex items-center gap-1 font-heading font-semibold text-sm uppercase tracking-wide text-white hover:text-primary transition-colors duration-200"
               >
-                Kurumsal <ChevronDown size={14} className={`transition-transform ${kurumsalOpen ? 'rotate-180' : ''}`} />
+                {dict.nav.corporate} <ChevronDown size={14} className={`transition-transform ${kurumsalOpen ? 'rotate-180' : ''}`} />
               </button>
               {kurumsalOpen && (
                 <div className="absolute top-full left-0 mt-2 w-48 bg-dark border border-white/10 shadow-xl rounded-sm py-2">
@@ -80,7 +73,7 @@ export default function Navbar() {
                 onClick={() => setHizmetlerOpen(!hizmetlerOpen)}
                 className="flex items-center gap-1 font-heading font-semibold text-sm uppercase tracking-wide text-white hover:text-primary transition-colors duration-200"
               >
-                Hizmetlerimiz <ChevronDown size={14} className={`transition-transform ${hizmetlerOpen ? 'rotate-180' : ''}`} />
+                {dict.nav.services} <ChevronDown size={14} className={`transition-transform ${hizmetlerOpen ? 'rotate-180' : ''}`} />
               </button>
               {hizmetlerOpen && (
                 <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[600px] bg-dark border border-white/10 shadow-xl rounded-sm py-4 px-4">
@@ -93,17 +86,31 @@ export default function Navbar() {
                   </div>
                   <div className="mt-3 pt-3 border-t border-white/10">
                     <Link href="/hizmetlerimiz" className="text-primary text-xs font-heading font-semibold uppercase tracking-wide hover:underline">
-                      Tüm Hizmetleri Gör →
+                      {dict.nav.allServices} →
                     </Link>
                   </div>
                 </div>
               )}
             </div>
 
-            <Link href="/lisanslarimiz" className={navLinkClass('/lisanslarimiz')}>Lisanslarımız</Link>
-            <Link href="/bizden-haberler" className={navLinkClass('/bizden-haberler')}>Bizden Haberler</Link>
+            <Link href="/lisanslarimiz" className={navLinkClass('/lisanslarimiz')}>{dict.nav.licenses}</Link>
+            <Link href="/bizden-haberler" className={navLinkClass('/bizden-haberler')}>{dict.nav.news}</Link>
+            <div className="flex items-center gap-1 border border-white/20 px-2 py-1">
+              <Languages size={14} className="text-primary" />
+              {locales.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  onClick={() => setLocale(item as Locale)}
+                  className={`font-heading text-xs font-semibold px-1.5 py-0.5 transition-colors ${locale === item ? 'text-primary' : 'text-white/60 hover:text-white'}`}
+                  aria-pressed={locale === item}
+                >
+                  {localeLabels[item]}
+                </button>
+              ))}
+            </div>
             <Link href="/bize-ulasin" className="font-heading font-semibold text-sm uppercase tracking-wide bg-primary text-dark px-4 py-2 hover:bg-primary/90 transition-colors">
-              Bize Ulaşın
+              {dict.nav.contact}
             </Link>
           </div>
 
@@ -111,7 +118,7 @@ export default function Navbar() {
           <button
             className="lg:hidden text-white p-2"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Menüyü Aç"
+            aria-label={dict.nav.menuLabel}
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -121,19 +128,33 @@ export default function Navbar() {
       {/* Mobile Panel */}
       <div className={`lg:hidden fixed inset-0 top-16 bg-dark z-40 transition-transform duration-300 overflow-y-auto ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="px-6 py-6 flex flex-col gap-2">
-          <Link href="/" className="font-heading font-semibold text-lg text-white py-3 border-b border-white/10">Ana Sayfa</Link>
+          <div className="flex items-center gap-2 border-b border-white/10 pb-4 mb-2">
+            <Languages size={16} className="text-primary" />
+            {locales.map((item) => (
+              <button
+                key={item}
+                type="button"
+                onClick={() => setLocale(item as Locale)}
+                className={`font-heading text-sm font-semibold px-3 py-2 border transition-colors ${locale === item ? 'border-primary text-primary' : 'border-white/10 text-white/70'}`}
+              >
+                {localeLabels[item]}
+              </button>
+            ))}
+          </div>
+
+          <Link href="/" onClick={() => setMobileOpen(false)} className="font-heading font-semibold text-lg text-white py-3 border-b border-white/10">{dict.nav.home}</Link>
 
           <div>
             <button
               onClick={() => setMobileSectionOpen(mobileSectionOpen === 'kurumsal' ? null : 'kurumsal')}
               className="w-full flex items-center justify-between font-heading font-semibold text-lg text-white py-3 border-b border-white/10"
             >
-              Kurumsal <ChevronDown size={16} className={`transition-transform ${mobileSectionOpen === 'kurumsal' ? 'rotate-180' : ''}`} />
+              {dict.nav.corporate} <ChevronDown size={16} className={`transition-transform ${mobileSectionOpen === 'kurumsal' ? 'rotate-180' : ''}`} />
             </button>
             {mobileSectionOpen === 'kurumsal' && (
               <div className="pl-4 py-2 flex flex-col gap-1">
                 {kurumsalLinks.map((l) => (
-                  <Link key={l.href} href={l.href} className="text-white/70 hover:text-primary py-2 font-body text-sm">{l.label}</Link>
+                  <Link key={l.href} href={l.href} onClick={() => setMobileOpen(false)} className="text-white/70 hover:text-primary py-2 font-body text-sm">{l.label}</Link>
                 ))}
               </div>
             )}
@@ -144,21 +165,21 @@ export default function Navbar() {
               onClick={() => setMobileSectionOpen(mobileSectionOpen === 'hizmetler' ? null : 'hizmetler')}
               className="w-full flex items-center justify-between font-heading font-semibold text-lg text-white py-3 border-b border-white/10"
             >
-              Hizmetlerimiz <ChevronDown size={16} className={`transition-transform ${mobileSectionOpen === 'hizmetler' ? 'rotate-180' : ''}`} />
+              {dict.nav.services} <ChevronDown size={16} className={`transition-transform ${mobileSectionOpen === 'hizmetler' ? 'rotate-180' : ''}`} />
             </button>
             {mobileSectionOpen === 'hizmetler' && (
               <div className="pl-4 py-2 flex flex-col gap-1">
                 {services.map((s) => (
-                  <Link key={s.id} href={s.href} className="text-white/70 hover:text-primary py-1 font-body text-sm">{s.title}</Link>
+                  <Link key={s.id} href={s.href} onClick={() => setMobileOpen(false)} className="text-white/70 hover:text-primary py-1 font-body text-sm">{s.title}</Link>
                 ))}
-                <Link href="/hizmetlerimiz" className="text-primary font-heading font-semibold text-sm mt-2">Tüm Hizmetler →</Link>
+                <Link href="/hizmetlerimiz" onClick={() => setMobileOpen(false)} className="text-primary font-heading font-semibold text-sm mt-2">{dict.nav.allServices} →</Link>
               </div>
             )}
           </div>
 
-          <Link href="/lisanslarimiz" className="font-heading font-semibold text-lg text-white py-3 border-b border-white/10">Lisanslarımız</Link>
-          <Link href="/bizden-haberler" className="font-heading font-semibold text-lg text-white py-3 border-b border-white/10">Bizden Haberler</Link>
-          <Link href="/bize-ulasin" className="mt-4 bg-primary text-dark text-center font-heading font-semibold py-3 px-6 uppercase tracking-wide">Bize Ulaşın</Link>
+          <Link href="/lisanslarimiz" onClick={() => setMobileOpen(false)} className="font-heading font-semibold text-lg text-white py-3 border-b border-white/10">{dict.nav.licenses}</Link>
+          <Link href="/bizden-haberler" onClick={() => setMobileOpen(false)} className="font-heading font-semibold text-lg text-white py-3 border-b border-white/10">{dict.nav.news}</Link>
+          <Link href="/bize-ulasin" onClick={() => setMobileOpen(false)} className="mt-4 bg-primary text-dark text-center font-heading font-semibold py-3 px-6 uppercase tracking-wide">{dict.nav.contact}</Link>
         </div>
       </div>
     </nav>

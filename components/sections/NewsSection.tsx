@@ -5,23 +5,24 @@ import Link from 'next/link';
 import { ArrowRight, Calendar } from 'lucide-react';
 import SectionLabel from '@/components/ui/SectionLabel';
 import Button from '@/components/ui/Button';
-import { news } from '@/data/news';
+import { useLanguage } from '@/components/providers/LanguageProvider';
 
 export default function NewsSection() {
-  const latest = news.slice(0, 3);
+  const { dict } = useLanguage();
+  const latest = dict.news.slice(0, 3);
 
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 gap-6">
           <div>
-            <SectionLabel className="mb-3 block">Haberler</SectionLabel>
+            <SectionLabel className="mb-3 block">{dict.newsSection.label}</SectionLabel>
             <h2 className="font-heading text-4xl font-semibold text-text-main">
-              Bizden <span className="text-primary">Haberler</span>
+              {dict.newsSection.titlePrefix} <span className="text-primary">{dict.newsSection.titleHighlight}</span>
             </h2>
           </div>
           <Button href="/bizden-haberler" variant="outline" className="text-dark border-dark">
-            Tüm Haberler
+            {dict.newsSection.cta}
           </Button>
         </div>
 
@@ -48,7 +49,7 @@ export default function NewsSection() {
                     {item.excerpt}
                   </p>
                   <span className="flex items-center gap-1 text-primary font-heading font-semibold text-sm group-hover:gap-3 transition-all">
-                    Devamını Oku <ArrowRight size={14} />
+                    {dict.common.readMore} <ArrowRight size={14} />
                   </span>
                 </div>
               </Link>

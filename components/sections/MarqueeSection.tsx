@@ -1,6 +1,11 @@
-import { services } from '@/data/services';
+'use client';
+
+import { useLanguage } from '@/components/providers/LanguageProvider';
+import { getLocalizedServices } from '@/lib/i18n';
 
 export default function MarqueeSection() {
+  const { locale } = useLanguage();
+  const services = getLocalizedServices(locale);
   const items = [...services, ...services];
 
   return (

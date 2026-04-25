@@ -5,18 +5,22 @@ import Link from 'next/link';
 import { ArrowRight, Recycle, Leaf, Truck, FlaskConical } from 'lucide-react';
 import SectionLabel from '@/components/ui/SectionLabel';
 import Button from '@/components/ui/Button';
-import { featuredServices } from '@/data/services';
+import { useLanguage } from '@/components/providers/LanguageProvider';
+import { getLocalizedFeaturedServices } from '@/lib/i18n';
 
 const icons = [Recycle, Leaf, FlaskConical, Truck];
 
 export default function ServicesSection() {
+  const { locale, dict } = useLanguage();
+  const featuredServices = getLocalizedFeaturedServices(locale);
+
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <SectionLabel className="mb-3 block">Hizmetlerimiz</SectionLabel>
+          <SectionLabel className="mb-3 block">{dict.servicesSection.label}</SectionLabel>
           <h2 className="font-heading text-4xl font-semibold text-text-main">
-            Uçtan Uca <span className="text-primary">Atık Yönetimi</span> Çözümleri
+            {dict.servicesSection.titlePrefix} <span className="text-primary">{dict.servicesSection.titleHighlight}</span> {dict.servicesSection.titleSuffix}
           </h2>
         </div>
 
@@ -51,7 +55,7 @@ export default function ServicesSection() {
                         ))}
                       </div>
                       <span className="flex items-center gap-1 text-primary font-heading font-semibold text-sm group-hover:gap-3 transition-all">
-                        Detaylar <ArrowRight size={14} />
+                        {dict.common.details} <ArrowRight size={14} />
                       </span>
                     </div>
                   </div>
@@ -63,7 +67,7 @@ export default function ServicesSection() {
 
         <div className="text-center">
           <Button href="/hizmetlerimiz" variant="primary" size="lg">
-            Tüm Hizmetleri Gör
+            {dict.servicesSection.cta}
           </Button>
         </div>
       </div>

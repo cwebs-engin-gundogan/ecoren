@@ -58,13 +58,13 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   return (
     <div className="pt-16">
       {/* Hero */}
-      <section className="bg-dark py-24">
+      <section className="bg-dark py-20 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link href="/hizmetlerimiz" className="inline-flex items-center gap-2 text-white/50 hover:text-primary font-body text-sm mb-6 transition-colors">
             <ArrowLeft size={14} /> Tüm Hizmetler
           </Link>
           <SectionLabel className="mb-4 block">Hizmetlerimiz</SectionLabel>
-          <h1 className="font-heading text-4xl md:text-5xl font-bold text-white uppercase mb-6 max-w-3xl leading-tight">
+          <h1 className="font-heading text-4xl sm:text-5xl font-bold text-white uppercase mb-6 max-w-3xl leading-tight">
             {service.title}
           </h1>
           <p className="font-body text-base text-white/60 max-w-2xl leading-relaxed mb-6">
@@ -81,7 +81,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* Content */}
-      <section className="py-24 bg-light">
+      <section className="py-16 sm:py-24 bg-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Main content */}
@@ -109,7 +109,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 ))}
               </ul>
 
-              <div className="bg-dark p-8">
+              <div className="bg-dark p-6 sm:p-8">
                 <h3 className="font-heading text-xl font-semibold text-white mb-4">Bu hizmet hakkında daha fazla bilgi almak ister misiniz?</h3>
                 <p className="font-body text-sm text-white/60 mb-6">Uzman ekibimiz size özel çözümler sunmak için hazır. Hemen iletişime geçin.</p>
                 <Button href="/bize-ulasin" variant="primary">Bize Ulaşın</Button>
