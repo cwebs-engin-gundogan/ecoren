@@ -7,6 +7,12 @@ import { Menu, X, ChevronDown, Languages } from 'lucide-react';
 import { useLanguage } from '@/components/providers/LanguageProvider';
 import { getLocalizedServices, localeLabels, locales, type Locale } from '@/lib/i18n';
 
+const localeFlags: Record<Locale, { src: string; alt: string; position?: string }> = {
+  tr: { src: 'https://flagcdn.com/w40/tr.png', alt: 'Türkiye bayrağı', position: '20% center' },
+  en: { src: 'https://flagcdn.com/w40/gb.png', alt: 'Birleşik Krallık bayrağı' },
+  de: { src: 'https://flagcdn.com/w40/de.png', alt: 'Almanya bayrağı' },
+};
+
 export default function Navbar() {
   const { locale, setLocale, dict } = useLanguage();
   const services = getLocalizedServices(locale);
@@ -16,17 +22,20 @@ export default function Navbar() {
     { label: dict.nav.values, href: '/kurumsal/degerlerimiz' },
   ];
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileLanguageOpen, setMobileLanguageOpen] = useState(false);
   const [kurumsalOpen, setKurumsalOpen] = useState(false);
   const [hizmetlerOpen, setHizmetlerOpen] = useState(false);
   const [mobileSectionOpen, setMobileSectionOpen] = useState<string | null>(null);
   const pathname = usePathname();
   const kurumsalRef = useRef<HTMLDivElement>(null);
   const hizmetlerRef = useRef<HTMLDivElement>(null);
+  const mobileLanguageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (kurumsalRef.current && !kurumsalRef.current.contains(e.target as Node)) setKurumsalOpen(false);
       if (hizmetlerRef.current && !hizmetlerRef.current.contains(e.target as Node)) setHizmetlerOpen(false);
+      if (mobileLanguageRef.current && !mobileLanguageRef.current.contains(e.target as Node)) setMobileLanguageOpen(false);
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -117,14 +126,56 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Hamburger */}
-          <button
-            className="lg:hidden text-white p-2"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label={dict.nav.menuLabel}
-          >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile Actions */}
+          <div className="lg:hidden flex items-center gap-2">
+            <div ref={mobileLanguageRef} className="relative">
+              <button
+                type="button"
+                onClick={() => setMobileLanguageOpen(!mobileLanguageOpen)}
+                className="flex h-10 items-center gap-1.5 border border-white/15 px-3 text-white"
+                aria-label="Dil seçimi"
+                aria-expanded={mobileLanguageOpen}
+              >
+                <Languages size={16} className="text-primary" />
+                <span className="font-heading text-xs font-semibold text-primary">{localeLabels[locale]}</span>
+                <ChevronDown size={14} className={`transition-transform ${mobileLanguageOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {mobileLanguageOpen && (
+                <div className="absolute right-0 top-full mt-2 w-full min-w-full border border-white/10 bg-dark/95 py-2 shadow-xl backdrop-blur-md">
+                  {locales.map((item) => (
+                    <button
+                      key={item}
+                      type="button"
+                      onClick={() => {
+                        setLocale(item as Locale);
+                        setMobileLanguageOpen(false);
+                      }}
+                      className={`flex w-full items-center gap-2 px-3 py-2 text-left font-heading text-sm font-semibold transition-colors ${locale === item ? 'text-primary' : 'text-white/70 hover:bg-white/5 hover:text-primary'}`}
+                    >
+                      <span
+                        aria-label={localeFlags[item].alt}
+                        role="img"
+                        className="h-6 w-6 rounded-full bg-cover bg-center"
+                        style={{
+                          backgroundImage: `url(${localeFlags[item].src})`,
+                          backgroundPosition: localeFlags[item].position,
+                        }}
+                      />
+                      {localeLabels[item]}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <button
+              className="text-white p-2"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label={dict.nav.menuLabel}
+            >
+              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -132,20 +183,6 @@ export default function Navbar() {
       {mobileOpen && (
       <div className="lg:hidden bg-dark shadow-2xl">
         <div className="px-6 py-6 flex flex-col gap-2">
-          <div className="flex items-center gap-2 border-b border-white/10 pb-4 mb-2">
-            <Languages size={16} className="text-primary" />
-            {locales.map((item) => (
-              <button
-                key={item}
-                type="button"
-                onClick={() => setLocale(item as Locale)}
-                className={`font-heading text-sm font-semibold px-3 py-2 border transition-colors ${locale === item ? 'border-primary text-primary' : 'border-white/10 text-white/70'}`}
-              >
-                {localeLabels[item]}
-              </button>
-            ))}
-          </div>
-
           <Link href="/" onClick={() => setMobileOpen(false)} className="font-heading font-semibold text-lg text-white py-3 border-b border-white/10">{dict.nav.home}</Link>
 
           <div>
