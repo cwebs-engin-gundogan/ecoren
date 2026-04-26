@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ArrowUp } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowUp, MessageSquare } from 'lucide-react';
 
 export default function FloatingButtons() {
   const [visible, setVisible] = useState(false);
@@ -30,6 +31,18 @@ export default function FloatingButtons() {
         </span>
       </button>
 
+      {/* Contact CTA — always visible */}
+      <Link
+        href="/bize-ulasin"
+        className="flex items-center gap-2 bg-primary text-dark shadow-lg
+          px-3 py-2.5 sm:px-4 transition-all duration-200 hover:brightness-110 active:scale-95"
+        aria-label="Bize Ulaşın"
+      >
+        <MessageSquare size={16} className="shrink-0" />
+        <span className="font-heading text-xs font-semibold uppercase tracking-widest">
+          Bize Ulaşın
+        </span>
+      </Link>
     </div>
   );
 }
