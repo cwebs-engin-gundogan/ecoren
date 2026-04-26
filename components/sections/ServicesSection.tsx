@@ -32,32 +32,30 @@ export default function ServicesSection() {
           <div className="mx-auto mt-6 h-1 w-24 bg-primary-deep" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 mb-12 items-stretch">
           {featuredServices.map((service, i) => {
             const Icon = icons[i % icons.length];
             return (
-              <div key={service.id}>
-                <Link href={service.href} className="group block overflow-hidden bg-white shadow-sm transition-all duration-500 hover:bg-dark hover:shadow-2xl">
-                  <div className="relative h-44 overflow-hidden">
-                    <img src={serviceImages[i]} alt={service.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                    <div className="absolute inset-0 bg-primary/20 transition-colors group-hover:bg-transparent" />
-                    <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center bg-white/90">
-                      <Icon size={20} className="text-primary-deep" />
-                    </div>
+              <Link key={service.id} href={service.href} className="group flex flex-col overflow-hidden bg-white shadow-sm transition-all duration-500 hover:bg-dark hover:shadow-2xl">
+                <div className="relative h-44 shrink-0 overflow-hidden">
+                  <img src={serviceImages[i]} alt={service.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-primary/20 transition-colors group-hover:bg-transparent" />
+                  <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center bg-white/90">
+                    <Icon size={20} className="text-primary-deep" />
                   </div>
-                  <div className="p-6">
-                    <h3 className="font-heading text-xl font-semibold text-text-main mb-3 leading-tight transition-colors group-hover:text-white">
-                      {service.title}
-                    </h3>
-                    <p className="font-body text-sm text-text-muted leading-relaxed mb-6 transition-colors group-hover:text-white/55">
-                      {service.shortDesc}
-                    </p>
-                    <span className="flex items-center gap-2 text-primary-deep font-heading font-bold text-sm uppercase transition-colors group-hover:text-primary">
-                      {dict.common.details} <ArrowRight size={14} />
-                    </span>
-                  </div>
-                </Link>
-              </div>
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="font-heading text-xl font-semibold text-text-main mb-3 leading-tight transition-colors group-hover:text-white">
+                    {service.title}
+                  </h3>
+                  <p className="font-body text-sm text-text-muted leading-relaxed mb-6 flex-1 transition-colors group-hover:text-white/55">
+                    {service.shortDesc}
+                  </p>
+                  <span className="flex items-center gap-2 text-primary-deep font-heading font-bold text-sm uppercase transition-colors group-hover:text-primary">
+                    {dict.common.details} <ArrowRight size={14} />
+                  </span>
+                </div>
+              </Link>
             );
           })}
         </div>

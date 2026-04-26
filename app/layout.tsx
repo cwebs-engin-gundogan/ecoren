@@ -77,7 +77,7 @@ const organizationSchema = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="tr">
-      <body className={`${rajdhani.variable} ${dmSans.variable} font-body bg-light text-text-main`}>
+      <body className={`${rajdhani.variable} ${dmSans.variable} font-body bg-light text-text-main overflow-x-hidden`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

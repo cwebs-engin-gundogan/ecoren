@@ -97,7 +97,6 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link href="/lisanslarimiz" className={navLinkClass('/lisanslarimiz')}>{dict.nav.licenses}</Link>
             <Link href="/atik-kodlari" className={navLinkClass('/atik-kodlari')}>{dict.nav.wasteCodes}</Link>
             <div className="flex items-center gap-1 border border-white/15 px-2 py-1">
               <Languages size={14} className="text-primary" />
@@ -182,7 +181,6 @@ export default function Navbar() {
             )}
           </div>
 
-          <Link href="/lisanslarimiz" onClick={() => setMobileOpen(false)} className="font-heading font-semibold text-lg text-white py-3 border-b border-white/10">{dict.nav.licenses}</Link>
           <Link href="/atik-kodlari" onClick={() => setMobileOpen(false)} className="font-heading font-semibold text-lg text-white py-3 border-b border-white/10">{dict.nav.wasteCodes}</Link>
           <Link href="/bize-ulasin" onClick={() => setMobileOpen(false)} className="mt-4 bg-primary text-dark text-center font-heading font-semibold py-3 px-6 uppercase tracking-wide">{dict.nav.contact}</Link>
         </div>

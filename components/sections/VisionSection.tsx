@@ -9,7 +9,7 @@ export default function VisionSection() {
   const { dict } = useLanguage();
 
   return (
-    <section className="py-16 sm:py-24 bg-light">
+    <section className="py-16 sm:py-24 bg-light overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <SectionLabel className="mb-3 block">{dict.visionSection.label}</SectionLabel>
@@ -31,14 +31,14 @@ export default function VisionSection() {
               <Target size={26} className="text-primary" />
             </div>
             <h3 className="font-heading text-2xl font-semibold text-white mb-4 uppercase tracking-wide">{dict.visionSection.missionTitle}</h3>
-            <p className="font-body text-base text-white/70 leading-relaxed">
-              {dict.visionSection.missionBody}
-            </p>
-            <div className="mt-8 pt-8 border-t border-white/10">
-              <div className="flex flex-wrap gap-4 sm:gap-6">
+            <div className="mt-6 flex flex-col sm:flex-row sm:items-start gap-6 sm:gap-8 border-t border-white/10 pt-6">
+              <p className="font-body text-base text-white/70 leading-relaxed sm:flex-1">
+                {dict.visionSection.missionBody}
+              </p>
+              <div className="flex flex-col gap-4 sm:w-40 shrink-0">
                 {dict.visionSection.missionTags.map((l) => (
                   <div key={l}>
-                    <div className="w-1.5 h-1.5 bg-primary rounded-full mb-2" />
+                    <div className="w-1.5 h-1.5 bg-primary rounded-full mb-1" />
                     <span className="font-body text-xs text-white/40 uppercase tracking-wide">{l}</span>
                   </div>
                 ))}
@@ -58,14 +58,14 @@ export default function VisionSection() {
               <Eye size={26} className="text-dark" />
             </div>
             <h3 className="font-heading text-2xl font-semibold text-dark mb-4 uppercase tracking-wide">{dict.visionSection.visionTitle}</h3>
-            <p className="font-body text-base text-dark/80 leading-relaxed">
-              {dict.visionSection.visionBody}
-            </p>
-            <div className="mt-8 pt-8 border-t border-dark/20">
-              <div className="flex flex-wrap gap-4 sm:gap-6">
+            <div className="mt-6 flex flex-col sm:flex-row sm:items-start gap-6 sm:gap-8 border-t border-dark/20 pt-6">
+              <p className="font-body text-base text-dark/80 leading-relaxed sm:flex-1">
+                {dict.visionSection.visionBody}
+              </p>
+              <div className="flex flex-col gap-4 sm:w-40 shrink-0">
                 {dict.visionSection.visionTags.map((l) => (
                   <div key={l}>
-                    <div className="w-1.5 h-1.5 bg-dark rounded-full mb-2" />
+                    <div className="w-1.5 h-1.5 bg-dark rounded-full mb-1" />
                     <span className="font-body text-xs text-dark/50 uppercase tracking-wide">{l}</span>
                   </div>
                 ))}

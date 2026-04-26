@@ -14,8 +14,7 @@ export default function Footer() {
     { label: dict.nav.missionVision, href: '/kurumsal/misyon-vizyon' },
     { label: dict.nav.values, href: '/kurumsal/degerlerimiz' },
     { label: dict.nav.allServices, href: '/hizmetlerimiz' },
-    { label: dict.nav.licenses, href: '/lisanslarimiz' },
-    { label: dict.nav.wasteCodes, href: '/atik-kodlari' },
+{ label: dict.nav.wasteCodes, href: '/atik-kodlari' },
     { label: dict.nav.contact, href: '/bize-ulasin' },
   ];
 

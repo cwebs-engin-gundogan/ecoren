@@ -14,7 +14,7 @@ export default function AboutSection() {
   const { dict } = useLanguage();
 
   return (
-    <section className="bg-light py-20 lg:py-28">
+    <section className="bg-light py-20 lg:py-28 overflow-hidden">
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-14 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div className="relative">
             <div className="absolute -left-8 -top-8 -z-10 h-56 w-56 bg-primary/10" />
