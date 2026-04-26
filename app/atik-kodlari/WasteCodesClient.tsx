@@ -8,8 +8,9 @@ import { useLanguage } from '@/components/providers/LanguageProvider';
 type SearchMode = 'text' | 'group';
 
 export default function WasteCodesClient() {
-  const { dict } = useLanguage();
+  const { dict, locale } = useLanguage();
   const t = dict.pages.wasteCodes;
+  const loc = locale as 'tr' | 'en' | 'de';
 
   const [mode, setMode] = useState<SearchMode>('text');
   const [query, setQuery] = useState('');
@@ -29,7 +30,7 @@ export default function WasteCodesClient() {
         ...g,
         items: g.items.filter((item) => {
           if (!q) return true;
-          return item.code.toLowerCase().includes(q) || item.description.toLowerCase().includes(q);
+          return item.code.toLowerCase().includes(q) || item.description[loc].toLowerCase().includes(q);
         }),
       }))
       .filter((g) => g.items.length > 0);
@@ -140,7 +141,7 @@ export default function WasteCodesClient() {
                         <button
                           key={g.group}
                           onClick={() => setSelectedGroup(selectedGroup === g.group ? null : g.group)}
-                          title={g.title}
+                          title={g.title[loc]}
                           className={`h-9 flex items-center justify-center font-heading text-sm font-bold border transition-colors
                             ${selectedGroup === g.group ? 'bg-primary text-dark border-primary' : 'bg-light text-text-main border-dark/10 hover:border-primary hover:text-primary'}`}
                         >
@@ -200,7 +201,7 @@ export default function WasteCodesClient() {
                               {group.group} {t.wasteCode}
                             </p>
                             <h3 className="mt-2 font-heading text-lg sm:text-2xl font-bold text-white leading-snug">
-                              {group.title}
+                              {group.title[loc]}
                             </h3>
                           </div>
                           <span className="shrink-0 border border-primary/35 px-3 py-2 font-heading text-xs font-bold uppercase tracking-widest text-primary">
@@ -228,7 +229,7 @@ export default function WasteCodesClient() {
                                   {item.code}
                                 </td>
                                 <td className="px-4 py-3.5 sm:px-6 align-top font-body text-sm leading-relaxed text-text-muted">
-                                  <Highlight text={item.description} query={query} />
+                                  <Highlight text={item.description[loc]} query={query} />
                                 </td>
                               </tr>
                             ))}

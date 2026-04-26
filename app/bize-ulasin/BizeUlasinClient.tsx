@@ -79,13 +79,36 @@ export default function BizeUlasinClient() {
     ...item,
     icon: contactIcons[index],
   }));
+  const [phonePrefix, setPhonePrefix] = useState('+90');
   const [formData, setFormData] = useState({ name: '', company: '', email: '', phone: '', subject: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [phoneModalOpen, setPhoneModalOpen] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validate = (data: typeof formData) => {
+    const e: Record<string, string> = {};
+    if (!data.name.trim() || data.name.trim().length < 2) e.name = 'Ad Soyad en az 2 karakter olmalıdır.';
+    if (!data.email.trim()) {
+      e.email = 'E-posta adresi zorunludur.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      e.email = 'Geçerli bir e-posta adresi giriniz.';
+    }
+    if (data.phone.trim() && !/^[\d\s\-().]+$/.test(data.phone)) {
+      e.phone = 'Geçerli bir telefon numarası giriniz.';
+    }
+    if (!data.message.trim()) e.message = 'Mesaj zorunludur.';
+    return e;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const validationErrors = validate(formData);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    setErrors({});
     setSending(true);
 
     const BOT_TOKEN = process.env.NEXT_PUBLIC_TELEGRAM_BOT_TOKEN;
@@ -99,18 +122,48 @@ export default function BizeUlasinClient() {
       `*Ad Soyad:* ${formData.name}`,
       formData.company ? `*Firma:* ${formData.company}` : null,
       `*E-posta:* ${formData.email}`,
-      formData.phone ? `*Telefon:* ${formData.phone}` : null,
+      formData.phone ? `*Telefon:* ${phonePrefix} ${formData.phone}` : null,
       subject ? `*Konu:* ${subject}` : null,
       `*Mesaj:* ${formData.message}`,
     ].filter(Boolean).join('\n');
 
     try {
       if (BOT_TOKEN && CHAT_ID) {
+        // 1) Metin mesajı
         await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ chat_id: CHAT_ID, text, parse_mode: 'Markdown' }),
         });
+
+        // 2) vCard dosyası (rehbere eklemek için)
+        if (formData.phone) {
+          const contactName = [formData.name, formData.company].filter(Boolean).join(' ');
+          const fullPhone = `${phonePrefix}${formData.phone.replace(/\s/g, '')}`;
+          const vcard = [
+            'BEGIN:VCARD',
+            'VERSION:3.0',
+            `FN:${contactName}`,
+            `N:${formData.company || ''};${formData.name};;;`,
+            formData.company ? `ORG:${formData.company}` : null,
+            `TEL;TYPE=CELL:${fullPhone}`,
+            formData.email ? `EMAIL:${formData.email}` : null,
+            'END:VCARD',
+          ].filter(Boolean).join('\r\n');
+
+          const blob = new Blob([vcard], { type: 'text/vcard' });
+          const fileName = `${formData.name.replace(/\s+/g, '_')}.vcf`;
+
+          const fd = new FormData();
+          fd.append('chat_id', CHAT_ID);
+          fd.append('document', blob, fileName);
+          fd.append('caption', '👤 Rehbere eklemek için dosyaya tıklayın');
+
+          await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`, {
+            method: 'POST',
+            body: fd,
+          });
+        }
       }
     } catch (_) {
       // hata olsa bile formu başarılı göster
@@ -214,9 +267,10 @@ export default function BizeUlasinClient() {
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full border border-gray-200 px-4 py-3 font-body text-sm text-text-main focus:outline-none focus:border-primary transition-colors"
+                        className={`w-full border px-4 py-3 font-body text-sm text-text-main focus:outline-none transition-colors ${errors.name ? 'border-red-400 focus:border-red-400' : 'border-gray-200 focus:border-primary'}`}
                         placeholder={dict.pages.contact.placeholders.name}
                       />
+                      {errors.name && <p className="font-body text-xs text-red-500 mt-1">{errors.name}</p>}
                     </div>
                     <div>
                       <label className="font-body text-xs uppercase tracking-wide text-text-main/60 mb-2 block">{dict.pages.contact.fields.company}</label>
@@ -237,20 +291,30 @@ export default function BizeUlasinClient() {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full border border-gray-200 px-4 py-3 font-body text-sm text-text-main focus:outline-none focus:border-primary transition-colors"
+                        className={`w-full border px-4 py-3 font-body text-sm text-text-main focus:outline-none transition-colors ${errors.email ? 'border-red-400 focus:border-red-400' : 'border-gray-200 focus:border-primary'}`}
                         placeholder={dict.pages.contact.placeholders.email}
                       />
+                      {errors.email && <p className="font-body text-xs text-red-500 mt-1">{errors.email}</p>}
                     </div>
                     <div>
                       <label className="font-body text-xs uppercase tracking-wide text-text-main/60 mb-2 block">{dict.pages.contact.fields.phone}</label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="w-full border border-gray-200 px-4 py-3 font-body text-sm text-text-main focus:outline-none focus:border-primary transition-colors"
-                        placeholder={dict.pages.contact.placeholders.phone}
-                      />
+                      <div className="flex">
+                        <input
+                          type="text"
+                          value={phonePrefix}
+                          onChange={(e) => setPhonePrefix(e.target.value)}
+                          className="w-[4.5rem] shrink-0 border border-r-0 border-gray-200 px-2 py-3 font-body text-sm text-text-main text-center focus:outline-none focus:border-primary transition-colors bg-gray-50"
+                        />
+                        <input
+                          type="tel"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleChange}
+                          placeholder="5XX XXX XX XX"
+                          className={`flex-1 border px-4 py-3 font-body text-sm text-text-main focus:outline-none transition-colors ${errors.phone ? 'border-red-400 focus:border-red-400' : 'border-gray-200 focus:border-primary'}`}
+                        />
+                      </div>
+                      {errors.phone && <p className="font-body text-xs text-red-500 mt-1">{errors.phone}</p>}
                     </div>
                   </div>
                   <div>
@@ -275,9 +339,10 @@ export default function BizeUlasinClient() {
                       value={formData.message}
                       onChange={handleChange}
                       rows={5}
-                      className="w-full border border-gray-200 px-4 py-3 font-body text-sm text-text-main focus:outline-none focus:border-primary transition-colors resize-none"
+                      className={`w-full border px-4 py-3 font-body text-sm text-text-main focus:outline-none transition-colors resize-none ${errors.message ? 'border-red-400 focus:border-red-400' : 'border-gray-200 focus:border-primary'}`}
                       placeholder={dict.pages.contact.placeholders.message}
                     />
+                    {errors.message && <p className="font-body text-xs text-red-500 mt-1">{errors.message}</p>}
                   </div>
                   <button
                     type="submit"

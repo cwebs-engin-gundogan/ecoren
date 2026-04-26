@@ -61,7 +61,7 @@ export default function Navbar() {
               {kurumsalOpen && (
                 <div className="absolute top-full left-0 mt-3 w-52 bg-dark/95 border border-white/10 shadow-xl py-2 backdrop-blur-md">
                   {kurumsalLinks.map((l) => (
-                    <Link key={l.href} href={l.href} className="block px-4 py-2 text-xs uppercase tracking-wide text-white/75 hover:text-primary hover:bg-white/5 font-body transition-colors">
+                    <Link key={l.href} href={l.href} onClick={() => setKurumsalOpen(false)} className="block px-4 py-2 text-xs uppercase tracking-wide text-white/75 hover:text-primary hover:bg-white/5 font-body transition-colors">
                       {l.label}
                     </Link>
                   ))}
@@ -83,13 +83,13 @@ export default function Navbar() {
                 <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[min(600px,90vw)] bg-dark/95 border border-white/10 shadow-xl py-4 px-4 backdrop-blur-md">
                   <div className="grid grid-cols-2 gap-1">
                     {services.map((s) => (
-                      <Link key={s.id} href={s.href} className="block px-3 py-2 text-xs text-white/75 hover:text-primary hover:bg-white/5 font-body transition-colors truncate">
+                      <Link key={s.id} href={s.href} onClick={() => setHizmetlerOpen(false)} className="block px-3 py-2 text-xs text-white/75 hover:text-primary hover:bg-white/5 font-body transition-colors truncate">
                         {s.title}
                       </Link>
                     ))}
                   </div>
                   <div className="mt-3 pt-3 border-t border-white/10">
-                    <Link href="/hizmetlerimiz" className="text-primary text-xs font-heading font-semibold uppercase tracking-wide hover:underline">
+                    <Link href="/hizmetlerimiz" onClick={() => setHizmetlerOpen(false)} className="text-primary text-xs font-heading font-semibold uppercase tracking-wide hover:underline">
                       {dict.nav.allServices} →
                     </Link>
                   </div>
