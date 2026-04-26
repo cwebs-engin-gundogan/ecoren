@@ -3,10 +3,14 @@
 import { useMemo, useState } from 'react';
 import { Filter, Search, X } from 'lucide-react';
 import { hazardousWasteCodeGroups } from '@/data/waste-codes';
+import { useLanguage } from '@/components/providers/LanguageProvider';
 
 type SearchMode = 'text' | 'group';
 
 export default function WasteCodesClient() {
+  const { dict } = useLanguage();
+  const t = dict.pages.wasteCodes;
+
   const [mode, setMode] = useState<SearchMode>('text');
   const [query, setQuery] = useState('');
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
@@ -40,125 +44,145 @@ export default function WasteCodesClient() {
   };
 
   return (
-    <section className="py-10 sm:py-16 lg:py-20">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8 lg:gap-10 items-start">
+    <>
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-dark pt-32 pb-16 sm:pt-36 sm:pb-20">
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(139,195,74,0.20),transparent_38%),radial-gradient(circle_at_top_right,rgba(139,195,74,0.18),transparent_34%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-primary/40" />
+        <div className="relative max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl">
+            <p className="font-heading text-xs font-bold uppercase tracking-[0.28em] text-primary mb-4">
+              {t.heroLabel}
+            </p>
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
+              {t.heroTitle}
+            </h1>
+            <p className="font-body text-base sm:text-lg text-white/70 leading-relaxed max-w-3xl">
+              {t.heroDesc}
+            </p>
+          </div>
+        </div>
+      </section>
 
-          {/* Sidebar — tabs + search/filter + utils */}
-          <aside className="lg:sticky lg:top-24 space-y-4">
+      {/* Content */}
+      <section className="py-10 sm:py-16 lg:py-20">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8 lg:gap-10 items-start">
 
-            {/* Mode tabs */}
-            <div className="bg-white border border-dark/10 overflow-hidden">
-              <div className="flex border-b border-dark/10">
-                <button
-                  onClick={() => switchMode('text')}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-3 font-heading text-xs font-bold uppercase tracking-wide whitespace-nowrap transition-colors
-                    ${mode === 'text' ? 'bg-primary text-dark' : 'text-text-muted hover:text-text-main hover:bg-dark/5'}`}
-                >
-                  <Search size={13} className="shrink-0" />
-                  Metne Göre Ara
-                </button>
-                <button
-                  onClick={() => switchMode('group')}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-3 font-heading text-xs font-bold uppercase tracking-wide whitespace-nowrap border-l border-dark/10 transition-colors
-                    ${mode === 'group' ? 'bg-primary text-dark' : 'text-text-muted hover:text-text-main hover:bg-dark/5'}`}
-                >
-                  <Filter size={13} className="shrink-0" />
-                  Gruba Göre
-                </button>
-              </div>
+            {/* Sidebar */}
+            <aside className="lg:sticky lg:top-24 space-y-4">
 
-              {/* Text search */}
-              {mode === 'text' && (
-                <div className="p-4">
-                  <div className="relative">
-                    <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
-                    <input
-                      type="text"
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      placeholder="Kod veya açıklama…"
-                      autoFocus
-                      className="w-full border border-dark/15 bg-light pl-9 pr-8 py-2.5 font-body text-sm text-text-main placeholder-text-muted focus:outline-none focus:border-primary transition-colors"
-                    />
+              {/* Mode tabs */}
+              <div className="bg-white border border-dark/10 overflow-hidden">
+                <div className="flex border-b border-dark/10">
+                  <button
+                    onClick={() => switchMode('text')}
+                    className={`flex-1 flex items-center justify-center gap-1.5 py-3 font-heading text-xs font-bold uppercase tracking-wide whitespace-nowrap transition-colors
+                      ${mode === 'text' ? 'bg-primary text-dark' : 'text-text-muted hover:text-text-main hover:bg-dark/5'}`}
+                  >
+                    <Search size={13} className="shrink-0" />
+                    {t.searchByText}
+                  </button>
+                  <button
+                    onClick={() => switchMode('group')}
+                    className={`flex-1 flex items-center justify-center gap-1.5 py-3 font-heading text-xs font-bold uppercase tracking-wide whitespace-nowrap border-l border-dark/10 transition-colors
+                      ${mode === 'group' ? 'bg-primary text-dark' : 'text-text-muted hover:text-text-main hover:bg-dark/5'}`}
+                  >
+                    <Filter size={13} className="shrink-0" />
+                    {t.searchByGroup}
+                  </button>
+                </div>
+
+                {/* Text search */}
+                {mode === 'text' && (
+                  <div className="p-4">
+                    <div className="relative">
+                      <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
+                      <input
+                        type="text"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        placeholder={t.placeholder}
+                        autoFocus
+                        className="w-full border border-dark/15 bg-light pl-9 pr-8 py-2.5 font-body text-sm text-text-main placeholder-text-muted focus:outline-none focus:border-primary transition-colors"
+                      />
+                      {query && (
+                        <button
+                          onClick={() => setQuery('')}
+                          aria-label={t.clearAriaLabel}
+                          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main"
+                        >
+                          <X size={14} />
+                        </button>
+                      )}
+                    </div>
                     {query && (
-                      <button
-                        onClick={() => setQuery('')}
-                        aria-label="Aramayı temizle"
-                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main"
-                      >
-                        <X size={14} />
-                      </button>
+                      <p className="mt-2 font-body text-xs text-text-muted">
+                        <span className="font-semibold text-text-main">{totalItems}</span> {t.results} ·{' '}
+                        <button onClick={() => setQuery('')} className="text-primary hover:underline">{t.clear}</button>
+                      </p>
                     )}
                   </div>
-                  {query && (
-                    <p className="mt-2 font-body text-xs text-text-muted">
-                      <span className="font-semibold text-text-main">{totalItems}</span> sonuç ·{' '}
-                      <button onClick={() => setQuery('')} className="text-primary hover:underline">temizle</button>
-                    </p>
-                  )}
-                </div>
-              )}
+                )}
 
-              {/* Group filter */}
-              {mode === 'group' && (
-                <div className="p-4">
-                  <div className="grid grid-cols-4 gap-1.5 mb-2">
-                    <button
-                      onClick={() => setSelectedGroup(null)}
-                      className={`col-span-4 h-9 flex items-center justify-center font-heading text-xs font-bold uppercase tracking-wide border transition-colors
-                        ${!selectedGroup ? 'bg-primary text-dark border-primary' : 'bg-light text-text-main border-dark/10 hover:border-primary hover:text-primary'}`}
-                    >
-                      Tüm Gruplar
-                    </button>
-                    {hazardousWasteCodeGroups.map((g) => (
+                {/* Group filter */}
+                {mode === 'group' && (
+                  <div className="p-4">
+                    <div className="grid grid-cols-4 gap-1.5 mb-2">
                       <button
-                        key={g.group}
-                        onClick={() => setSelectedGroup(selectedGroup === g.group ? null : g.group)}
-                        title={g.title}
-                        className={`h-9 flex items-center justify-center font-heading text-sm font-bold border transition-colors
-                          ${selectedGroup === g.group ? 'bg-primary text-dark border-primary' : 'bg-light text-text-main border-dark/10 hover:border-primary hover:text-primary'}`}
+                        onClick={() => setSelectedGroup(null)}
+                        className={`col-span-4 h-9 flex items-center justify-center font-heading text-xs font-bold uppercase tracking-wide border transition-colors
+                          ${!selectedGroup ? 'bg-primary text-dark border-primary' : 'bg-light text-text-main border-dark/10 hover:border-primary hover:text-primary'}`}
                       >
-                        {g.group}
+                        {t.allGroups}
                       </button>
-                    ))}
+                      {hazardousWasteCodeGroups.map((g) => (
+                        <button
+                          key={g.group}
+                          onClick={() => setSelectedGroup(selectedGroup === g.group ? null : g.group)}
+                          title={g.title}
+                          className={`h-9 flex items-center justify-center font-heading text-sm font-bold border transition-colors
+                            ${selectedGroup === g.group ? 'bg-primary text-dark border-primary' : 'bg-light text-text-main border-dark/10 hover:border-primary hover:text-primary'}`}
+                        >
+                          {g.group}
+                        </button>
+                      ))}
+                    </div>
+                    {selectedGroup && (
+                      <p className="mt-1 font-body text-xs text-text-muted">
+                        <span className="font-semibold text-text-main">{totalItems}</span> {t.codes} ·{' '}
+                        <button onClick={() => setSelectedGroup(null)} className="text-primary hover:underline">{t.showAll}</button>
+                      </p>
+                    )}
                   </div>
-                  {selectedGroup && (
-                    <p className="mt-1 font-body text-xs text-text-muted">
-                      <span className="font-semibold text-text-main">{totalItems}</span> kod ·{' '}
-                      <button onClick={() => setSelectedGroup(null)} className="text-primary hover:underline">tümünü göster</button>
-                    </p>
-                  )}
-                </div>
-              )}
-            </div>
+                )}
+              </div>
 
-            {/* Result count + clear */}
-            <div className="bg-dark/5 border border-dark/10 px-5 py-4 flex items-center justify-between">
-              <span className="font-body text-sm text-text-muted">
-                <span className="font-heading font-bold text-text-main">{totalItems}</span> sonuç
-              </span>
-              {hasActiveFilter && (
-                <button
-                  onClick={clearAll}
-                  className="flex items-center gap-1.5 font-heading text-xs font-semibold uppercase tracking-wide text-primary hover:underline"
-                >
-                  <X size={12} /> Temizle
-                </button>
-              )}
-            </div>
-
-          </aside>
+              {/* Result count + clear */}
+              <div className="bg-dark/5 border border-dark/10 px-5 py-4 flex items-center justify-between">
+                <span className="font-body text-sm text-text-muted">
+                  <span className="font-heading font-bold text-text-main">{totalItems}</span> {t.results}
+                </span>
+                {hasActiveFilter && (
+                  <button
+                    onClick={clearAll}
+                    className="flex items-center gap-1.5 font-heading text-xs font-semibold uppercase tracking-wide text-primary hover:underline"
+                  >
+                    <X size={12} /> {t.clear}
+                  </button>
+                )}
+              </div>
+            </aside>
 
             {/* Results */}
             <div>
               {filtered.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-20 text-center border border-dark/10 bg-white">
                   <Search size={40} className="text-dark/20 mb-4" />
-                  <p className="font-heading text-lg font-semibold text-text-main mb-2">Sonuç bulunamadı</p>
-                  <p className="font-body text-sm text-text-muted mb-6">Farklı bir arama terimi veya filtre kombinasyonu deneyin.</p>
+                  <p className="font-heading text-lg font-semibold text-text-main mb-2">{t.noResults}</p>
+                  <p className="font-body text-sm text-text-muted mb-6">{t.noResultsDesc}</p>
                   <button onClick={clearAll} className="font-heading text-sm font-semibold text-primary hover:underline">
-                    Filtreleri temizle
+                    {t.clearFilters}
                   </button>
                 </div>
               ) : (
@@ -173,14 +197,14 @@ export default function WasteCodesClient() {
                         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                           <div>
                             <p className="font-heading text-xs font-bold uppercase tracking-[0.22em] text-primary">
-                              {group.group} Atık Kodu
+                              {group.group} {t.wasteCode}
                             </p>
                             <h3 className="mt-2 font-heading text-lg sm:text-2xl font-bold text-white leading-snug">
                               {group.title}
                             </h3>
                           </div>
                           <span className="shrink-0 border border-primary/35 px-3 py-2 font-heading text-xs font-bold uppercase tracking-widest text-primary">
-                            {group.items.length} Kod
+                            {group.items.length} {t.code}
                           </span>
                         </div>
                       </div>
@@ -190,10 +214,10 @@ export default function WasteCodesClient() {
                           <thead>
                             <tr className="bg-dark/5">
                               <th className="w-32 px-4 py-3 sm:px-6 font-heading text-xs font-bold uppercase tracking-widest text-text-main">
-                                Kod
+                                {t.code}
                               </th>
                               <th className="px-4 py-3 sm:px-6 font-heading text-xs font-bold uppercase tracking-widest text-text-main">
-                                Açıklama
+                                {t.description}
                               </th>
                             </tr>
                           </thead>
@@ -219,6 +243,7 @@ export default function WasteCodesClient() {
           </div>
         </div>
       </section>
+    </>
   );
 }
 
