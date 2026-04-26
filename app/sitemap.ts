@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next';
 import { serviceIds } from '@/lib/i18n';
 
+export const dynamic = 'force-static';
+
 const base = 'https://ecoren.com.tr';
 
 export default function sitemap(): MetadataRoute.Sitemap {
