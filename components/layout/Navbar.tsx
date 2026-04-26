@@ -89,7 +89,7 @@ export default function Navbar() {
                 {dict.nav.services} <ChevronDown size={14} className={`transition-transform ${hizmetlerOpen ? 'rotate-180' : ''}`} />
               </button>
               {hizmetlerOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[min(900px,90vw)] bg-dark/95 border border-white/10 shadow-xl py-4 px-4 backdrop-blur-md">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[min(720px,90vw)] bg-dark/95 border border-white/10 shadow-xl py-4 px-4 backdrop-blur-md">
                   <div className="grid grid-cols-2 gap-1">
                     {services.map((s) => (
                       <Link key={s.id} href={s.href} onClick={() => setHizmetlerOpen(false)} className="block px-3 py-2 text-xs text-white/75 hover:text-primary hover:bg-white/5 font-body transition-colors truncate">
