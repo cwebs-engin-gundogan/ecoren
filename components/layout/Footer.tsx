@@ -8,13 +8,14 @@ import { getLocalizedFeaturedServices } from '@/lib/i18n';
 
 const PHONE_RAW = '+905443141506';
 const PHONE_DISPLAY = '+90 544 314 15 06';
+const CONTACT_NAME = 'İlker Can Eren ECOREN';
 
 function PhoneModal({ onClose }: { onClose: () => void }) {
   const handleCall = () => { window.location.href = `tel:${PHONE_RAW}`; };
   const handleWhatsApp = () => { window.open(`https://wa.me/${PHONE_RAW.replace('+', '')}`, '_blank'); };
   const handleAddContact = () => {
     const vcard = [
-      'BEGIN:VCARD', 'VERSION:3.0', 'FN:ECOREN', 'ORG:ECOREN',
+      'BEGIN:VCARD', 'VERSION:3.0', `FN:${CONTACT_NAME}`, 'N:Eren;İlker Can;;;', 'ORG:ECOREN',
       `TEL;TYPE=CELL:${PHONE_RAW}`, 'EMAIL:info@ecoren.com.tr',
       'URL:https://ecoren.com.tr', 'END:VCARD',
     ].join('\n');

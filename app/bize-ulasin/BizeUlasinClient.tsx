@@ -8,6 +8,7 @@ import { useLanguage } from '@/components/providers/LanguageProvider';
 const contactIcons = [MapPin, Phone, Mail];
 const PHONE_RAW = '+905443141506';
 const PHONE_DISPLAY = '+90 544 314 15 06';
+const CONTACT_NAME = 'İlker Can Eren ECOREN';
 
 function PhoneModal({ onClose }: { onClose: () => void }) {
   const handleCall = () => { window.location.href = `tel:${PHONE_RAW}`; };
@@ -16,7 +17,8 @@ function PhoneModal({ onClose }: { onClose: () => void }) {
     const vcard = [
       'BEGIN:VCARD',
       'VERSION:3.0',
-      'FN:ECOREN',
+      `FN:${CONTACT_NAME}`,
+      'N:Eren;İlker Can;;;',
       'ORG:ECOREN',
       `TEL;TYPE=CELL:${PHONE_RAW}`,
       'EMAIL:info@ecoren.com.tr',
