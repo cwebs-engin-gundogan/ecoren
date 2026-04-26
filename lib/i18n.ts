@@ -404,9 +404,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
         submit: 'Mesaj Gönder',
         contactInfo: [
           { label: 'Adres', value: 'Türkiye' },
-          { label: 'Telefon', value: '+90 (212) 000 00 00' },
+          { label: 'Telefon', value: '+90 544 314 15 06' },
           { label: 'E-posta', value: 'info@ecoren.com.tr' },
-          { label: 'Çalışma Saatleri', value: 'Pzt-Cum: 08:00-18:00' },
         ],
       },
       about: {
@@ -682,9 +681,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
         submit: 'Send Message',
         contactInfo: [
           { label: 'Address', value: 'Turkey' },
-          { label: 'Phone', value: '+90 (212) 000 00 00' },
+          { label: 'Phone', value: '+90 544 314 15 06' },
           { label: 'Email', value: 'info@ecoren.com.tr' },
-          { label: 'Working Hours', value: 'Mon-Fri: 08:00-18:00' },
         ],
       },
       about: {
@@ -960,9 +958,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
         submit: 'Nachricht Senden',
         contactInfo: [
           { label: 'Adresse', value: 'Türkei' },
-          { label: 'Telefon', value: '+90 (212) 000 00 00' },
+          { label: 'Telefon', value: '+90 544 314 15 06' },
           { label: 'E-Mail', value: 'info@ecoren.com.tr' },
-          { label: 'Arbeitszeiten', value: 'Mo-Fr: 08:00-18:00' },
         ],
       },
       about: {

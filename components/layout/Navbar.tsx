@@ -54,7 +54,7 @@ export default function Navbar() {
                 onClick={() => setKurumsalOpen(!kurumsalOpen)}
                 aria-label={dict.nav.corporate}
                 aria-expanded={kurumsalOpen}
-                className="flex items-center gap-1 font-heading font-bold text-xs uppercase tracking-widest text-white/80 hover:text-primary transition-colors duration-200"
+                className={`flex items-center gap-1 font-heading font-bold text-xs uppercase tracking-widest hover:text-primary transition-colors duration-200 ${pathname.startsWith('/kurumsal') ? 'text-primary border-b-2 border-primary pb-1' : 'text-white/80'}`}
               >
                 {dict.nav.corporate} <ChevronDown size={14} className={`transition-transform ${kurumsalOpen ? 'rotate-180' : ''}`} />
               </button>
@@ -75,7 +75,7 @@ export default function Navbar() {
                 onClick={() => setHizmetlerOpen(!hizmetlerOpen)}
                 aria-label={dict.nav.services}
                 aria-expanded={hizmetlerOpen}
-                className="flex items-center gap-1 font-heading font-bold text-xs uppercase tracking-widest text-white/80 hover:text-primary transition-colors duration-200"
+                className={`flex items-center gap-1 font-heading font-bold text-xs uppercase tracking-widest hover:text-primary transition-colors duration-200 ${pathname.startsWith('/hizmetlerimiz') ? 'text-primary border-b-2 border-primary pb-1' : 'text-white/80'}`}
               >
                 {dict.nav.services} <ChevronDown size={14} className={`transition-transform ${hizmetlerOpen ? 'rotate-180' : ''}`} />
               </button>

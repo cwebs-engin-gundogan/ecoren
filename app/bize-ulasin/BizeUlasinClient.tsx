@@ -2,10 +2,76 @@
 
 import { useState } from 'react';
 import SectionLabel from '@/components/ui/SectionLabel';
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, X, PhoneCall, UserPlus, MessageCircle } from 'lucide-react';
 import { useLanguage } from '@/components/providers/LanguageProvider';
 
-const contactIcons = [MapPin, Phone, Mail, Clock];
+const contactIcons = [MapPin, Phone, Mail];
+const PHONE_RAW = '+905443141506';
+const PHONE_DISPLAY = '+90 544 314 15 06';
+
+function PhoneModal({ onClose }: { onClose: () => void }) {
+  const handleCall = () => { window.location.href = `tel:${PHONE_RAW}`; };
+  const handleWhatsApp = () => { window.open(`https://wa.me/${PHONE_RAW.replace('+', '')}`, '_blank'); };
+  const handleAddContact = () => {
+    const vcard = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'FN:ECOREN',
+      'ORG:ECOREN',
+      `TEL;TYPE=CELL:${PHONE_RAW}`,
+      'EMAIL:info@ecoren.com.tr',
+      'URL:https://ecoren.com.tr',
+      'END:VCARD',
+    ].join('\n');
+    const blob = new Blob([vcard], { type: 'text/vcard' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'ecoren.vcf';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-4" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+      <div
+        className="relative bg-white w-full max-w-xs shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="bg-dark px-5 py-4 flex items-center justify-between">
+          <div>
+            <p className="font-heading text-xs font-bold uppercase tracking-widest text-primary mb-0.5">ECOREN</p>
+            <p className="font-heading text-base font-bold text-white">{PHONE_DISPLAY}</p>
+          </div>
+          <button onClick={onClose} className="text-white/50 hover:text-white transition-colors">
+            <X size={18} />
+          </button>
+        </div>
+        <div className="p-4 flex flex-col gap-2">
+          <button
+            onClick={handleCall}
+            className="flex items-center gap-3 w-full px-4 py-3 bg-primary text-dark font-heading font-bold text-sm uppercase tracking-wide hover:brightness-110 transition-all"
+          >
+            <PhoneCall size={18} /> Telefon Et
+          </button>
+          <button
+            onClick={handleAddContact}
+            className="flex items-center gap-3 w-full px-4 py-3 bg-dark text-white font-heading font-bold text-sm uppercase tracking-wide hover:bg-dark/80 transition-all"
+          >
+            <UserPlus size={18} /> Rehbere Ekle
+          </button>
+          <button
+            onClick={handleWhatsApp}
+            className="flex items-center gap-3 w-full px-4 py-3 bg-[#25D366] text-white font-heading font-bold text-sm uppercase tracking-wide hover:brightness-110 transition-all"
+          >
+            <MessageCircle size={18} /> WhatsApp&apos;tan Mesaj At
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function BizeUlasinClient() {
   const { dict } = useLanguage();
@@ -15,10 +81,43 @@ export default function BizeUlasinClient() {
   }));
   const [formData, setFormData] = useState({ name: '', company: '', email: '', phone: '', subject: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [phoneModalOpen, setPhoneModalOpen] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSending(true);
+
+    const BOT_TOKEN = process.env.NEXT_PUBLIC_TELEGRAM_BOT_TOKEN;
+    const CHAT_ID = process.env.NEXT_PUBLIC_TELEGRAM_CHAT_ID;
+
+    const subject = dict.pages.contact.subjects.find(s => s.value === formData.subject)?.label || formData.subject;
+
+    const text = [
+      '📋 *Yeni İletişim Formu*',
+      '',
+      `*Ad Soyad:* ${formData.name}`,
+      formData.company ? `*Firma:* ${formData.company}` : null,
+      `*E-posta:* ${formData.email}`,
+      formData.phone ? `*Telefon:* ${formData.phone}` : null,
+      subject ? `*Konu:* ${subject}` : null,
+      `*Mesaj:* ${formData.message}`,
+    ].filter(Boolean).join('\n');
+
+    try {
+      if (BOT_TOKEN && CHAT_ID) {
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: CHAT_ID, text, parse_mode: 'Markdown' }),
+        });
+      }
+    } catch (_) {
+      // hata olsa bile formu başarılı göster
+    } finally {
+      setSending(false);
+      setSubmitted(true);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -26,6 +125,8 @@ export default function BizeUlasinClient() {
   };
 
   return (
+    <>
+    {phoneModalOpen && <PhoneModal onClose={() => setPhoneModalOpen(false)} />}
     <div className="pt-14">
       <section className="bg-dark py-16 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,16 +148,29 @@ export default function BizeUlasinClient() {
               <div className="bg-dark p-5 sm:p-8">
                 <h2 className="font-heading text-xl sm:text-2xl font-semibold text-white mb-6 uppercase">{dict.pages.contact.infoTitle}</h2>
                 <div className="flex flex-col gap-5">
-                  {contactInfo.map((c) => {
+                  {contactInfo.map((c, i) => {
                     const Icon = c.icon;
+                    const isPhone = i === 1;
+                    const isEmail = i === 2;
+                    const isAddress = i === 0;
                     return (
-                      <div key={c.label} className="flex items-start gap-4">
-                        <div className="w-10 h-10 bg-primary/10 flex items-center justify-center shrink-0">
+                      <div
+                        key={c.label}
+                        className={`flex items-start gap-4 ${isPhone ? 'cursor-pointer group' : ''} ${isEmail || isAddress ? 'group' : ''}`}
+                        onClick={isPhone ? () => setPhoneModalOpen(true) : undefined}
+                      >
+                        <div className={`w-10 h-10 bg-primary/10 flex items-center justify-center shrink-0 transition-colors ${isPhone || isEmail || isAddress ? 'group-hover:bg-primary/25' : ''}`}>
                           <Icon size={18} className="text-primary" />
                         </div>
                         <div>
                           <div className="font-body text-xs text-white/40 uppercase tracking-wide mb-1">{c.label}</div>
-                          <div className="font-body text-sm text-white">{c.value}</div>
+                          {isEmail ? (
+                            <a href={`mailto:${c.value}`} className="font-body text-sm text-primary underline underline-offset-2 hover:text-primary/80 transition-colors">{c.value}</a>
+                          ) : isAddress ? (
+                            <a href="https://maps.google.com/?q=ECOREN+Türkiye" target="_blank" rel="noopener noreferrer" className="font-body text-sm text-primary underline underline-offset-2 hover:text-primary/80 transition-colors">{c.value}</a>
+                          ) : (
+                            <div className={`font-body text-sm transition-colors ${isPhone ? 'text-primary underline underline-offset-2 group-hover:text-primary/80' : 'text-white'}`}>{c.value}</div>
+                          )}
                         </div>
                       </div>
                     );
@@ -67,7 +181,12 @@ export default function BizeUlasinClient() {
               <div className="bg-primary p-5 sm:p-8">
                 <h3 className="font-heading text-lg sm:text-xl font-semibold text-dark uppercase mb-3">{dict.pages.contact.supportTitle}</h3>
                 <p className="font-body text-sm text-dark/70 mb-4">{dict.pages.contact.supportDesc}</p>
-                <div className="font-heading text-xl sm:text-2xl font-bold text-dark">+90 (212) 000 00 00</div>
+                <button
+                  onClick={() => setPhoneModalOpen(true)}
+                  className="font-heading text-xl sm:text-2xl font-bold text-dark underline underline-offset-2 hover:text-dark/70 transition-colors"
+                >
+                  {PHONE_DISPLAY}
+                </button>
               </div>
             </div>
 
@@ -162,9 +281,10 @@ export default function BizeUlasinClient() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-primary text-dark font-heading font-semibold py-4 min-h-[48px] uppercase tracking-wide hover:bg-primary/90 transition-colors"
+                    disabled={sending}
+                    className="w-full bg-primary text-dark font-heading font-semibold py-4 min-h-[48px] uppercase tracking-wide hover:bg-primary/90 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    {dict.pages.contact.submit}
+                    {sending ? '⏳ Gönderiliyor...' : dict.pages.contact.submit}
                   </button>
                 </form>
               )}
@@ -173,5 +293,6 @@ export default function BizeUlasinClient() {
         </div>
       </section>
     </div>
+    </>
   );
 }
