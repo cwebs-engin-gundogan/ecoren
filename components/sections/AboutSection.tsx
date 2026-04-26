@@ -20,35 +20,35 @@ export default function AboutSection() {
             <div className="absolute -left-8 -top-8 -z-10 h-56 w-56 bg-primary/10" />
             <img src={aboutImage} alt="Recycled industrial pellets" className="h-56 w-full object-cover shadow-2xl sm:h-[420px] lg:h-[520px]" />
             <div className="absolute bottom-4 left-4 right-4 bg-dark p-4 text-white sm:bottom-8 sm:left-auto sm:right-0 sm:max-w-xs sm:p-6 lg:-right-8">
-              <h3 className="mb-2 font-heading text-2xl font-semibold text-primary">10 Yıllık Uzmanlık</h3>
-              <p className="font-body text-sm leading-relaxed text-white/60">Atık yönetiminde mühendislik odaklı yaklaşımlarla sektörün öncüsü.</p>
+              <h3 className="mb-2 font-heading text-2xl font-semibold text-primary">{dict.about.yearsTitle}</h3>
+              <p className="font-body text-sm leading-relaxed text-white/60">{dict.about.yearsDesc}</p>
             </div>
           </div>
 
           <div className="w-full">
-            <SectionLabel className="mb-4 block">. Kurumsal</SectionLabel>
+            <SectionLabel className="mb-4 block">{dict.about.sectionPrefix}</SectionLabel>
             <h2 className="mb-8 max-w-xl font-heading text-3xl font-semibold uppercase leading-tight text-text-main sm:text-4xl">
-              Mühendislik Gücüyle Atığı Değere Dönüştürüyoruz
+              {dict.about.heading}
             </h2>
             <p className="mb-6 font-body text-base leading-relaxed text-text-muted">
-              ECOREN, endüstriyel tesislerin atık yönetim süreçlerini optimize etmek, çevresel etkileri minimize etmek ve yasal uyumluluğu en üst düzeyde sağlamak amacıyla kurulmuş bir mühendislik ve danışmanlık firmasıdır.
+              {dict.about.bodySection1}
             </p>
             <p className="mb-10 font-body text-base leading-relaxed text-text-muted">
-              &quot;Sıfır Atık&quot; vizyonumuzla, tehlikeli ve tehlikesiz atıkların geri kazanımı konusunda uzman ekibimizle entegre çözümler sunuyoruz.
+              {dict.about.bodySection2}
             </p>
             <div className="mb-10 grid gap-6 sm:grid-cols-2">
               <div className="flex items-start gap-4">
                 <ShieldCheck size={28} className="mt-1 shrink-0 text-primary-deep" />
                 <div>
-                  <h3 className="font-heading text-lg font-bold text-text-main">Tam Uyumluluk</h3>
-                  <p className="font-body text-sm text-text-muted">Çevre mevzuatına %100 uyumlu raporlama.</p>
+                  <h3 className="font-heading text-lg font-bold text-text-main">{dict.about.feature1.title}</h3>
+                  <p className="font-body text-sm text-text-muted">{dict.about.feature1.desc}</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
                 <FlaskConical size={28} className="mt-1 shrink-0 text-primary-deep" />
                 <div>
-                  <h3 className="font-heading text-lg font-bold text-text-main">Ar-Ge Odaklı</h3>
-                  <p className="font-body text-sm text-text-muted">Geri kazanımda yenilikçi teknikler.</p>
+                  <h3 className="font-heading text-lg font-bold text-text-main">{dict.about.feature2.title}</h3>
+                  <p className="font-body text-sm text-text-muted">{dict.about.feature2.desc}</p>
                 </div>
               </div>
             </div>

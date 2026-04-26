@@ -27,7 +27,7 @@ export default function ServicesSection() {
         <div className="text-center mb-16">
           <SectionLabel className="mb-3 block">{dict.servicesSection.label}</SectionLabel>
           <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-text-main uppercase">
-            Uzman Atık Yönetimi Çözümleri
+            {dict.servicesSection.sectionTitle}
           </h2>
           <div className="mx-auto mt-6 h-1 w-24 bg-primary-deep" />
         </div>

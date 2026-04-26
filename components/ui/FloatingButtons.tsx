@@ -3,8 +3,10 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowUp, MessageSquare } from 'lucide-react';
+import { useLanguage } from '@/components/providers/LanguageProvider';
 
 export default function FloatingButtons() {
+  const { dict } = useLanguage();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -20,14 +22,14 @@ export default function FloatingButtons() {
       {/* Scroll to top — only shown after scrolling down */}
       <button
         onClick={scrollToTop}
-        aria-label="Yukarı çık"
+        aria-label={dict.ui.scrollAriaLabel}
         className={`flex items-center gap-2 bg-dark/90 text-white border border-white/10 shadow-lg backdrop-blur-sm
           px-3 py-2.5 sm:px-4 transition-all duration-300 hover:bg-dark hover:border-primary/50
           ${visible ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'}`}
       >
         <ArrowUp size={16} className="shrink-0" />
         <span className="hidden sm:inline font-heading text-xs font-semibold uppercase tracking-widest">
-          Yukarı Çık
+          {dict.ui.scrollToTop}
         </span>
       </button>
 
@@ -36,11 +38,11 @@ export default function FloatingButtons() {
         href="/bize-ulasin"
         className="flex items-center gap-2 bg-primary text-dark shadow-lg
           px-3 py-2.5 sm:px-4 transition-all duration-200 hover:brightness-110 active:scale-95"
-        aria-label="Bize Ulaşın"
+        aria-label={dict.ui.contactUs}
       >
         <MessageSquare size={16} className="shrink-0" />
         <span className="font-heading text-xs font-semibold uppercase tracking-widest">
-          Bize Ulaşın
+          {dict.ui.contactUs}
         </span>
       </Link>
     </div>

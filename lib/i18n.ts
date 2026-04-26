@@ -75,13 +75,21 @@ type Dictionary = {
     readMore: string;
     featured: string;
   };
+  ui: {
+    scrollToTop: string;
+    scrollAriaLabel: string;
+    contactUs: string;
+  };
   hero: {
     eyebrow: string;
+    tagline: string;
     line1: string;
     highlight: string;
     line2: string;
+    integrated: string;
     line3: string;
     body: string;
+    cta: string;
     services: string;
     contact: string;
     stats: { value: string; label: string }[];
@@ -99,12 +107,21 @@ type Dictionary = {
     cardTitle: string;
     cardSubtitle: string;
     cardStats: { v: string; l: string }[];
+    sectionPrefix: string;
+    heading: string;
+    bodySection1: string;
+    bodySection2: string;
+    yearsTitle: string;
+    yearsDesc: string;
+    feature1: { title: string; desc: string };
+    feature2: { title: string; desc: string };
   };
   servicesSection: {
     label: string;
     titlePrefix: string;
     titleHighlight: string;
     titleSuffix: string;
+    sectionTitle: string;
     cta: string;
   };
   valuesSection: {
@@ -141,6 +158,13 @@ type Dictionary = {
   pages: {
     services: { label: string; titlePrefix: string; titleHighlight: string; desc: string };
     news: { label: string; titlePrefix: string; titleHighlight: string; desc: string };
+    corporate: {
+      sectionLabel: string;
+      title: string;
+      subtitle: string;
+      explore: string;
+      subPages: { title: string; desc: string }[];
+    };
     contact: {
       label: string;
       titlePrefix: string;
@@ -253,13 +277,21 @@ export const dictionaries: Record<Locale, Dictionary> = {
       tagline: 'Sürdürülebilir Gelecek İçin',
     },
     common: { details: 'Detaylar', readMore: 'Devamını Oku', featured: 'Öne Çıkan' },
+    ui: {
+      scrollToTop: 'Yukarı Çık',
+      scrollAriaLabel: 'Yukarı çık',
+      contactUs: 'Bize Ulaşın',
+    },
     hero: {
       eyebrow: '. ECOREN - Çevre Mühendisliği',
+      tagline: 'Geleceği Dönüştürüyoruz',
       line1: 'SÜRDÜRÜLEBİLİR',
       highlight: 'GELECEK',
       line2: 'İÇİN',
+      integrated: 'Entegre',
       line3: 'ATIK YÖNETİMİ',
       body: 'Geri dönüşüm ve çevre yönetimi alanında Türkiye’nin öncü firmalarından ECOREN, atık yönetimi ve geri dönüşüm hizmetlerinde çevreye duyarlı çözümler sunar.',
+      cta: 'Çözümlerimizi Keşfedin',
       services: 'Hizmetlerimiz',
       contact: 'Bize Ulaşın',
       stats: [
@@ -287,8 +319,16 @@ export const dictionaries: Record<Locale, Dictionary> = {
         { v: '100+', l: 'Tesis' },
         { v: '50+', l: 'Uzman' },
       ],
+      sectionPrefix: '. Kurumsal',
+      heading: 'Mühendislik Gücüyle Atığı Değere Dönüştürüyoruz',
+      bodySection1: 'ECOREN, endüstriyel tesislerin atık yönetim süreçlerini optimize etmek, çevresel etkileri minimize etmek ve yasal uyumluluğu en üst düzeyde sağlamak amacıyla kurulmuş bir mühendislik ve danışmanlık firmasıdır.',
+      bodySection2: '"Sıfır Atık" vizyonumuzla, tehlikeli ve tehlikesiz atıkların geri kazanımı konusunda uzman ekibimizle entegre çözümler sunuyoruz.',
+      yearsTitle: '10 Yıllık Uzmanlık',
+      yearsDesc: 'Atık yönetiminde mühendislik odaklı yaklaşımlarla sektörün öncüsü.',
+      feature1: { title: 'Tam Uyumluluk', desc: 'Çevre mevzuatına %100 uyumlu raporlama.' },
+      feature2: { title: 'Ar-Ge Odaklı', desc: 'Geri kazanımda yenilikçi teknikler.' },
     },
-    servicesSection: { label: 'Hizmetlerimiz', titlePrefix: 'Uçtan Uca', titleHighlight: 'Atık Yönetimi', titleSuffix: 'Çözümleri', cta: 'Tüm Hizmetleri Gör' },
+    servicesSection: { label: 'Hizmetlerimiz', titlePrefix: 'Uçtan Uca', titleHighlight: 'Atık Yönetimi', titleSuffix: 'Çözümleri', sectionTitle: 'Uzman Atık Yönetimi Çözümleri', cta: 'Tüm Hizmetleri Gör' },
     valuesSection: {
       label: 'Değerlerimiz',
       titlePrefix: 'Bizi',
@@ -330,6 +370,17 @@ export const dictionaries: Record<Locale, Dictionary> = {
     pages: {
       services: { label: 'Hizmetlerimiz', titlePrefix: 'Tüm', titleHighlight: 'Hizmetlerimiz', desc: 'ECOREN atık yönetimi, geri kazanım, danışmanlık, taşıma, bertaraf ve saha kurulum alanlarında kapsamlı hizmetler sunar.' },
       news: { label: 'Blog & Haberler', titlePrefix: 'Bizden', titleHighlight: 'Haberler', desc: 'Atık yönetimi, çevre mevzuatı ve sürdürülebilirlik alanındaki güncel gelişmeleri takip edin.' },
+      corporate: {
+        sectionLabel: 'Kurumsal',
+        title: 'ECOREN Kurumsal',
+        subtitle: 'Atık yönetimi sektöründe 10 yılı aşkın deneyimimiz, uzman kadromuz ve lisanslı hizmetlerimizle kurumsal kimliğimizi tanıyın.',
+        explore: 'İncele',
+        subPages: [
+          { title: 'Hakkımızda', desc: 'ECOREN\'in kuruluş hikayesi, ekibi ve sektördeki yeri hakkında bilgi edinin.' },
+          { title: 'Misyon & Vizyon', desc: 'Çevre ve atık yönetimi alanındaki misyonumuzu ve geleceğe yönelik vizyonumuzu keşfedin.' },
+          { title: 'Değerlerimiz', desc: 'Bizi biz yapan temel değerleri ve iş yapış anlayışımızı öğrenin.' },
+        ],
+      },
       contact: {
         label: 'İletişim',
         titlePrefix: 'Bize',
@@ -504,13 +555,21 @@ export const dictionaries: Record<Locale, Dictionary> = {
       tagline: 'For a Sustainable Future',
     },
     common: { details: 'Details', readMore: 'Read More', featured: 'Featured' },
+    ui: {
+      scrollToTop: 'Back to Top',
+      scrollAriaLabel: 'Scroll to top',
+      contactUs: 'Contact Us',
+    },
     hero: {
       eyebrow: '. ECOREN - Environmental Engineering',
+      tagline: 'Transforming the Future',
       line1: 'SUSTAINABLE',
       highlight: 'FUTURE',
       line2: 'THROUGH',
+      integrated: 'Integrated',
       line3: 'WASTE MANAGEMENT',
       body: 'ECOREN delivers professional solutions across 21 service categories, from recovery, disposal and transport of hazardous and non-hazardous waste to environmental consultancy.',
+      cta: 'Explore Our Solutions',
       services: 'Our Services',
       contact: 'Contact Us',
       stats: [
@@ -538,8 +597,16 @@ export const dictionaries: Record<Locale, Dictionary> = {
         { v: '100+', l: 'Facilities' },
         { v: '50+', l: 'Experts' },
       ],
+      sectionPrefix: '. Corporate',
+      heading: 'Turning Waste into Value Through Engineering',
+      bodySection1: 'ECOREN is an engineering and consultancy firm established to optimize waste management processes for industrial facilities, minimize environmental impacts and ensure the highest level of legal compliance.',
+      bodySection2: 'With our "Zero Waste" vision, our expert team delivers integrated solutions for the recovery of hazardous and non-hazardous waste.',
+      yearsTitle: '10 Years of Expertise',
+      yearsDesc: 'An industry pioneer with engineering-driven approaches to waste management.',
+      feature1: { title: 'Full Compliance', desc: '100% compliant reporting under environmental regulations.' },
+      feature2: { title: 'R&D Focused', desc: 'Innovative techniques in recovery and recycling.' },
     },
-    servicesSection: { label: 'Services', titlePrefix: 'End-to-End', titleHighlight: 'Waste Management', titleSuffix: 'Solutions', cta: 'View All Services' },
+    servicesSection: { label: 'Services', titlePrefix: 'End-to-End', titleHighlight: 'Waste Management', titleSuffix: 'Solutions', sectionTitle: 'Expert Waste Management Solutions', cta: 'View All Services' },
     valuesSection: {
       label: 'Values',
       titlePrefix: 'The Values',
@@ -581,6 +648,17 @@ export const dictionaries: Record<Locale, Dictionary> = {
     pages: {
       services: { label: 'Services', titlePrefix: 'All', titleHighlight: 'Services', desc: 'Professional solutions in 21 categories, from hazardous and non-hazardous waste management to environmental consultancy.' },
       news: { label: 'Blog & News', titlePrefix: 'Latest', titleHighlight: 'News', desc: 'Follow current developments in waste management, environmental regulations and sustainability.' },
+      corporate: {
+        sectionLabel: 'Corporate',
+        title: 'ECOREN Corporate',
+        subtitle: 'Get to know our corporate identity with over 10 years of experience, expert staff and licensed services in the waste management industry.',
+        explore: 'Explore',
+        subPages: [
+          { title: 'About Us', desc: 'Learn about ECOREN’s founding story, team and position in the industry.' },
+          { title: 'Mission & Vision', desc: 'Discover our mission in environmental and waste management and our vision for the future.' },
+          { title: 'Our Values', desc: 'Learn about the core values and working principles that define us.' },
+        ],
+      },
       contact: {
         label: 'Contact',
         titlePrefix: 'Contact',
@@ -755,13 +833,21 @@ export const dictionaries: Record<Locale, Dictionary> = {
       tagline: 'Für eine nachhaltige Zukunft',
     },
     common: { details: 'Details', readMore: 'Weiterlesen', featured: 'Empfohlen' },
+    ui: {
+      scrollToTop: 'Nach Oben',
+      scrollAriaLabel: 'Nach oben scrollen',
+      contactUs: 'Kontakt',
+    },
     hero: {
       eyebrow: '. ECOREN - Umwelttechnik',
+      tagline: 'Die Zukunft Gestalten',
       line1: 'NACHHALTIGE',
       highlight: 'ZUKUNFT',
       line2: 'DURCH',
+      integrated: 'Integriertes',
       line3: 'ABFALLMANAGEMENT',
       body: 'ECOREN bietet professionelle Lösungen in 21 Leistungskategorien, von Rückgewinnung, Entsorgung und Transport gefährlicher und ungefährlicher Abfälle bis zur Umweltberatung.',
+      cta: 'Unsere Lösungen Entdecken',
       services: 'Leistungen',
       contact: 'Kontakt',
       stats: [
@@ -789,8 +875,16 @@ export const dictionaries: Record<Locale, Dictionary> = {
         { v: '100+', l: 'Anlagen' },
         { v: '50+', l: 'Experten' },
       ],
+      sectionPrefix: '. Unternehmen',
+      heading: 'Abfall durch Ingenieurkunst in Wert verwandeln',
+      bodySection1: 'ECOREN ist ein Ingenieur- und Beratungsunternehmen, das gegründet wurde, um Abfallmanagementprozesse industrieller Anlagen zu optimieren, Umweltauswirkungen zu minimieren und höchste Rechtskonformität sicherzustellen.',
+      bodySection2: 'Mit unserer "Zero Waste"-Vision bietet unser Expertenteam integrierte Lösungen für die Rückgewinnung von gefährlichen und ungefährlichen Abfällen.',
+      yearsTitle: '10 Jahre Expertise',
+      yearsDesc: 'Ein Branchenpionier mit ingenieursgetriebenen Ansätzen im Abfallmanagement.',
+      feature1: { title: 'Volle Konformität', desc: '100% regelkonforme Berichterstattung gemäß Umweltvorschriften.' },
+      feature2: { title: 'F&E-Fokus', desc: 'Innovative Techniken in Rückgewinnung und Recycling.' },
     },
-    servicesSection: { label: 'Leistungen', titlePrefix: 'Ganzheitliche', titleHighlight: 'Abfallmanagement', titleSuffix: 'Lösungen', cta: 'Alle Leistungen' },
+    servicesSection: { label: 'Leistungen', titlePrefix: 'Ganzheitliche', titleHighlight: 'Abfallmanagement', titleSuffix: 'Lösungen', sectionTitle: 'Professionelle Abfallmanagement-Lösungen', cta: 'Alle Leistungen' },
     valuesSection: {
       label: 'Werte',
       titlePrefix: 'Werte,',
@@ -832,6 +926,17 @@ export const dictionaries: Record<Locale, Dictionary> = {
     pages: {
       services: { label: 'Leistungen', titlePrefix: 'Alle', titleHighlight: 'Leistungen', desc: 'Professionelle Lösungen in 21 Kategorien, vom Management gefährlicher und ungefährlicher Abfälle bis zur Umweltberatung.' },
       news: { label: 'Blog & Neuigkeiten', titlePrefix: 'Aktuelle', titleHighlight: 'Neuigkeiten', desc: 'Verfolgen Sie aktuelle Entwicklungen in Abfallmanagement, Umweltrecht und Nachhaltigkeit.' },
+      corporate: {
+        sectionLabel: 'Unternehmen',
+        title: 'ECOREN Unternehmen',
+        subtitle: 'Lernen Sie unsere Unternehmensidentität mit über 10 Jahren Erfahrung, Fachpersonal und lizenzierten Leistungen in der Abfallmanagementbranche kennen.',
+        explore: 'Entdecken',
+        subPages: [
+          { title: 'Über Uns', desc: 'Erfahren Sie mehr über ECORENs Gründungsgeschichte, Team und Position in der Branche.' },
+          { title: 'Mission & Vision', desc: 'Entdecken Sie unsere Mission im Umwelt- und Abfallmanagement und unsere Zukunftsvision.' },
+          { title: 'Unsere Werte', desc: 'Lernen Sie die Grundwerte und Arbeitsweise kennen, die uns ausmachen.' },
+        ],
+      },
       contact: {
         label: 'Kontakt',
         titlePrefix: 'Kontaktieren',

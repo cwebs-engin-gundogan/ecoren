@@ -27,21 +27,21 @@ export default function HeroSection() {
         <div className="mx-auto max-w-5xl">
           <div className="mb-6 flex items-center justify-center gap-3">
             <span className="h-px w-12 bg-primary" />
-            <span className="font-body text-xs uppercase tracking-widest text-primary">Geleceği Dönüştürüyoruz</span>
+            <span className="font-body text-xs uppercase tracking-widest text-primary">{dict.hero.tagline}</span>
             <span className="h-px w-12 bg-primary" />
           </div>
 
           <h1 className="mx-auto mb-8 max-w-5xl font-heading text-4xl font-bold uppercase leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-            {dict.hero.line1} {dict.hero.highlight} {dict.hero.line2} Entegre {dict.hero.line3}
+            {dict.hero.line1} {dict.hero.highlight} {dict.hero.line2} {dict.hero.integrated} {dict.hero.line3}
           </h1>
 
           <p className="mx-auto mb-10 max-w-2xl font-body text-sm leading-relaxed text-white/75 sm:text-lg">
-            Endüstriyel atıkları yenilikçi mühendislik çözümleriyle değer zincirine geri kazandırıyoruz. Döngüsel ekonomi modelimizle Türkiye&apos;nin sanayi gücüne sürdürülebilirlik katıyoruz.
+            {dict.hero.body}
           </p>
 
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Button href="/hizmetlerimiz" variant="primary" size="lg" className="uppercase">
-              Çözümlerimizi Keşfedin
+              {dict.hero.cta}
             </Button>
             <Button href="/bize-ulasin" variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-dark uppercase">
               {dict.hero.contact}
