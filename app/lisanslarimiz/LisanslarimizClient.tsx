@@ -58,7 +58,7 @@ export default function LisanslarimizClient() {
           <div className="mt-16 bg-dark p-6 sm:p-8 lg:p-12 text-center">
             <h2 className="font-heading text-3xl font-semibold text-white mb-4">{p.ctaTitle}</h2>
             <p className="font-body text-base text-white/60 max-w-xl mx-auto mb-8">{p.ctaDesc}</p>
-            <Link href="/bize-ulasin" className="inline-flex items-center gap-2 bg-primary text-dark font-heading font-semibold px-8 py-3 hover:bg-primary/90 transition-colors">
+            <Link href="/bize-ulasin#iletisim-formu" className="inline-flex items-center gap-2 bg-primary text-dark font-heading font-semibold px-8 py-3 hover:bg-primary/90 transition-colors">
               {p.ctaLabel}
             </Link>
           </div>

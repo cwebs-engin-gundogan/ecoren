@@ -43,7 +43,7 @@ export default function HeroSection() {
             <Button href="/hizmetlerimiz" variant="primary" size="lg" className="uppercase">
               {dict.hero.cta}
             </Button>
-            <Button href="/bize-ulasin" variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-dark uppercase">
+            <Button href="/bize-ulasin#iletisim-formu" variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-dark uppercase">
               {dict.hero.contact}
             </Button>
           </div>

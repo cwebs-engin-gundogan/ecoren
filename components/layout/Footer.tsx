@@ -62,7 +62,7 @@ export default function Footer() {
     { label: dict.nav.values, href: '/kurumsal/degerlerimiz' },
     { label: dict.nav.allServices, href: '/hizmetlerimiz' },
 { label: dict.nav.wasteCodes, href: '/atik-kodlari' },
-    { label: dict.nav.contact, href: '/bize-ulasin' },
+    { label: dict.nav.contact, href: '/bize-ulasin#iletisim-formu' },
   ];
 
   return (
@@ -152,7 +152,7 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-14 sm:py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="font-body text-xs text-white/40">
             © {new Date().getFullYear()} ECOREN. {dict.footer.rights}
           </p>

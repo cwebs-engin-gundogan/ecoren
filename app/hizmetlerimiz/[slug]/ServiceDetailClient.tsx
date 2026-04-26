@@ -75,7 +75,7 @@ export default function ServiceDetailClient({ slug }: Props) {
               <div className="bg-dark p-6 sm:p-8">
                 <h3 className="font-heading text-xl font-semibold text-white mb-4">{p.ctaTitle}</h3>
                 <p className="font-body text-sm text-white/60 mb-6">{p.ctaDesc}</p>
-                <Button href="/bize-ulasin" variant="primary">{p.ctaLabel}</Button>
+                <Button href="/bize-ulasin#iletisim-formu" variant="primary">{p.ctaLabel}</Button>
               </div>
             </div>
 
@@ -93,7 +93,7 @@ export default function ServiceDetailClient({ slug }: Props) {
                   </div>
                 </div>
                 <div className="mt-6">
-                  <Button href="/bize-ulasin" variant="primary" className="w-full justify-center">
+                  <Button href="/bize-ulasin#iletisim-formu" variant="primary" className="w-full justify-center">
                     {p.contactForm}
                   </Button>
                 </div>

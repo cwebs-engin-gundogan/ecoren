@@ -80,7 +80,7 @@ export default function Navbar() {
                 {dict.nav.services} <ChevronDown size={14} className={`transition-transform ${hizmetlerOpen ? 'rotate-180' : ''}`} />
               </button>
               {hizmetlerOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[min(600px,90vw)] bg-dark/95 border border-white/10 shadow-xl py-4 px-4 backdrop-blur-md">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[min(900px,90vw)] bg-dark/95 border border-white/10 shadow-xl py-4 px-4 backdrop-blur-md">
                   <div className="grid grid-cols-2 gap-1">
                     {services.map((s) => (
                       <Link key={s.id} href={s.href} onClick={() => setHizmetlerOpen(false)} className="block px-3 py-2 text-xs text-white/75 hover:text-primary hover:bg-white/5 font-body transition-colors truncate">
@@ -112,7 +112,7 @@ export default function Navbar() {
                 </button>
               ))}
             </div>
-            <Link href="/bize-ulasin" className="font-heading font-bold text-xs uppercase tracking-widest bg-primary text-dark px-5 py-2 hover:brightness-110 transition-colors">
+            <Link href="/bize-ulasin#iletisim-formu" className="font-heading font-bold text-xs uppercase tracking-widest bg-primary text-dark px-5 py-2 hover:brightness-110 transition-colors">
               {dict.nav.contact}
             </Link>
           </div>
@@ -182,7 +182,7 @@ export default function Navbar() {
           </div>
 
           <Link href="/atik-kodlari" onClick={() => setMobileOpen(false)} className="font-heading font-semibold text-lg text-white py-3 border-b border-white/10">{dict.nav.wasteCodes}</Link>
-          <Link href="/bize-ulasin" onClick={() => setMobileOpen(false)} className="mt-4 bg-primary text-dark text-center font-heading font-semibold py-3 px-6 uppercase tracking-wide">{dict.nav.contact}</Link>
+          <Link href="/bize-ulasin#iletisim-formu" onClick={() => setMobileOpen(false)} className="mt-4 bg-primary text-dark text-center font-heading font-semibold py-3 px-6 uppercase tracking-wide">{dict.nav.contact}</Link>
         </div>
       </div>
       )}

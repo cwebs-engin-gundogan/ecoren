@@ -41,7 +41,7 @@ export default function HakkimizdaClient() {
                   </li>
                 ))}
               </ul>
-              <Button href="/bize-ulasin" variant="primary">{p.cta}</Button>
+              <Button href="/bize-ulasin#iletisim-formu" variant="primary">{p.cta}</Button>
             </div>
 
             <div className="space-y-6">

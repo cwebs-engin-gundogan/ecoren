@@ -244,7 +244,7 @@ export default function BizeUlasinClient() {
             </div>
 
             {/* Form */}
-            <div className="lg:col-span-2">
+            <div id="iletisim-formu" className="lg:col-span-2 scroll-mt-24">
               {submitted ? (
                 <div className="bg-white border border-primary/50 p-8 sm:p-12 text-center">
                   <div className="w-16 h-16 bg-primary/10 flex items-center justify-center mx-auto mb-6">

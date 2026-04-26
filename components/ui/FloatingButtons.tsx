@@ -18,7 +18,7 @@ export default function FloatingButtons() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <div className="fixed bottom-6 right-4 z-40 flex flex-col items-end gap-3 sm:right-6">
+    <div className="fixed bottom-3 right-3 z-40 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
       {/* Scroll to top — only shown after scrolling down */}
       <button
         onClick={scrollToTop}
@@ -35,7 +35,7 @@ export default function FloatingButtons() {
 
       {/* Contact CTA — always visible */}
       <Link
-        href="/bize-ulasin"
+        href="/bize-ulasin#iletisim-formu"
         className="flex items-center gap-2 bg-primary text-dark shadow-lg
           px-3 py-2.5 sm:px-4 transition-all duration-200 hover:brightness-110 active:scale-95"
         aria-label={dict.ui.contactUs}
