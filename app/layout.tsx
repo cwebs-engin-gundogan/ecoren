@@ -5,6 +5,8 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import LanguageProvider from '@/components/providers/LanguageProvider';
 import FloatingButtons from '@/components/ui/FloatingButtons';
+import { companyLegalName, homeSeoDescription, seoKeywords } from '@/lib/seo';
+import { services } from '@/data/services';
 
 const rajdhani = Rajdhani({
   subsets: ['latin'],
@@ -21,9 +23,8 @@ const dmSans = DM_Sans({
 });
 
 const siteUrl = 'https://ecoren.com.tr';
-const siteTitle = 'ECOREN – Atık Yönetimi Danışmanlık ve Mühendislik Hizmetleri';
-const siteDescription =
-  "Geri Dönüşüm ve Çevre Yönetimi alanında Türkiye'nin öncü firmalarından ECOREN. Tehlikeli ve tehlikesiz atık yönetimi, geri kazanım, danışmanlık ve çevre mühendisliği hizmetleri.";
+const siteTitle = companyLegalName;
+const siteDescription = homeSeoDescription;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -32,10 +33,10 @@ export const metadata: Metadata = {
     template: '%s | ECOREN',
   },
   description: siteDescription,
-  keywords: ['atık yönetimi', 'geri dönüşüm', 'çevre mühendisliği', 'tehlikeli atık', 'sıfır atık', 'döngüsel ekonomi', 'ECOREN'],
-  authors: [{ name: 'ECOREN', url: siteUrl }],
+  keywords: seoKeywords,
+  authors: [{ name: companyLegalName, url: siteUrl }],
   creator: 'ECOREN',
-  publisher: 'ECOREN',
+  publisher: companyLegalName,
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
   alternates: { canonical: siteUrl },
   openGraph: {
@@ -54,24 +55,54 @@ export const metadata: Metadata = {
     images: ['/og-image.jpg'],
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    icon: [
+      { url: '/favicon.ico?v=ecoren-logo-2', sizes: 'any' },
+      { url: '/icon.png?v=ecoren-logo-2', type: 'image/png', sizes: '512x512' },
+    ],
+    shortcut: '/favicon.ico?v=ecoren-logo-2',
+    apple: '/apple-icon.png?v=ecoren-logo-2',
   },
 };
 
 const organizationSchema = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  name: 'ECOREN',
-  description: 'Atık Yönetimi Danışmanlık ve Mühendislik Hizmetleri',
-  url: 'https://ecoren.com.tr',
-  logo: 'https://ecoren.com.tr/og-image.jpg',
-  telephone: '+90-212-000-0000',
-  email: 'info@ecoren.com.tr',
-  address: { '@type': 'PostalAddress', addressCountry: 'TR' },
-  sameAs: ['https://www.linkedin.com/company/ecoren'],
-  areaServed: { '@type': 'Country', name: 'Turkey' },
+  '@graph': [
+    {
+      '@type': ['LocalBusiness', 'ProfessionalService'],
+      '@id': `${siteUrl}/#organization`,
+      name: 'ECOREN',
+      legalName: companyLegalName,
+      alternateName: ['ECOREN Atık Yönetimi', 'ECOREN Çevre Danışmanlığı'],
+      description: siteDescription,
+      url: siteUrl,
+      logo: `${siteUrl}/favicon.ico`,
+      image: `${siteUrl}/favicon.ico`,
+      telephone: '+90 544 314 15 06',
+      email: 'info@ecoren.com.tr',
+      address: { '@type': 'PostalAddress', addressCountry: 'TR' },
+      areaServed: { '@type': 'Country', name: 'Türkiye' },
+      knowsAbout: seoKeywords,
+      sameAs: ['https://www.linkedin.com/company/ecoren'],
+      makesOffer: services.map((service) => ({
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: service.title,
+          description: service.shortDesc,
+          url: `${siteUrl}${service.href}`,
+        },
+      })),
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      name: 'ECOREN',
+      alternateName: companyLegalName,
+      url: siteUrl,
+      publisher: { '@id': `${siteUrl}/#organization` },
+      inLanguage: ['tr-TR', 'en', 'de'],
+    },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
