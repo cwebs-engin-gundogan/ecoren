@@ -333,7 +333,7 @@ export default function BizeUlasinClient() {
                     disabled={sending}
                     className="w-full bg-primary text-dark font-heading font-semibold py-4 min-h-[48px] uppercase tracking-wide hover:bg-primary/90 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    {sending ? 'â³ GÃ¶nderiliyor...' : dict.pages.contact.submit}
+                    {sending ? 'Gönderiliyor...' : dict.pages.contact.submit}
                   </button>
                 </form>
               )}
