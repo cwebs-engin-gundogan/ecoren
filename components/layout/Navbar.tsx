@@ -54,7 +54,7 @@ export default function Navbar() {
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
-          <Link href="/" className="font-heading font-black text-2xl text-white tracking-tight">
+          <Link href="/" onClick={closeMobileMenu} className="font-heading font-black text-2xl text-white tracking-tight">
             ECOREN
           </Link>
 
