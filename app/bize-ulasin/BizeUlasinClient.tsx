@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SectionLabel from '@/components/ui/SectionLabel';
 import { MapPin, Phone, Mail, X, PhoneCall, UserPlus, MessageCircle } from 'lucide-react';
 import { useLanguage } from '@/components/providers/LanguageProvider';
@@ -88,6 +88,14 @@ export default function BizeUlasinClient() {
   const [phoneModalOpen, setPhoneModalOpen] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitError, setSubmitError] = useState('');
+  const successRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!submitted) return;
+
+    successRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    successRef.current?.focus({ preventScroll: true });
+  }, [submitted]);
 
   const validate = (data: typeof formData) => {
     const e: Record<string, string> = {};
@@ -263,7 +271,11 @@ export default function BizeUlasinClient() {
             {/* Form */}
             <div id="iletisim-formu" className="lg:col-span-2 scroll-mt-24">
               {submitted ? (
-                <div className="bg-white border border-primary/50 p-8 sm:p-12 text-center">
+                <div
+                  ref={successRef}
+                  tabIndex={-1}
+                  className="bg-white border border-primary/50 p-8 sm:p-12 text-center focus:outline-none"
+                >
                   <div className="w-16 h-16 bg-primary/10 flex items-center justify-center mx-auto mb-6">
                     <Mail size={28} className="text-primary" />
                   </div>

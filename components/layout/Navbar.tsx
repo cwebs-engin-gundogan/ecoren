@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
@@ -8,9 +8,9 @@ import { useLanguage } from '@/components/providers/LanguageProvider';
 import { getLocalizedServices, localeLabels, locales, type Locale } from '@/lib/i18n';
 
 const localeFlags: Record<Locale, { src: string; alt: string; position?: string }> = {
-  tr: { src: 'https://flagcdn.com/w40/tr.png', alt: 'Türkiye bayrağı', position: '20% center' },
-  en: { src: 'https://flagcdn.com/w40/gb.png', alt: 'Birleşik Krallık bayrağı' },
-  de: { src: 'https://flagcdn.com/w40/de.png', alt: 'Almanya bayrağı' },
+  tr: { src: 'https://flagcdn.com/w40/tr.png', alt: 'TÃ¼rkiye bayraÄŸÄ±', position: '20% center' },
+  en: { src: 'https://flagcdn.com/w40/gb.png', alt: 'BirleÅŸik KrallÄ±k bayraÄŸÄ±' },
+  de: { src: 'https://flagcdn.com/w40/de.png', alt: 'Almanya bayraÄŸÄ±' },
 };
 
 export default function Navbar() {
@@ -40,6 +40,11 @@ export default function Navbar() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const closeMobileMenu = () => {
+    setMobileOpen(false);
+    setMobileSectionOpen(null);
+  };
 
   const navLinkClass = (href: string) =>
     `font-heading font-bold text-xs uppercase tracking-widest transition-colors duration-200 hover:text-primary ${pathname === href ? 'text-primary border-b-2 border-primary pb-1' : 'text-white/80'}`;
@@ -99,7 +104,7 @@ export default function Navbar() {
                   </div>
                   <div className="mt-3 pt-3 border-t border-white/10">
                     <Link href="/hizmetlerimiz" onClick={() => setHizmetlerOpen(false)} className="text-primary text-xs font-heading font-semibold uppercase tracking-wide hover:underline">
-                      {dict.nav.allServices} →
+                      {dict.nav.allServices} â†’
                     </Link>
                   </div>
                 </div>
@@ -133,7 +138,7 @@ export default function Navbar() {
                 type="button"
                 onClick={() => setMobileLanguageOpen(!mobileLanguageOpen)}
                 className="flex h-10 items-center gap-1.5 border border-white/15 px-3 text-white"
-                aria-label="Dil seçimi"
+                aria-label="Dil seÃ§imi"
                 aria-expanded={mobileLanguageOpen}
               >
                 <Languages size={16} className="text-primary" />
@@ -170,7 +175,13 @@ export default function Navbar() {
 
             <button
               className="text-white p-2"
-              onClick={() => setMobileOpen(!mobileOpen)}
+              onClick={() => {
+                if (mobileOpen) {
+                  closeMobileMenu();
+                  return;
+                }
+                setMobileOpen(true);
+              }}
               aria-label={dict.nav.menuLabel}
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -181,9 +192,16 @@ export default function Navbar() {
 
       {/* Mobile Panel */}
       {mobileOpen && (
-      <div className="lg:hidden bg-dark shadow-2xl">
+      <>
+      <button
+        type="button"
+        aria-label="MenÃ¼yÃ¼ kapat"
+        className="fixed inset-x-0 top-14 bottom-0 z-0 bg-black/35 lg:hidden"
+        onClick={closeMobileMenu}
+      />
+      <div className="relative z-10 lg:hidden bg-dark shadow-2xl">
         <div className="px-6 py-6 flex flex-col gap-2">
-          <Link href="/" onClick={() => setMobileOpen(false)} className="font-heading font-semibold text-lg text-white py-3 border-b border-white/10">{dict.nav.home}</Link>
+          <Link href="/" onClick={closeMobileMenu} className="font-heading font-semibold text-lg text-white py-3 border-b border-white/10">{dict.nav.home}</Link>
 
           <div>
             <button
@@ -195,7 +213,7 @@ export default function Navbar() {
             {mobileSectionOpen === 'kurumsal' && (
               <div className="pl-4 py-2 flex flex-col gap-1">
                 {kurumsalLinks.map((l) => (
-                  <Link key={l.href} href={l.href} onClick={() => setMobileOpen(false)} className="text-white/70 hover:text-primary py-2 font-body text-sm">{l.label}</Link>
+                  <Link key={l.href} href={l.href} onClick={closeMobileMenu} className="text-white/70 hover:text-primary py-2 font-body text-sm">{l.label}</Link>
                 ))}
               </div>
             )}
@@ -211,18 +229,20 @@ export default function Navbar() {
             {mobileSectionOpen === 'hizmetler' && (
               <div className="pl-4 py-2 flex flex-col gap-1">
                 {services.map((s) => (
-                  <Link key={s.id} href={s.href} onClick={() => setMobileOpen(false)} className="text-white/70 hover:text-primary py-1 font-body text-sm">{s.title}</Link>
+                  <Link key={s.id} href={s.href} onClick={closeMobileMenu} className="text-white/70 hover:text-primary py-1 font-body text-sm">{s.title}</Link>
                 ))}
-                <Link href="/hizmetlerimiz" onClick={() => setMobileOpen(false)} className="text-primary font-heading font-semibold text-sm mt-2">{dict.nav.allServices} →</Link>
+                <Link href="/hizmetlerimiz" onClick={closeMobileMenu} className="text-primary font-heading font-semibold text-sm mt-2">{dict.nav.allServices} â†’</Link>
               </div>
             )}
           </div>
 
-          <Link href="/atik-kodlari" onClick={() => setMobileOpen(false)} className="font-heading font-semibold text-lg text-white py-3 border-b border-white/10">{dict.nav.wasteCodes}</Link>
-          <Link href="/bize-ulasin#iletisim-formu" onClick={() => setMobileOpen(false)} className="mt-4 bg-primary text-dark text-center font-heading font-semibold py-3 px-6 uppercase tracking-wide">{dict.nav.contact}</Link>
+          <Link href="/atik-kodlari" onClick={closeMobileMenu} className="font-heading font-semibold text-lg text-white py-3 border-b border-white/10">{dict.nav.wasteCodes}</Link>
+          <Link href="/bize-ulasin#iletisim-formu" onClick={closeMobileMenu} className="mt-4 bg-primary text-dark text-center font-heading font-semibold py-3 px-6 uppercase tracking-wide">{dict.nav.contact}</Link>
         </div>
       </div>
+      </>
       )}
     </nav>
   );
 }
+
