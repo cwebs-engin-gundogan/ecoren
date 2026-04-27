@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import SectionLabel from '@/components/ui/SectionLabel';
@@ -8,7 +8,7 @@ import { useLanguage } from '@/components/providers/LanguageProvider';
 const contactIcons = [MapPin, Phone, Mail];
 const PHONE_RAW = '+905443141506';
 const PHONE_DISPLAY = '+90 544 314 15 06';
-const CONTACT_NAME = 'İlker Can Eren ECOREN';
+const CONTACT_NAME = 'Ä°lker Can Eren ECOREN';
 
 function PhoneModal({ onClose }: { onClose: () => void }) {
   const handleCall = () => { window.location.href = `tel:${PHONE_RAW}`; };
@@ -18,7 +18,7 @@ function PhoneModal({ onClose }: { onClose: () => void }) {
       'BEGIN:VCARD',
       'VERSION:3.0',
       `FN:${CONTACT_NAME}`,
-      'N:Eren;İlker Can;;;',
+      'N:Eren;Ä°lker Can;;;',
       'ORG:ECOREN',
       `TEL;TYPE=CELL:${PHONE_RAW}`,
       'EMAIL:info@ecoren.com.tr',
@@ -87,17 +87,18 @@ export default function BizeUlasinClient() {
   const [sending, setSending] = useState(false);
   const [phoneModalOpen, setPhoneModalOpen] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitError, setSubmitError] = useState('');
 
   const validate = (data: typeof formData) => {
     const e: Record<string, string> = {};
-    if (!data.name.trim() || data.name.trim().length < 2) e.name = 'Ad Soyad en az 2 karakter olmalıdır.';
+    if (!data.name.trim() || data.name.trim().length < 2) e.name = 'Ad Soyad en az 2 karakter olmalÄ±dÄ±r.';
     if (!data.email.trim()) {
       e.email = 'E-posta adresi zorunludur.';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-      e.email = 'Geçerli bir e-posta adresi giriniz.';
+      e.email = 'GeÃ§erli bir e-posta adresi giriniz.';
     }
     if (data.phone.trim() && !/^[\d\s\-().]+$/.test(data.phone)) {
-      e.phone = 'Geçerli bir telefon numarası giriniz.';
+      e.phone = 'GeÃ§erli bir telefon numarasÄ± giriniz.';
     }
     if (!data.message.trim()) e.message = 'Mesaj zorunludur.';
     return e;
@@ -111,6 +112,7 @@ export default function BizeUlasinClient() {
       return;
     }
     setErrors({});
+    setSubmitError('');
     setSending(true);
 
     const BOT_TOKEN = process.env.NEXT_PUBLIC_TELEGRAM_BOT_TOKEN;
@@ -119,26 +121,32 @@ export default function BizeUlasinClient() {
     const subject = dict.pages.contact.subjects.find(s => s.value === formData.subject)?.label || formData.subject;
 
     const text = [
-      '📋 *Yeni İletişim Formu*',
+      'Yeni İletişim Formu',
       '',
-      `*Ad Soyad:* ${formData.name}`,
-      formData.company ? `*Firma:* ${formData.company}` : null,
-      `*E-posta:* ${formData.email}`,
-      formData.phone ? `*Telefon:* ${phonePrefix} ${formData.phone}` : null,
-      subject ? `*Konu:* ${subject}` : null,
-      `*Mesaj:* ${formData.message}`,
+      `Ad Soyad: ${formData.name}`,
+      formData.company ? `Firma: ${formData.company}` : null,
+      `E-posta: ${formData.email}`,
+      formData.phone ? `Telefon: ${phonePrefix} ${formData.phone}` : null,
+      subject ? `Konu: ${subject}` : null,
+      `Mesaj: ${formData.message}`,
     ].filter(Boolean).join('\n');
 
     try {
-      if (BOT_TOKEN && CHAT_ID) {
-        // 1) Metin mesajı
-        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: CHAT_ID, text, parse_mode: 'Markdown' }),
-        });
+      if (!BOT_TOKEN || !CHAT_ID) {
+        throw new Error('Telegram bağlantı bilgileri eksik.');
+      }
 
-        // 2) vCard dosyası (rehbere eklemek için)
+      const messageResponse = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: CHAT_ID, text }),
+      });
+
+      if (!messageResponse.ok) {
+        throw new Error('Telegram mesajı gönderilemedi.');
+      }
+
+      try {
         if (formData.phone) {
           const contactName = [formData.name, formData.company].filter(Boolean).join(' ');
           const fullPhone = `${phonePrefix}${formData.phone.replace(/\s/g, '')}`;
@@ -159,22 +167,29 @@ export default function BizeUlasinClient() {
           const fd = new FormData();
           fd.append('chat_id', CHAT_ID);
           fd.append('document', blob, fileName);
-          fd.append('caption', '👤 Rehbere eklemek için dosyaya tıklayın');
+          fd.append('caption', 'Rehbere eklemek için dosyaya tıklayın');
 
-          await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`, {
+          const documentResponse = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`, {
             method: 'POST',
             body: fd,
           });
+
+          if (!documentResponse.ok) {
+            console.warn('Telegram vCard dosyası gönderilemedi.');
+          }
         }
+      } catch {
+        console.warn('Telegram vCard dosyası gönderilemedi.');
       }
-    } catch (_) {
-      // hata olsa bile formu başarılı göster
+
+      setSubmitted(true);
+    } catch (error) {
+      console.error(error);
+      setSubmitError('Mesaj gönderilemedi. Lütfen tekrar deneyin veya telefon/e-posta ile bize ulaşın.');
     } finally {
       setSending(false);
-      setSubmitted(true);
     }
   };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -222,7 +237,7 @@ export default function BizeUlasinClient() {
                           {isEmail ? (
                             <a href={`mailto:${c.value}`} className="font-body text-sm text-primary underline underline-offset-2 hover:text-primary/80 transition-colors">{c.value}</a>
                           ) : isAddress ? (
-                            <a href="https://maps.google.com/?q=ECOREN+Türkiye" target="_blank" rel="noopener noreferrer" className="font-body text-sm text-primary underline underline-offset-2 hover:text-primary/80 transition-colors">{c.value}</a>
+                            <a href="https://maps.google.com/?q=ECOREN+TÃ¼rkiye" target="_blank" rel="noopener noreferrer" className="font-body text-sm text-primary underline underline-offset-2 hover:text-primary/80 transition-colors">{c.value}</a>
                           ) : (
                             <div className={`font-body text-sm transition-colors ${isPhone ? 'text-primary underline underline-offset-2 group-hover:text-primary/80' : 'text-white'}`}>{c.value}</div>
                           )}
@@ -346,12 +361,17 @@ export default function BizeUlasinClient() {
                     />
                     {errors.message && <p className="font-body text-xs text-red-500 mt-1">{errors.message}</p>}
                   </div>
+                  {submitError && (
+                    <p className="font-body text-sm text-red-600">
+                      {submitError}
+                    </p>
+                  )}
                   <button
                     type="submit"
                     disabled={sending}
                     className="w-full bg-primary text-dark font-heading font-semibold py-4 min-h-[48px] uppercase tracking-wide hover:bg-primary/90 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    {sending ? '⏳ Gönderiliyor...' : dict.pages.contact.submit}
+                    {sending ? 'â³ GÃ¶nderiliyor...' : dict.pages.contact.submit}
                   </button>
                 </form>
               )}
@@ -363,3 +383,4 @@ export default function BizeUlasinClient() {
     </>
   );
 }
+
