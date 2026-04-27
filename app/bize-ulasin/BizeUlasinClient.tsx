@@ -119,75 +119,26 @@ export default function BizeUlasinClient() {
       setErrors(validationErrors);
       return;
     }
+
     setErrors({});
     setSubmitError('');
     setSending(true);
 
-    const BOT_TOKEN = process.env.NEXT_PUBLIC_TELEGRAM_BOT_TOKEN;
-    const CHAT_ID = process.env.NEXT_PUBLIC_TELEGRAM_CHAT_ID;
-
     const subject = dict.pages.contact.subjects.find(s => s.value === formData.subject)?.label || formData.subject;
 
-    const text = [
-      'Yeni İletişim Formu',
-      '',
-      `Ad Soyad: ${formData.name}`,
-      formData.company ? `Firma: ${formData.company}` : null,
-      `E-posta: ${formData.email}`,
-      formData.phone ? `Telefon: ${phonePrefix} ${formData.phone}` : null,
-      subject ? `Konu: ${subject}` : null,
-      `Mesaj: ${formData.message}`,
-    ].filter(Boolean).join('\n');
-
     try {
-      if (!BOT_TOKEN || !CHAT_ID) {
-        throw new Error('Telegram bağlantı bilgileri eksik.');
-      }
-
-      const messageResponse = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: CHAT_ID, text }),
+        body: JSON.stringify({
+          ...formData,
+          phonePrefix,
+          subject,
+        }),
       });
 
-      if (!messageResponse.ok) {
-        throw new Error('Telegram mesajı gönderilemedi.');
-      }
-
-      try {
-        if (formData.phone) {
-          const contactName = [formData.name, formData.company].filter(Boolean).join(' ');
-          const fullPhone = `${phonePrefix}${formData.phone.replace(/\s/g, '')}`;
-          const vcard = [
-            'BEGIN:VCARD',
-            'VERSION:3.0',
-            `FN:${contactName}`,
-            `N:${formData.company || ''};${formData.name};;;`,
-            formData.company ? `ORG:${formData.company}` : null,
-            `TEL;TYPE=CELL:${fullPhone}`,
-            formData.email ? `EMAIL:${formData.email}` : null,
-            'END:VCARD',
-          ].filter(Boolean).join('\r\n');
-
-          const blob = new Blob([vcard], { type: 'text/vcard' });
-          const fileName = `${formData.name.replace(/\s+/g, '_')}.vcf`;
-
-          const fd = new FormData();
-          fd.append('chat_id', CHAT_ID);
-          fd.append('document', blob, fileName);
-          fd.append('caption', 'Rehbere eklemek için dosyaya tıklayın');
-
-          const documentResponse = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`, {
-            method: 'POST',
-            body: fd,
-          });
-
-          if (!documentResponse.ok) {
-            console.warn('Telegram vCard dosyası gönderilemedi.');
-          }
-        }
-      } catch {
-        console.warn('Telegram vCard dosyası gönderilemedi.');
+      if (!response.ok) {
+        throw new Error('Mesaj gönderilemedi.');
       }
 
       setSubmitted(true);
@@ -197,8 +148,7 @@ export default function BizeUlasinClient() {
     } finally {
       setSending(false);
     }
-  };
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  };  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -395,4 +345,5 @@ export default function BizeUlasinClient() {
     </>
   );
 }
+
 
